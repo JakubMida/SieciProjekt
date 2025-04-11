@@ -18,9 +18,12 @@ public:
     void setMode(NetworkMode mode);
     void connectToServer(QString address, int port);
     void disconectFrom();
+    bool isClientConnected();
 
     bool startListening(int port);
     void stopListening();
+    bool isServerRunning();
+    bool isClientConnectedToServer();
 
 signals:
     void connected(QString address, int port); //client
@@ -41,6 +44,7 @@ private:
     NetworkMode mode = NetworkMode::Local;
     QTcpServer Server;
     QTcpSocket Client;
+    QVector<QTcpSocket*> Clients;
 };
 
 #endif // NETWORK_H

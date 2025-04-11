@@ -659,21 +659,61 @@ void MainWindow::initNetwork(NetworkMode mode)
 
     if(mode == NetworkMode::Client)
     {
-        network->connectToServer("127.0.0.1", 12345);
-        ui->startButton->setEnabled(false);
-        //cala reszta w pid na false, tylko arx true
+        if(network->isServerRunning())
+        {
+            network->stopListening();
+            qDebug() << "Server stopped";
+        }
+        network->connectToServer("127.0.0.1", 12345); //193
+        setControlsEnabled(false);
     }
     else if(mode == NetworkMode::Server)
     {
     if(network->startListening(12345))
         {
+            if(network->isClientConnected())
+            {
+                network->disconectFrom();
+                qDebug() << "Client disconnected form server";
+            }
             ui->startButton->setEnabled(true);
             ui->btnModelARx->setEnabled(false);
+            setControlsEnabled(true);
         }
     }else
     {
+        if(network->isClientConnected())
+        {
+            network->disconectFrom();
+            qDebug() << "Client disconnected form server";
+        }
+        if(network->isServerRunning())
+        {
+            network->stopListening();
+            qDebug() << "Server stopped";
+        }
         ui->startButton->setEnabled(true);
+        ui->btnModelARx->setEnabled(true);
+        setControlsEnabled(true);
         ui->btnModelARx->setEnabled(true);
     }
 
+}
+
+
+void MainWindow::setControlsEnabled(bool mode)
+{
+    ui->startButton->setEnabled(mode);
+    ui->btnModelARx->setEnabled(!mode);
+    ui->kSpinBox->setEnabled(mode);
+    ui->tdSpinBox->setEnabled(mode);
+    ui->tiSpinBox->setEnabled(mode);
+    ui->comboBox->setEnabled(mode);
+    ui->skladowaStalaSpinBox->setEnabled(mode);
+    ui->valueSpinBox->setEnabled(mode);
+    ui->okresSpinBox->setEnabled(mode);
+    ui->interwalSpinBox->setEnabled(mode);
+    ui->czasAktywacjiSpinBox->setEnabled(mode);
+    ui->radioButton_2->setEnabled(mode);
+    ui->radioButton_3->setEnabled(mode);
 }

@@ -20,6 +20,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void initNetwork(NetworkMode mode);
+    void setControlsEnabled(bool mode);
 
 private slots:
     void on_startButton_clicked();

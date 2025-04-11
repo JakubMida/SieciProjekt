@@ -44,6 +44,7 @@ bool Network::startListening(int port)
 {
     serverPort = port;
     listening = Server.listen(QHostAddress::Any, port);
+    qDebug() << "Server is running";
     return listening;
 }
 
@@ -56,7 +57,20 @@ void Network::stopListening()
 void Network::slotNewClient()
 {
     QTcpSocket * client = Server.nextPendingConnection();
+    Clients.push_back(client);
     auto addr = client->peerAddress();
 
     connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
 }
+
+bool Network::isServerRunning()
+{
+    return listening;
+}
+
+bool Network::isClientConnected()
+{
+    return (Client.state() == QAbstractSocket::ConnectedState);
+}
+
+
