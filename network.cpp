@@ -58,9 +58,21 @@ void Network::slotNewClient()
 {
     QTcpSocket * client = Server.nextPendingConnection();
     Clients.push_back(client);
-    auto addr = client->peerAddress();
+    auto addr = client->peerAddress().toString();
+    qDebug() << "Client from: " << addr << " conected";
 
     connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
+}
+
+void Network::slotClientDisconected()
+{
+    QTcpSocket *client = qobject_cast<QTcpSocket*>(sender());
+    if(client)
+    {
+        qDebug() <<"Client disconected from: " << client->peerAddress().toString();
+        Clients.removeOne(client);
+        client->deleteLater();
+    }
 }
 
 bool Network::isServerRunning()

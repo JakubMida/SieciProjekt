@@ -664,12 +664,12 @@ void MainWindow::initNetwork(NetworkMode mode)
             network->stopListening();
             qDebug() << "Server stopped";
         }
-        network->connectToServer("127.0.0.1", 12345); //193
+        network->connectToServer("192.168.100.140", 193); //193
         setControlsEnabled(false);
     }
     else if(mode == NetworkMode::Server)
     {
-    if(network->startListening(12345))
+    if(network->startListening(193))
         {
             if(network->isClientConnected())
             {

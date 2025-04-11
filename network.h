@@ -33,7 +33,7 @@ private slots:
     void clientConnected();
 
     void slotNewClient();
-    //void slotClientDisconected();
+    void slotClientDisconected();
 
 private:
     QString serverAddress = "127.0.0.1";
