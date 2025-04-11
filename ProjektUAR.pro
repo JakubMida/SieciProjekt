@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
@@ -13,6 +13,7 @@ SOURCES += \
     arx.cpp \
     main.cpp \
     mainwindow.cpp \
+    network.cpp \
     oknoarx.cpp \
     qcustomplot.cpp \
     regulator.cpp \
@@ -23,6 +24,7 @@ HEADERS += \
     UAR.h \
     arx.h \
     mainwindow.h \
+    network.h \
     oknoarx.h \
     qcustomplot.h \
     regulator.h \

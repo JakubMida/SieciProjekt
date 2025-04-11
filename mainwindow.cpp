@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , timer(new QTimer(this))
+    , network(new Network(this))
 {
     ui->setupUi(this);
     ui->stopButton->setEnabled(false);
@@ -17,6 +18,12 @@ MainWindow::MainWindow(QWidget *parent)
     ARXModel model;
     sym = new symulacja(regulator, model);
 
+    connect(network, &Network::connected,this, [=](QString adr, int port){});
+    connect(network, &Network::disconecetd, this,[=](){});
+
+    ui->networkCombo->addItem("Lokalny", QVariant::fromValue(static_cast<int>(NetworkMode::Local)));
+    ui->networkCombo->addItem("Server", QVariant::fromValue(static_cast<int>(NetworkMode::Server)));
+    ui->networkCombo->addItem("Client", QVariant::fromValue(static_cast<int>(NetworkMode::Client)));
 }
 
 MainWindow::~MainWindow()
@@ -637,3 +644,36 @@ void MainWindow::on_cbxCzarnyMotyw_stateChanged(int arg1)
 }
 
 
+
+void MainWindow::on_networkButton_clicked()
+{
+    int selectedMode = ui->networkCombo->currentIndex();
+    NetworkMode mode = static_cast<NetworkMode>(selectedMode);
+
+    initNetwork(mode);
+}
+
+void MainWindow::initNetwork(NetworkMode mode)
+{
+    network->setMode(mode);
+
+    if(mode == NetworkMode::Client)
+    {
+        network->connectToServer("127.0.0.1", 12345);
+        ui->startButton->setEnabled(false);
+        //cala reszta w pid na false, tylko arx true
+    }
+    else if(mode == NetworkMode::Server)
+    {
+    if(network->startListening(12345))
+        {
+            ui->startButton->setEnabled(true);
+            ui->btnModelARx->setEnabled(false);
+        }
+    }else
+    {
+        ui->startButton->setEnabled(true);
+        ui->btnModelARx->setEnabled(true);
+    }
+
+}

@@ -5,6 +5,7 @@
 #include "symulacja.h"
 #include <QTimer>
 #include <arx.h>
+#include <network.h>
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void initNetwork(NetworkMode mode);
 
 private slots:
     void on_startButton_clicked();
@@ -68,10 +70,13 @@ private slots:
 
     void on_cbxCzarnyMotyw_stateChanged(int arg1);
 
+    void on_networkButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;
     QTimer *timer;
     void setupPlots();
+    Network *network = nullptr;
 };
 #endif // MAINWINDOW_H
