@@ -44,6 +44,7 @@ public:
     QPushButton *resetButton;
     QPushButton *saveButton;
     QPushButton *loadButton;
+    QPushButton *btn_network;
     QLabel *label_16;
     QSpinBox *interwalSpinBox;
     QCheckBox *cbxCzarnyMotyw;
@@ -95,7 +96,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
-        MainWindow->resize(1104, 785);
+        MainWindow->resize(1104, 808);
         MainWindow->setMinimumSize(QSize(1100, 750));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
@@ -111,7 +112,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName("scrollAreaWidgetContents_2");
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1063, 240));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1070, 227));
         QSizePolicy sizePolicy1(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(1);
@@ -149,6 +150,11 @@ public:
         loadButton->setObjectName("loadButton");
 
         verticalLayout_2->addWidget(loadButton);
+
+        btn_network = new QPushButton(scrollAreaWidgetContents_2);
+        btn_network->setObjectName("btn_network");
+
+        verticalLayout_2->addWidget(btn_network);
 
         label_16 = new QLabel(scrollAreaWidgetContents_2);
         label_16->setObjectName("label_16");
@@ -423,7 +429,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1080, 520));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1084, 542));
         gridLayout = new QGridLayout(scrollAreaWidgetContents);
         gridLayout->setSpacing(5);
         gridLayout->setObjectName("gridLayout");
@@ -472,6 +478,7 @@ public:
         resetButton->setText(QCoreApplication::translate("MainWindow", "Reset", nullptr));
         saveButton->setText(QCoreApplication::translate("MainWindow", "Zapis", nullptr));
         loadButton->setText(QCoreApplication::translate("MainWindow", "Wczytaj", nullptr));
+        btn_network->setText(QCoreApplication::translate("MainWindow", "Sie\304\207", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Interwa\305\202 [ms]", nullptr));
         cbxCzarnyMotyw->setText(QCoreApplication::translate("MainWindow", "Czarny motyw", nullptr));
         btnModelARx->setText(QCoreApplication::translate("MainWindow", "ModelARX", nullptr));

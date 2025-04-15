@@ -24,6 +24,9 @@ public:
     void stopListening();
     bool isServerRunning();
     bool isClientConnectedToServer();
+    void initNetwork(NetworkMode mode);
+    void setServerAddress(QString address);
+    QString getServerAddress();
 
 signals:
     void connected(QString address, int port); //client

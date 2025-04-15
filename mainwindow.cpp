@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <vector>
+#include <oknosiec.h>
 #include <oknoarx.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -445,7 +446,6 @@ void MainWindow::on_btnModelARx_clicked()
         sym->getUAR()->getModel().setVectorB({okno.getVectorB(),okno.getVectorBB(), okno.getVectorBBB()});
         sym->getUAR()->getModel().setOpoznienie(okno.getOpoznienie());
         sym->getUAR()->getModel().setZaklocenie(okno.getZaklocenie());
-
     }
 
 }
@@ -664,7 +664,7 @@ void MainWindow::initNetwork(NetworkMode mode)
             network->stopListening();
             qDebug() << "Server stopped";
         }
-        network->connectToServer("192.168.100.140", 193); //193
+        network->connectToServer("172.20.10.2", 193); //193
         setControlsEnabled(false);
     }
     else if(mode == NetworkMode::Server)
@@ -680,7 +680,8 @@ void MainWindow::initNetwork(NetworkMode mode)
             ui->btnModelARx->setEnabled(false);
             setControlsEnabled(true);
         }
-    }else
+    }
+    else
     {
         if(network->isClientConnected())
         {
@@ -717,3 +718,18 @@ void MainWindow::setControlsEnabled(bool mode)
     ui->radioButton_2->setEnabled(mode);
     ui->radioButton_3->setEnabled(mode);
 }
+
+
+void MainWindow::on_btn_network_clicked()
+{
+    if (!oknoSiec) {
+        oknoSiec = new oknosiec(this);
+        oknoSiec->setWindowTitle("Okno sieciowe");
+        oknoSiec->trybSerwer();
+    }
+
+    oknoSiec->show();
+    //oknoSiec->raise();           // Bring to front
+    oknoSiec->activateWindow(); // Focus
+}
+

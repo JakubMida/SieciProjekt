@@ -15,6 +15,7 @@ SOURCES += \
     mainwindow.cpp \
     network.cpp \
     oknoarx.cpp \
+    oknosiec.cpp \
     qcustomplot.cpp \
     regulator.cpp \
     symulacja.cpp \
@@ -26,6 +27,7 @@ HEADERS += \
     mainwindow.h \
     network.h \
     oknoarx.h \
+    oknosiec.h \
     qcustomplot.h \
     regulator.h \
     symulacja.h \
@@ -33,7 +35,8 @@ HEADERS += \
 
 FORMS += \
     mainwindow.ui \
-    oknoarx.ui
+    oknoarx.ui \
+    oknosiec.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

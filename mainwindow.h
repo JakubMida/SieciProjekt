@@ -6,6 +6,8 @@
 #include <QTimer>
 #include <arx.h>
 #include <network.h>
+#include <oknosiec.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -73,11 +75,14 @@ private slots:
 
     void on_networkButton_clicked();
 
+    void on_btn_network_clicked();
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;
     QTimer *timer;
     void setupPlots();
-    Network *network = nullptr;
+    Network *network = nullptr; // do wyrzucenia
+    oknosiec* oknoSiec = nullptr;
 };
 #endif // MAINWINDOW_H
