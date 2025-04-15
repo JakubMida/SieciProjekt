@@ -10,6 +10,10 @@ Network::Network(QObject *parent)
     connect(&Client, SIGNAL(disconnected()), this, SIGNAL(disconecetd()));
 
     connect(&Server, SIGNAL(newConnection()), this, SLOT(slotNewClient()));
+    connect(&Client, &QTcpSocket::errorOccurred, this, [=](QAbstractSocket::SocketError socketError) {
+        qDebug() << "[Client Error]" << Client.errorString();
+        emit connectionFailed(Client.errorString());
+    });
 }
 
 //client
@@ -28,14 +32,23 @@ void Network::connectToServer(QString address, int port)
 
 void Network::disconectFrom()
 {
-    Client.close();
-    qDebug() << "Client disconected";
+
+    if (Client.state() == QAbstractSocket::ConnectedState)
+    {
+        Client.close();
+        qDebug() << "[Network] Client disconected";
+    }
+    else if( Client.state() == QAbstractSocket::ConnectingState)
+    {
+        Client.abort();
+        qDebug() << "[Network] Client connection aborted";
+    }
 }
 
 void Network::clientConnected()
 {
     emit connected(serverAddress, clientPort);
-    qDebug() << "Client connected";
+    qDebug() << "[Network] Client connected";
 }
 
 //server
@@ -44,7 +57,7 @@ bool Network::startListening(int port)
 {
     serverPort = port;
     listening = Server.listen(QHostAddress::Any, port);
-    qDebug() << "Server is running";
+    qDebug() << "[Network] Server is running";
     return listening;
 }
 
@@ -59,7 +72,7 @@ void Network::slotNewClient()
     QTcpSocket * client = Server.nextPendingConnection();
     Clients.push_back(client);
     auto addr = client->peerAddress().toString();
-    qDebug() << "Client from: " << addr << " conected";
+    qDebug() << "[Network] Client from: " << addr << " conected";
 
     connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
 }
@@ -69,7 +82,7 @@ void Network::slotClientDisconected()
     QTcpSocket *client = qobject_cast<QTcpSocket*>(sender());
     if(client)
     {
-        qDebug() <<"Client disconected from: " << client->peerAddress().toString();
+        qDebug() <<"[Network] Client disconected from: " << client->peerAddress().toString();
         Clients.removeOne(client);
         client->deleteLater();
     }

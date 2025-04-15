@@ -408,6 +408,10 @@ debug\moc_mainwindow.cpp: mainwindow.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qhostaddress.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpSocket \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpsocket.h \
+		oknosiec.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\QCloseEvent \
 		debug\moc_predefs.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\bin\moc.exe
 	C:\Qt\6.7.3\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Games/ASP_DOTNET/SieciProject/SieciProjekt/debug/moc_predefs.h -IC:/Qt/6.7.3/msvc2019_64/mkspecs/win32-msvc -IC:/Games/ASP_DOTNET/SieciProject/SieciProjekt -IC:/Qt/6.7.3/msvc2019_64/include -IC:/Qt/6.7.3/msvc2019_64/include/QtPrintSupport -IC:/Qt/6.7.3/msvc2019_64/include/QtWidgets -IC:/Qt/6.7.3/msvc2019_64/include/QtGui -IC:/Qt/6.7.3/msvc2019_64/include/QtNetwork -IC:/Qt/6.7.3/msvc2019_64/include/QtCore -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.42.34433\include" -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.42.34433\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" mainwindow.h -o debug\moc_mainwindow.cpp
@@ -920,6 +924,17 @@ debug\moc_oknosiec.cpp: oknosiec.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\qinputmethod.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\qlocale.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\qguiapplication_platform.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\QCloseEvent \
+		network.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpServer \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpserver.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetworkglobal.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetwork-config.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetworkexports.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qabstractsocket.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qhostaddress.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpSocket \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpsocket.h \
 		debug\moc_predefs.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\bin\moc.exe
 	C:\Qt\6.7.3\msvc2019_64\bin\moc.exe $(DEFINES) --compiler-flavor=msvc --include C:/Games/ASP_DOTNET/SieciProject/SieciProjekt/debug/moc_predefs.h -IC:/Qt/6.7.3/msvc2019_64/mkspecs/win32-msvc -IC:/Games/ASP_DOTNET/SieciProject/SieciProjekt -IC:/Qt/6.7.3/msvc2019_64/include -IC:/Qt/6.7.3/msvc2019_64/include/QtPrintSupport -IC:/Qt/6.7.3/msvc2019_64/include/QtWidgets -IC:/Qt/6.7.3/msvc2019_64/include/QtGui -IC:/Qt/6.7.3/msvc2019_64/include/QtNetwork -IC:/Qt/6.7.3/msvc2019_64/include/QtCore -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.42.34433\include" -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Tools\MSVC\14.42.34433\ATLMFC\include" -I"C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\VS\include" -I"C:\Program Files (x86)\Windows Kits\10\include\10.0.22621.0\ucrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\um" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\shared" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\winrt" -I"C:\Program Files (x86)\Windows Kits\10\\include\10.0.22621.0\\cppwinrt" -I"C:\Program Files (x86)\Windows Kits\NETFXSDK\4.8\include\um" oknosiec.h -o debug\moc_oknosiec.cpp
@@ -2529,6 +2544,10 @@ debug\main.obj: main.cpp mainwindow.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qhostaddress.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpSocket \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpsocket.h \
+		oknosiec.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\QDialog \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\QCloseEvent \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\QApplication \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qapplication.h
 
@@ -2740,10 +2759,11 @@ debug\mainwindow.obj: mainwindow.cpp mainwindow.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qhostaddress.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpSocket \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpsocket.h \
-		ui_mainwindow.h \
 		oknosiec.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\QDialog \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qdialog.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\QCloseEvent \
+		ui_mainwindow.h \
 		oknoarx.h
 
 debug\network.obj: network.cpp network.h \
@@ -3250,7 +3270,21 @@ debug\oknosiec.obj: oknosiec.cpp oknosiec.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\qinputmethod.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\qlocale.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\qguiapplication_platform.h \
-		ui_oknosiec.h
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\QCloseEvent \
+		network.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpServer \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpserver.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetworkglobal.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetwork-config.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtnetworkexports.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qabstractsocket.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qhostaddress.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\QTcpSocket \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtNetwork\qtcpsocket.h \
+		ui_oknosiec.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\QMessageBox \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qmessagebox.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtWidgets\qdialogbuttonbox.h
 
 debug\qcustomplot.obj: qcustomplot.cpp qcustomplot.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\qglobal.h \

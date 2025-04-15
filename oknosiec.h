@@ -20,6 +20,7 @@ public:
     void trybKlient();
     void inicializacjaSerwera(int port);
     void inicializacjaKlienta(QString ip, int port);
+    void setUIEnabled(bool enabled);
 
 private slots:
     void on_comboBox_currentIndexChanged(int index);
@@ -27,6 +28,10 @@ private slots:
     void on_btn_start_connect_clicked();
 
     void on_btn_stop_disconnect_clicked();
+
+signals:
+    void connectionStarted(bool isServerMode);  // true = server, false = client
+    void connectionStopped();
 
 private:
     Ui::oknosiec *ui;

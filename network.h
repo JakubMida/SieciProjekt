@@ -31,10 +31,10 @@ public:
 signals:
     void connected(QString address, int port); //client
     void disconecetd(); //client
+    void connectionFailed(QString error);
 
 private slots:
     void clientConnected();
-
     void slotNewClient();
     void slotClientDisconected();
 

@@ -726,10 +726,18 @@ void MainWindow::on_btn_network_clicked()
         oknoSiec = new oknosiec(this);
         oknoSiec->setWindowTitle("Okno sieciowe");
         oknoSiec->trybSerwer();
+
+        connect(oknoSiec, &oknosiec::connectionStarted, this, [=](bool isServer){
+            setControlsEnabled(false);
+            qDebug() << "vse norm, isServer:" << isServer;
+        });
+
+        connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
+            setControlsEnabled(false);  // dopisac
+        });
     }
 
     oknoSiec->show();
-    //oknoSiec->raise();           // Bring to front
-    oknoSiec->activateWindow(); // Focus
+    oknoSiec->activateWindow();
 }
 
