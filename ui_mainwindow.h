@@ -72,17 +72,15 @@ public:
     QSpinBox *czasAktywacjiSpinBox;
     QLabel *lblCzasAktywacji;
     QGridLayout *gridLayout_2;
-    QLabel *label_3;
-    QDoubleSpinBox *kSpinBox;
-    QComboBox *networkCombo;
-    QLabel *label;
-    QLabel *label_4;
-    QDoubleSpinBox *tiSpinBox;
     QLabel *label_5;
     QRadioButton *radioButton_3;
     QDoubleSpinBox *tdSpinBox;
+    QDoubleSpinBox *kSpinBox;
+    QDoubleSpinBox *tiSpinBox;
     QRadioButton *radioButton_2;
-    QPushButton *networkButton;
+    QLabel *label_4;
+    QLabel *label_3;
+    QLabel *label;
     QScrollArea *scrollArea;
     QWidget *scrollAreaWidgetContents;
     QGridLayout *gridLayout;
@@ -112,7 +110,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName("scrollAreaWidgetContents_2");
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1070, 227));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1063, 269));
         QSizePolicy sizePolicy1(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(1);
@@ -339,55 +337,16 @@ public:
         gridLayout_2 = new QGridLayout();
         gridLayout_2->setObjectName("gridLayout_2");
         gridLayout_2->setHorizontalSpacing(0);
-        label_3 = new QLabel(scrollAreaWidgetContents_2);
-        label_3->setObjectName("label_3");
-        label_3->setAlignment(Qt::AlignmentFlag::AlignCenter);
-
-        gridLayout_2->addWidget(label_3, 4, 0, 1, 1);
-
-        kSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents_2);
-        kSpinBox->setObjectName("kSpinBox");
-        kSpinBox->setAlignment(Qt::AlignmentFlag::AlignCenter);
-        kSpinBox->setSingleStep(0.100000000000000);
-        kSpinBox->setValue(0.500000000000000);
-
-        gridLayout_2->addWidget(kSpinBox, 4, 1, 1, 1);
-
-        networkCombo = new QComboBox(scrollAreaWidgetContents_2);
-        networkCombo->setObjectName("networkCombo");
-
-        gridLayout_2->addWidget(networkCombo, 1, 2, 1, 1);
-
-        label = new QLabel(scrollAreaWidgetContents_2);
-        label->setObjectName("label");
-        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
-
-        gridLayout_2->addWidget(label, 1, 1, 1, 1);
-
-        label_4 = new QLabel(scrollAreaWidgetContents_2);
-        label_4->setObjectName("label_4");
-        label_4->setAlignment(Qt::AlignmentFlag::AlignCenter);
-
-        gridLayout_2->addWidget(label_4, 6, 0, 1, 1);
-
-        tiSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents_2);
-        tiSpinBox->setObjectName("tiSpinBox");
-        tiSpinBox->setAlignment(Qt::AlignmentFlag::AlignCenter);
-        tiSpinBox->setSingleStep(0.100000000000000);
-        tiSpinBox->setValue(5.000000000000000);
-
-        gridLayout_2->addWidget(tiSpinBox, 6, 1, 1, 1);
-
         label_5 = new QLabel(scrollAreaWidgetContents_2);
         label_5->setObjectName("label_5");
         label_5->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
-        gridLayout_2->addWidget(label_5, 8, 0, 1, 1);
+        gridLayout_2->addWidget(label_5, 7, 0, 1, 1);
 
         radioButton_3 = new QRadioButton(scrollAreaWidgetContents_2);
         radioButton_3->setObjectName("radioButton_3");
 
-        gridLayout_2->addWidget(radioButton_3, 6, 2, 1, 1);
+        gridLayout_2->addWidget(radioButton_3, 5, 2, 1, 1);
 
         tdSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents_2);
         tdSpinBox->setObjectName("tdSpinBox");
@@ -395,18 +354,47 @@ public:
         tdSpinBox->setSingleStep(0.100000000000000);
         tdSpinBox->setValue(0.200000000000000);
 
-        gridLayout_2->addWidget(tdSpinBox, 8, 1, 1, 1);
+        gridLayout_2->addWidget(tdSpinBox, 7, 1, 1, 1);
+
+        kSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents_2);
+        kSpinBox->setObjectName("kSpinBox");
+        kSpinBox->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        kSpinBox->setSingleStep(0.100000000000000);
+        kSpinBox->setValue(0.500000000000000);
+
+        gridLayout_2->addWidget(kSpinBox, 3, 1, 1, 1);
+
+        tiSpinBox = new QDoubleSpinBox(scrollAreaWidgetContents_2);
+        tiSpinBox->setObjectName("tiSpinBox");
+        tiSpinBox->setAlignment(Qt::AlignmentFlag::AlignCenter);
+        tiSpinBox->setSingleStep(0.100000000000000);
+        tiSpinBox->setValue(5.000000000000000);
+
+        gridLayout_2->addWidget(tiSpinBox, 5, 1, 1, 1);
 
         radioButton_2 = new QRadioButton(scrollAreaWidgetContents_2);
         radioButton_2->setObjectName("radioButton_2");
         radioButton_2->setChecked(true);
 
-        gridLayout_2->addWidget(radioButton_2, 4, 2, 1, 1);
+        gridLayout_2->addWidget(radioButton_2, 3, 2, 1, 1);
 
-        networkButton = new QPushButton(scrollAreaWidgetContents_2);
-        networkButton->setObjectName("networkButton");
+        label_4 = new QLabel(scrollAreaWidgetContents_2);
+        label_4->setObjectName("label_4");
+        label_4->setAlignment(Qt::AlignmentFlag::AlignCenter);
 
-        gridLayout_2->addWidget(networkButton, 2, 2, 1, 1);
+        gridLayout_2->addWidget(label_4, 5, 0, 1, 1);
+
+        label_3 = new QLabel(scrollAreaWidgetContents_2);
+        label_3->setObjectName("label_3");
+        label_3->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_2->addWidget(label_3, 3, 0, 1, 1);
+
+        label = new QLabel(scrollAreaWidgetContents_2);
+        label->setObjectName("label");
+        label->setAlignment(Qt::AlignmentFlag::AlignCenter);
+
+        gridLayout_2->addWidget(label, 1, 1, 1, 1);
 
 
         gridLayout_6->addLayout(gridLayout_2, 0, 0, 1, 1);
@@ -429,7 +417,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1084, 542));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1080, 537));
         gridLayout = new QGridLayout(scrollAreaWidgetContents);
         gridLayout->setSpacing(5);
         gridLayout->setObjectName("gridLayout");
@@ -491,13 +479,12 @@ public:
         lblOkres->setText(QCoreApplication::translate("MainWindow", "Okres", nullptr));
         lblAmplituda->setText(QCoreApplication::translate("MainWindow", "Amplituda", nullptr));
         lblCzasAktywacji->setText(QCoreApplication::translate("MainWindow", "Czas aktywacji [ms]", nullptr));
-        label_3->setText(QCoreApplication::translate("MainWindow", "P:", nullptr));
-        label->setText(QCoreApplication::translate("MainWindow", "Regulator PID", nullptr));
-        label_4->setText(QCoreApplication::translate("MainWindow", "Ti:", nullptr));
         label_5->setText(QCoreApplication::translate("MainWindow", "Td:", nullptr));
         radioButton_3->setText(QCoreApplication::translate("MainWindow", "Sta\305\202a pod sum\304\231", nullptr));
         radioButton_2->setText(QCoreApplication::translate("MainWindow", "Sta\305\202a przed sum\304\231", nullptr));
-        networkButton->setText(QCoreApplication::translate("MainWindow", "SET NET MODE", nullptr));
+        label_4->setText(QCoreApplication::translate("MainWindow", "Ti:", nullptr));
+        label_3->setText(QCoreApplication::translate("MainWindow", "P:", nullptr));
+        label->setText(QCoreApplication::translate("MainWindow", "Regulator PID", nullptr));
     } // retranslateUi
 
 };

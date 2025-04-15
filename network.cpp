@@ -71,8 +71,10 @@ void Network::slotNewClient()
 {
     QTcpSocket * client = Server.nextPendingConnection();
     Clients.push_back(client);
-    auto addr = client->peerAddress().toString();
+    //auto addr = client->peerAddress().toString();
+    auto addr = client->peerAddress().toString().replace("::ffff:", ""); //usunięci ffff z początku adresu
     qDebug() << "[Network] Client from: " << addr << " conected";
+    emit clientConnectedFrom(addr);
 
     connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
 }
@@ -85,6 +87,7 @@ void Network::slotClientDisconected()
         qDebug() <<"[Network] Client disconected from: " << client->peerAddress().toString();
         Clients.removeOne(client);
         client->deleteLater();
+        emit clientDisconnected();
     }
 }
 
@@ -98,4 +101,8 @@ bool Network::isClientConnected()
     return (Client.state() == QAbstractSocket::ConnectedState);
 }
 
+bool Network::isSomebodyConnected()
+{
+    return !Clients.isEmpty();
+}
 

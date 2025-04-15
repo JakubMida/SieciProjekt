@@ -78,6 +78,7 @@ void oknosiec::on_btn_start_connect_clicked()
     if (serwerMode) {
         qDebug() << "[Start] Server mode selected, initializing server on port" << port;
         inicializacjaSerwera(port);
+        emit connectionStarted(serwerMode);
     }
     else
     {
@@ -96,10 +97,12 @@ void oknosiec::on_btn_start_connect_clicked()
         QString ip = QString("%1.%2.%3.%4").arg(ip1).arg(ip2).arg(ip3).arg(ip4);
 
         qDebug() << "[Start] Client mode selected, connecting to" << ip << ":" << port;
-        ui->lbl_message->setText(QString("Podłaczenie do %1:%2").arg(ip).arg(port));
+        ui->lbl_message->setText(QString("Łączenie z %1:%2").arg(ip).arg(port));
         inicializacjaKlienta(ip, port);
+        emit clientStarted();
     }
-    emit connectionStarted(serwerMode);
+    //emit connectionStarted(serwerMode);
+
 }
 
 
@@ -140,6 +143,16 @@ void oknosiec::inicializacjaSerwera(int port)
 
     qDebug() << "Server listening on port:" << port;
     ui->lbl_message->setText(QString("Serwer słucha na porcie %1").arg(port));
+
+    disconnect(network, &Network::clientConnectedFrom, nullptr, nullptr);
+
+    connect(network, &Network::clientConnectedFrom, this, [this](const QString &addr)
+            {ui->lbl_message->setText(ui->lbl_message->text() + " | Klient: " + addr);});
+
+    connect(network, &Network::clientDisconnected, this, [this, port]() {
+        ui->lbl_message->setText(QString("Serwer słucha na porcie %1").arg(port));
+    });
+
 }
 void oknosiec::inicializacjaKlienta(QString ip, int port)
 {
@@ -165,4 +178,6 @@ void oknosiec::closeEvent(QCloseEvent* event)
     event->ignore();
     this->hide();
 }
+
+
 

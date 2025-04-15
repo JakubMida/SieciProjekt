@@ -73,8 +73,6 @@ private slots:
 
     void on_cbxCzarnyMotyw_stateChanged(int arg1);
 
-    void on_networkButton_clicked();
-
     void on_btn_network_clicked();
 
 private:

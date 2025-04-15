@@ -7,7 +7,7 @@
 
 enum class NetworkMode
 {
-    Local, Server, Client
+    Server, Client
 };
 
 class Network : public QObject
@@ -23,15 +23,15 @@ public:
     bool startListening(int port);
     void stopListening();
     bool isServerRunning();
-    bool isClientConnectedToServer();
-    void initNetwork(NetworkMode mode);
-    void setServerAddress(QString address);
-    QString getServerAddress();
+    bool isSomebodyConnected();
+
 
 signals:
     void connected(QString address, int port); //client
     void disconecetd(); //client
     void connectionFailed(QString error);
+    void clientConnectedFrom(QString address);
+    void clientDisconnected();
 
 private slots:
     void clientConnected();
@@ -44,7 +44,7 @@ private:
     int serverPort = 12345;
     bool listening = false;
 
-    NetworkMode mode = NetworkMode::Local;
+    NetworkMode mode;
     QTcpServer Server;
     QTcpSocket Client;
     QVector<QTcpSocket*> Clients;

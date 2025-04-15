@@ -22,9 +22,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(network, &Network::connected,this, [=](QString adr, int port){});
     connect(network, &Network::disconecetd, this,[=](){});
 
-    ui->networkCombo->addItem("Lokalny", QVariant::fromValue(static_cast<int>(NetworkMode::Local)));
-    ui->networkCombo->addItem("Server", QVariant::fromValue(static_cast<int>(NetworkMode::Server)));
-    ui->networkCombo->addItem("Client", QVariant::fromValue(static_cast<int>(NetworkMode::Client)));
 }
 
 MainWindow::~MainWindow()
@@ -644,64 +641,6 @@ void MainWindow::on_cbxCzarnyMotyw_stateChanged(int arg1)
 }
 
 
-
-void MainWindow::on_networkButton_clicked()
-{
-    int selectedMode = ui->networkCombo->currentIndex();
-    NetworkMode mode = static_cast<NetworkMode>(selectedMode);
-
-    initNetwork(mode);
-}
-
-void MainWindow::initNetwork(NetworkMode mode)
-{
-    network->setMode(mode);
-
-    if(mode == NetworkMode::Client)
-    {
-        if(network->isServerRunning())
-        {
-            network->stopListening();
-            qDebug() << "Server stopped";
-        }
-        network->connectToServer("172.20.10.2", 193); //193
-        setControlsEnabled(false);
-    }
-    else if(mode == NetworkMode::Server)
-    {
-    if(network->startListening(193))
-        {
-            if(network->isClientConnected())
-            {
-                network->disconectFrom();
-                qDebug() << "Client disconnected form server";
-            }
-            ui->startButton->setEnabled(true);
-            ui->btnModelARx->setEnabled(false);
-            setControlsEnabled(true);
-        }
-    }
-    else
-    {
-        if(network->isClientConnected())
-        {
-            network->disconectFrom();
-            qDebug() << "Client disconnected form server";
-        }
-        if(network->isServerRunning())
-        {
-            network->stopListening();
-            qDebug() << "Server stopped";
-        }
-        ui->startButton->setEnabled(true);
-        ui->btnModelARx->setEnabled(true);
-        setControlsEnabled(true);
-        ui->btnModelARx->setEnabled(true);
-    }
-
-}
-
-
 void MainWindow::setControlsEnabled(bool mode)
 {
     ui->startButton->setEnabled(mode);
@@ -717,6 +656,9 @@ void MainWindow::setControlsEnabled(bool mode)
     ui->czasAktywacjiSpinBox->setEnabled(mode);
     ui->radioButton_2->setEnabled(mode);
     ui->radioButton_3->setEnabled(mode);
+    ui->AntyWindUP->setEnabled(mode);
+    ui->GornaGranica->setEnabled(mode);
+    ui->DolnaGranica->setEnabled(mode);
 }
 
 
@@ -728,12 +670,16 @@ void MainWindow::on_btn_network_clicked()
         oknoSiec->trybSerwer();
 
         connect(oknoSiec, &oknosiec::connectionStarted, this, [=](bool isServer){
-            setControlsEnabled(false);
-            qDebug() << "vse norm, isServer:" << isServer;
+            setControlsEnabled(true);
         });
 
         connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
-            setControlsEnabled(false);  // dopisac
+            setControlsEnabled(true);  // dopisac, włączyć spowrotem
+            ui->btnModelARx->setEnabled(true);
+        });
+
+        connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
+            setControlsEnabled(false);
         });
     }
 
