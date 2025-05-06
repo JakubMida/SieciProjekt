@@ -45,6 +45,8 @@ constexpr auto qt_meta_stringdata_CLASSNetworkENDCLASS = QtMocHelpers::stringDat
     "error",
     "clientConnectedFrom",
     "clientDisconnected",
+    "dataReceived",
+    "data",
     "clientConnected",
     "slotNewClient",
     "slotClientDisconected"
@@ -60,24 +62,25 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   62,    2, 0x06,    1 /* Public */,
-       5,    0,   67,    2, 0x06,    4 /* Public */,
-       6,    1,   68,    2, 0x06,    5 /* Public */,
-       8,    1,   71,    2, 0x06,    7 /* Public */,
-       9,    0,   74,    2, 0x06,    9 /* Public */,
+       1,    2,   68,    2, 0x06,    1 /* Public */,
+       5,    0,   73,    2, 0x06,    4 /* Public */,
+       6,    1,   74,    2, 0x06,    5 /* Public */,
+       8,    1,   77,    2, 0x06,    7 /* Public */,
+       9,    0,   80,    2, 0x06,    9 /* Public */,
+      10,    1,   81,    2, 0x06,   10 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      10,    0,   75,    2, 0x08,   10 /* Private */,
-      11,    0,   76,    2, 0x08,   11 /* Private */,
-      12,    0,   77,    2, 0x08,   12 /* Private */,
+      12,    0,   84,    2, 0x08,   12 /* Private */,
+      13,    0,   85,    2, 0x08,   13 /* Private */,
+      14,    0,   86,    2, 0x08,   14 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::Int,    3,    4,
@@ -85,6 +88,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void, QMetaType::QString,    7,
     QMetaType::Void, QMetaType::QString,    3,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QByteArray,   11,
 
  // slots: parameters
     QMetaType::Void,
@@ -117,6 +121,9 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<QString, std::false_type>,
         // method 'clientDisconnected'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'dataReceived'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<QByteArray, std::false_type>,
         // method 'clientConnected'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'slotNewClient'
@@ -138,9 +145,10 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 2: _t->connectionFailed((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 3: _t->clientConnectedFrom((*reinterpret_cast< std::add_pointer_t<QString>>(_a[1]))); break;
         case 4: _t->clientDisconnected(); break;
-        case 5: _t->clientConnected(); break;
-        case 6: _t->slotNewClient(); break;
-        case 7: _t->slotClientDisconected(); break;
+        case 5: _t->dataReceived((*reinterpret_cast< std::add_pointer_t<QByteArray>>(_a[1]))); break;
+        case 6: _t->clientConnected(); break;
+        case 7: _t->slotNewClient(); break;
+        case 8: _t->slotClientDisconected(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -180,6 +188,13 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
                 return;
             }
         }
+        {
+            using _t = void (Network::*)(QByteArray );
+            if (_t _q_method = &Network::dataReceived; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 5;
+                return;
+            }
+        }
     }
 }
 
@@ -202,13 +217,13 @@ int Network::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 8;
+        _id -= 9;
     }
     return _id;
 }
@@ -244,5 +259,12 @@ void Network::clientConnectedFrom(QString _t1)
 void Network::clientDisconnected()
 {
     QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
+}
+
+// SIGNAL 5
+void Network::dataReceived(QByteArray _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_WARNING_POP

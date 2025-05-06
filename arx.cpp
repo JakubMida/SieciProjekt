@@ -103,3 +103,48 @@ double ARXModel::getVectorB(int index)
 {
     return B[index];
 }
+
+std::string ARXModel::serialize() const
+{
+    std::ostringstream oss;
+
+    oss << A.size() << " ";
+    for(double val : A)
+    {
+        oss << val << " ";
+    }
+
+    oss << B.size() << " ";
+    for(double val : B)
+    {
+        oss << val << " ";
+    }
+
+    oss << opoznienie << " " << zaklocenie;
+
+    return oss.str();
+}
+
+void ARXModel::deserialize(const std::string& data )
+{
+    std::istringstream iss(data);
+    size_t size;
+
+    iss >> size;
+    A.resize(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        iss >> A[i];
+    }
+
+    iss >> size;
+    B.resize(size);
+    for(size_t i = 0; i < size; i++)
+    {
+        iss >> B[i];
+    }
+
+    iss >> opoznienie >> zaklocenie;
+}
+
+

@@ -3,6 +3,7 @@
 #include <vector>
 #include <random>
 #include <deque>
+#include <sstream>
 class ARXModel {
 
     std::vector<double> A;
@@ -31,4 +32,6 @@ public:
     double getVectorA(int index);
     double getVectorB(int index);
 
+    std::string serialize() const;
+    void deserialize(const std::string& data);
 };

@@ -21,7 +21,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void initNetwork(NetworkMode mode);
     void setControlsEnabled(bool mode);
 
 private slots:
@@ -80,7 +79,6 @@ private:
     symulacja *sym;
     QTimer *timer;
     void setupPlots();
-    Network *network = nullptr; // do wyrzucenia
     oknosiec* oknoSiec = nullptr;
 };
 #endif // MAINWINDOW_H

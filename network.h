@@ -25,6 +25,9 @@ public:
     bool isServerRunning();
     bool isSomebodyConnected();
 
+    void sendData(const QByteArray& data);
+    QByteArray reciveData();
+
 
 signals:
     void connected(QString address, int port); //client
@@ -32,6 +35,7 @@ signals:
     void connectionFailed(QString error);
     void clientConnectedFrom(QString address);
     void clientDisconnected();
+    void dataReceived(QByteArray data);
 
 private slots:
     void clientConnected();
@@ -48,6 +52,7 @@ private:
     QTcpServer Server;
     QTcpSocket Client;
     QVector<QTcpSocket*> Clients;
+    QByteArray receivedData;
 };
 
 #endif // NETWORK_H

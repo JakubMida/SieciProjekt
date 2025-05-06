@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
     , timer(new QTimer(this))
-    , network(new Network(this))
 {
     ui->setupUi(this);
     ui->stopButton->setEnabled(false);
@@ -18,9 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     RegulatorPID regulator;
     ARXModel model;
     sym = new symulacja(regulator, model);
-
-    connect(network, &Network::connected,this, [=](QString adr, int port){});
-    connect(network, &Network::disconecetd, this,[=](){});
 
 }
 
@@ -671,16 +667,32 @@ void MainWindow::on_btn_network_clicked()
 
         connect(oknoSiec, &oknosiec::connectionStarted, this, [=](bool isServer){
             setControlsEnabled(true);
+            connect(oknoSiec, &oknosiec::modelReceived, this, [=](ARXModel model){
+                sym->getUAR()->getModel() = model;
+                double sygnal = sym->getUAR()->symulujKrok(sym->getWartoscZadana());
+                QByteArray data;
+                QDataStream stream(&data, QIODevice::WriteOnly);
+                stream << sygnal;
+                oknoSiec->getNetwork()->sendData(data);
+            });
         });
 
         connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
-            setControlsEnabled(true);  // dopisac, włączyć spowrotem
+            setControlsEnabled(true);
             ui->btnModelARx->setEnabled(true);
         });
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
             setControlsEnabled(false);
+            QTimer::singleShot(100, this, [=](){
+                ARXModel model = sym->getUAR()->getModel();
+                oknoSiec->sendModel(model);
+            });
+            connect(oknoSiec, &oknosiec::modelReceived, this, [=](ARXModel model){
+                sym->getUAR()->getModel() = model;
+            });
         });
+
     }
 
     oknoSiec->show();

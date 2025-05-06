@@ -26,6 +26,7 @@ oknosiec::oknosiec(QWidget *parent)
 
         QMessageBox::critical(this, "Błąd połączenia", "Nie można połączyć się z serwerem:\n" + error);
     });
+    connect(network, &Network::dataReceived, this, &oknosiec::receiveModel);
 }
 oknosiec::~oknosiec()
 {
@@ -179,5 +180,16 @@ void oknosiec::closeEvent(QCloseEvent* event)
     this->hide();
 }
 
+void oknosiec::sendModel(const ARXModel& model)
+{
+    std::string serialized = model.serialize();
+    QByteArray data(serialized.c_str(), serialized.size());
+    network->sendData(data);
+}
 
-
+void oknosiec::receiveModel(const QByteArray& data)
+{
+    ARXModel model;
+    model.deserialize(std::string(data.constData(), data.size()));
+    emit modelReceived(model);
+}

@@ -14,6 +14,10 @@ Network::Network(QObject *parent)
         qDebug() << "[Client Error]" << Client.errorString();
         emit connectionFailed(Client.errorString());
     });
+    connect(&Client, &QTcpSocket::readyRead, this, [=]() {
+        receivedData = Client.readAll();
+        emit dataReceived(receivedData);
+    });
 }
 
 //client
@@ -77,6 +81,10 @@ void Network::slotNewClient()
     emit clientConnectedFrom(addr);
 
     connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
+    connect(client, &QTcpSocket::readyRead, this, [=]() {
+        receivedData = client->readAll();
+        emit dataReceived(receivedData);
+    });
 }
 
 void Network::slotClientDisconected()
@@ -104,5 +112,26 @@ bool Network::isClientConnected()
 bool Network::isSomebodyConnected()
 {
     return !Clients.isEmpty();
+}
+
+void Network::sendData(const QByteArray& data)
+{
+    if(mode == NetworkMode::Client && isClientConnected())
+    {
+        Client.write(data);
+        Client.waitForBytesWritten();
+    }else if(mode == NetworkMode::Server && isSomebodyConnected())
+    {
+        for(QTcpSocket* client : Clients)
+        {
+            client->write(data);
+            client->waitForBytesWritten();
+        }
+    }
+}
+
+QByteArray Network::reciveData()
+{
+    return receivedData;
 }
 
