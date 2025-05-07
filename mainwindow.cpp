@@ -439,6 +439,10 @@ void MainWindow::on_btnModelARx_clicked()
         sym->getUAR()->getModel().setVectorB({okno.getVectorB(),okno.getVectorBB(), okno.getVectorBBB()});
         sym->getUAR()->getModel().setOpoznienie(okno.getOpoznienie());
         sym->getUAR()->getModel().setZaklocenie(okno.getZaklocenie());
+
+        if(oknoSiec && oknoSiec->getNetwork() && oknoSiec->getNetwork()->isClientConnected()){
+            oknoSiec->sendModel(sym->getUAR()->getModel());
+        }
     }
 
 }
