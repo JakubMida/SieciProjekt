@@ -48,11 +48,18 @@ void UkladRegulacji::setWejscie(double wartosc){
 }
 
 void UkladRegulacji::onSiecRegulowania(double wartosc){
-    qDebug() << "not implemented";
+    qDebug() << "onSiecRegulowania";
+    if(trybSieciowy != TrybSieciowy::Serwer) return;
+    ostatniaWartoscSieciowa = wartosc;
+    czyJestWartoscSieciowa = true;
+    symulujKrokSieciowy();
 }
 void UkladRegulacji::onSiecSterowania(double wartosc){
-    qDebug() << "not implemented";
+    qDebug() << "onSiecSterowania";
+    ostatniaWartoscSieciowa = wartosc;
+    czyJestWartoscSieciowa = true;
 }
+
 void UkladRegulacji::symulujKrokSieciowy(){
     qDebug() << "not implemented";
     if(this->trybSieciowy == TrybSieciowy::Serwer){

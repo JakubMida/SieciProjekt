@@ -26,6 +26,14 @@ oknosiec::oknosiec(QWidget *parent)
 
         QMessageBox::critical(this, "Błąd połączenia", "Nie można połączyć się z serwerem:\n" + error);
     });
+
+    // to delete!!!!
+    ui->txt_ip1->setText("127");
+    ui->txt_ip2->setText("0");
+    ui->txt_ip3->setText("0");
+    ui->txt_ip4->setText("1");
+
+    ui->txt_port->setText("123");
 }
 oknosiec::~oknosiec()
 {
@@ -161,6 +169,11 @@ void oknosiec::inicializacjaKlienta(QString ip, int port)
     network->setMode(NetworkMode::Client);
     network->connectToServer(ip, port);
     qDebug() << "Client attempting to connect to" << ip << ":" << port;
+
+    connect(network, &Network::connected, this, [=](QString adr, int port) {
+        qDebug() << "Client successfully connected, emitting fullConnectionEstablished";
+        emit fullConnectionEstablished();
+    });
 }
 
 void oknosiec::setUIEnabled(bool enabled)

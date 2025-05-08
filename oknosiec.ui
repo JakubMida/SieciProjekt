@@ -94,6 +94,9 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="text">
+    <string>127</string>
+   </property>
    <property name="maxLength">
     <number>3</number>
    </property>
@@ -106,6 +109,9 @@
      <width>51</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
    </property>
    <property name="maxLength">
     <number>3</number>
@@ -120,6 +126,9 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="text">
+    <string>0</string>
+   </property>
    <property name="maxLength">
     <number>3</number>
    </property>
@@ -133,6 +142,9 @@
      <height>24</height>
     </rect>
    </property>
+   <property name="text">
+    <string>1</string>
+   </property>
    <property name="maxLength">
     <number>3</number>
    </property>
@@ -145,6 +157,9 @@
      <width>51</width>
      <height>24</height>
     </rect>
+   </property>
+   <property name="text">
+    <string>123</string>
    </property>
    <property name="maxLength">
     <number>5</number>

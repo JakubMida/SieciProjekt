@@ -677,29 +677,45 @@ void MainWindow::on_btn_network_clicked()
         });
 
         connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
-            setControlsEnabled(true);  // dopisac, włączyć spowrotem
+            setControlsEnabled(true);
             ui->btnModelARx->setEnabled(true);
         });
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
             setControlsEnabled(false);
-        }); 
-    }
-    connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
+        });
 
+        connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
+    }
 
     oknoSiec->show();
     oknoSiec->activateWindow();
 }
 
 void MainWindow::uruchomPoPolaczeniu(){
-    if(oknoSiec->isServer()){ // objekt
-        connect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana, sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
-        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania, oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
+    qDebug() << "uruchomPoPolaczeniu";
+    disconnect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana,
+               sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
+    disconnect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
+               oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
+    disconnect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
+               sym->getUAR(), &UkladRegulacji::onSiecSterowania);
+    disconnect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
+               oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+
+    if(oknoSiec->isServer()) {
+        connect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana,
+                sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
+        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
+                oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
+        qDebug() << "Objekt (Server) connections established";
     }
-    else{ //regulator
-        connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana, sym->getUAR(), &UkladRegulacji::onSiecSterowania);
-        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania, oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+    else {
+        connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
+                sym->getUAR(), &UkladRegulacji::onSiecSterowania);
+        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
+                oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+        qDebug() << "Regulator (Client) connections established";
     }
 }
 
