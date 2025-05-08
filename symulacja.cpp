@@ -25,7 +25,7 @@ void symulacja::reset()
     this->getUAR()->reset();
 }
 
-void symulacja::wykonajKrok()
+void symulacja::wykonajKrok() // add logic defining MODE
 {
     if(!uruchomiona) return;
     czasSymulacji += krokCzasowy;

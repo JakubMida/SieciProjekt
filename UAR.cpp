@@ -46,3 +46,13 @@ void UkladRegulacji::reset()
 void UkladRegulacji::setWejscie(double wartosc){
     wejscie = wartosc;
 }
+
+void UkladRegulacji::onSiecZmierzona(double wartosc){
+    qDebug() << "not implemented";
+}
+void UkladRegulacji::onSiecSterowania(double wartosc){
+    qDebug() << "not implemented";
+}
+void UkladRegulacji::symulujKrokSieciowy(){
+    qDebug() << "not implemented";
+}

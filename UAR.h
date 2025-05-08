@@ -21,7 +21,7 @@ public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
     void setWejscie(double wartosc);
 
-    //double symulujKrok();
+    double symulujKrok();
 
     RegulatorPID& getRegulator();
     ARXModel& getModel();
@@ -33,7 +33,8 @@ public:
 public slots:
     void onSiecZmierzona(double wartosc);
     void onSiecSterowania(double wartosc);
-    void symulujKrok();
+    void symulujKrokSieciowy();
+
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);
