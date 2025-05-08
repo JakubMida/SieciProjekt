@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     ARXModel model;
     sym = new symulacja(regulator, model);
 
+    connect(sym, &symulacja::noweDaneSymulacji, this, &MainWindow::onNoweDaneSymulacji);
+
     connect(network, &Network::connected,this, [=](QString adr, int port){});
     connect(network, &Network::disconecetd, this,[=](){});
 
@@ -470,6 +472,9 @@ void MainWindow::on_AntyWindUP_stateChanged(int arg1)
     else
         sym->getUAR()->getRegulator().setFiltr(Filtr::OFF);
 
+    ui->btnModelARx->setEnabled(true);
+    setControlsEnabled(true); // to delete
+
 }
 
 
@@ -686,9 +691,11 @@ void MainWindow::on_btn_network_clicked()
         });
 
         connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
+
     }
 
     oknoSiec->show();
+
     oknoSiec->activateWindow();
 }
 
@@ -723,3 +730,8 @@ void MainWindow::uruchomPoPolaczeniu(){
     sym->getUAR()->setLabel(ui->label_16);
 }
 
+void MainWindow::onNoweDaneSymulacji() {
+    qDebug() << "[MainWindow] New simulation data received.";
+    // Update the UI or perform other actions here
+    aktualizujWykres(); // Call the method to update the plots
+}

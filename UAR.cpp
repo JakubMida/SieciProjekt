@@ -78,9 +78,10 @@ void UkladRegulacji::symulujKrokSieciowy() {
         double y = model.symulacja(u);
         qDebug() << "[UAR] Simulated regulated value (y):" << y;
         emit wyslacWartoscRegulowania(y);
-        emit noweDaneSymulacji();
 
-    } else if (this->trybSieciowy == TrybSieciowy::Klient) {
+        emit noweDaneSymulacji(); // Emit the signal here
+    }
+    if (this->trybSieciowy == TrybSieciowy::Klient) {
         qDebug() << "[UAR] Krok sieciowy klient";
         uchyb = wejscie - poprzednie_wyjscie;
 
@@ -93,7 +94,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
         double y = czyJestWartoscSieciowa ? ostatniaWartoscSieciowa : poprzednie_wyjscie;
         czyJestWartoscSieciowa = false;
         poprzednie_wyjscie = y;
-        emit noweDaneSymulacji();
+        emit noweDaneSymulacji(); // Emit the signal here
     }
 }
 

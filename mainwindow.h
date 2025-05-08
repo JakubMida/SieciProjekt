@@ -75,6 +75,8 @@ private slots:
 
     void on_btn_network_clicked();
 
+    void onNoweDaneSymulacji();
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;

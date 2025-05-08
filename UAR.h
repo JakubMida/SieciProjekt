@@ -21,7 +21,7 @@ private:
 
     TrybSieciowy trybSieciowy = TrybSieciowy::Offline;
     double ostatniaWartoscSieciowa = 0.0;
-    bool czyJestWartoscSieciowa = false;
+    bool czyJestWartoscSieciowa = true;
 
     QLabel* label=nullptr;
 
