@@ -5,6 +5,12 @@
 #include <QTcpServer>
 #include <QTcpSocket>
 
+#include <QLineEdit>
+#include <QTimer>
+#include <QJsonDocument>
+#include <QJsonObject>
+
+
 enum class NetworkMode
 {
     Server, Client
@@ -33,10 +39,18 @@ signals:
     void clientConnectedFrom(QString address);
     void clientDisconnected();
 
+    void wartoscSterowaniaOtrzymana(double wartosc);
+    void wartoscZmierzonaOtrzymana(double wartosc);
+
 private slots:
     void clientConnected();
     void slotNewClient();
     void slotClientDisconected();
+
+    void daneGotowe();
+public slots:
+    void wyslacWartoscZmierzona( double wartosc);
+    void wyslacWartoscSterowania(double wartosc);
 
 private:
     QString serverAddress = "127.0.0.1";
@@ -48,6 +62,7 @@ private:
     QTcpServer Server;
     QTcpSocket Client;
     QVector<QTcpSocket*> Clients;
+    QString status;
 };
 
 #endif // NETWORK_H
