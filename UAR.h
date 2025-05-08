@@ -4,6 +4,7 @@
 #include "regulator.h"
 #include "qobject.h"
 #include "trybSieciowy.h"
+#include <qlabel.h>
 
 class UkladRegulacji : public QObject
 {
@@ -21,6 +22,8 @@ private:
     TrybSieciowy trybSieciowy = TrybSieciowy::Offline;
     double ostatniaWartoscSieciowa = 0.0;
     bool czyJestWartoscSieciowa = false;
+
+    QLabel* label=nullptr;
 
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
