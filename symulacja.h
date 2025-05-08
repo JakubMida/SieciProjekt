@@ -1,12 +1,14 @@
 #ifndef SYMULACJA_H
 #define SYMULACJA_H
-
 #include "zadajnik.h"
 #include "UAR.h"
 #include <QDebug>
+#include "qobject.h"
 
-class symulacja
+class symulacja : public QObject
 {
+    Q_OBJECT
+
     double krokCzasowy;
     double czasSymulacji;
     Zadajnik* zadajnik;
@@ -20,7 +22,7 @@ public:
     void start();
     void stop();
     void reset();
-    void wykonajKrok();
+
     double getWartoscZadana();
     double getCzas();
     double getSygnal();
@@ -29,6 +31,15 @@ public:
     bool getCzyUruchomiona();
     Zadajnik* getZadajnik();
     UkladRegulacji* getUAR();
+
+public slots:
+    void onSiecZmierzona(double wartosc);
+    void onSiecSterowania(double wartosc);
+    void wykonajKrok();
+signals:
+    void noweDaneSymulacji();
+    void wyslacWartoscZmierzona(double wartosc);
+    void wyslacWartoscSterowania(double wartosc);
 };
 
 #endif // SYMULACJA_H

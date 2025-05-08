@@ -72,3 +72,10 @@ bool symulacja::getCzyUruchomiona()
 {
     return this->uruchomiona;
 }
+
+void symulacja::onSiecZmierzona(double wartosc){
+    qDebug() << "Not implemented";
+}
+void symulacja::onSiecSterowania(double wartosc){
+    qDebug() << "Not implemented";
+}
