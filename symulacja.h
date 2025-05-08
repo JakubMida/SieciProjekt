@@ -4,6 +4,7 @@
 #include "UAR.h"
 #include <QDebug>
 #include "qobject.h"
+#include "trybSieciowy.h"
 
 class symulacja : public QObject
 {
@@ -17,6 +18,9 @@ class symulacja : public QObject
     double sygnal;
     double uchyb;
     UkladRegulacji* uar;
+
+    TrybSieciowy trybSieciowy = TrybSieciowy::Offline;
+
 public:
     symulacja(RegulatorPID& regulator, ARXModel& model);
     void start();
@@ -31,6 +35,9 @@ public:
     bool getCzyUruchomiona();
     Zadajnik* getZadajnik();
     UkladRegulacji* getUAR();
+
+    TrybSieciowy getTrybSieciowy();
+    void setTrybSieciowy(TrybSieciowy trybSieciowy);
 
 public slots:
     void onSiecZmierzona(double wartosc);

@@ -31,7 +31,9 @@ void symulacja::wykonajKrok() // add logic defining MODE
     czasSymulacji += krokCzasowy;
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
     uar->setWejscie(wartosc);
-    sygnal = uar->symulujKrok(); // here
+    if(trybSieciowy == TrybSieciowy::Offline)
+        sygnal = uar->symulujKrok();
+
 }
 
 double symulacja::getWartoscZadana()
@@ -79,4 +81,12 @@ void symulacja::onSiecZmierzona(double wartosc){
 }
 void symulacja::onSiecSterowania(double wartosc){
     qDebug() << "Not implemented";
+}
+
+void symulacja::setTrybSieciowy(TrybSieciowy trybSieciowy){
+    this->trybSieciowy = trybSieciowy;
+}
+
+TrybSieciowy symulacja::getTrybSieciowy(){
+    return this->trybSieciowy;
 }

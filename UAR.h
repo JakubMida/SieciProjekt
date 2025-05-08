@@ -3,6 +3,7 @@
 #include "arx.h"
 #include "regulator.h"
 #include "qobject.h"
+#include "trybSieciowy.h"
 
 class UkladRegulacji : public QObject
 {
@@ -17,6 +18,10 @@ private:
     double sygnal = 0.0;
     double uchyb = 0.0;
 
+    TrybSieciowy trybSieciowy = TrybSieciowy::Offline;
+    double ostatniaWartoscSieciowa = 0.0;
+    bool czyJestWartoscSieciowa = false;
+
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
     void setWejscie(double wartosc);
@@ -30,13 +35,16 @@ public:
     double getSygnal();
     void reset();
 
+    TrybSieciowy getTrybSieciowy();
+    void setTrybSieciowy(TrybSieciowy trybSieciowy);
+
 public slots:
-    void onSiecZmierzona(double wartosc);
+    void onSiecRgulowania(double wartosc);
     void onSiecSterowania(double wartosc);
     void symulujKrokSieciowy();
 
 signals:
     void noweDaneSymulacji();
-    void wyslacWartoscZmierzona(double wartosc);
+    void wyslacWartoscRegulowania(double wartosc);
     void wyslacWartoscSterowania(double wartosc);
 };

@@ -47,7 +47,7 @@ void UkladRegulacji::setWejscie(double wartosc){
     wejscie = wartosc;
 }
 
-void UkladRegulacji::onSiecZmierzona(double wartosc){
+void UkladRegulacji::onSiecRgulowania(double wartosc){
     qDebug() << "not implemented";
 }
 void UkladRegulacji::onSiecSterowania(double wartosc){
@@ -55,4 +55,12 @@ void UkladRegulacji::onSiecSterowania(double wartosc){
 }
 void UkladRegulacji::symulujKrokSieciowy(){
     qDebug() << "not implemented";
+}
+
+void UkladRegulacji::setTrybSieciowy(TrybSieciowy trybSieciowy){
+    this->trybSieciowy = trybSieciowy;
+}
+
+TrybSieciowy UkladRegulacji::getTrybSieciowy(){
+    return this->trybSieciowy;
 }

@@ -1,6 +1,6 @@
 #ifndef TRYBSIECIOWY_H
 #define TRYBSIECIOWY_H
-enum class TrybSiecowy
+enum class TrybSieciowy
 {
     Offline = 0,
     Serwer = 1,
