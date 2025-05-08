@@ -60,41 +60,34 @@ void UkladRegulacji::onSiecSterowania(double wartosc){
     czyJestWartoscSieciowa = true;
 }
 
-void UkladRegulacji::symulujKrokSieciowy(){
-    qDebug() << "not implemented";
-    if(this->trybSieciowy == TrybSieciowy::Serwer){
-        qDebug() << "[UAR Siec] czy ma nowa wartosc z sieci = " << czyJestWartoscSieciowa;
-        if(!czyJestWartoscSieciowa){
+void UkladRegulacji::symulujKrokSieciowy() {
+    qDebug() << "[UAR] Krok sieciowy";
+    if (this->trybSieciowy == TrybSieciowy::Serwer) {
+        qDebug() << "[UAR] Krok sieciowy serwer";
+        if (!czyJestWartoscSieciowa) {
             label->setStyleSheet("background-color: red; border-radius: 10px;");
             return;
         }
         label->setStyleSheet("background-color: green; border-radius: 10px;");
         double u = ostatniaWartoscSieciowa;
         czyJestWartoscSieciowa = false;
+
+        // Simulate the system and send the regulated value
         double y = model.symulacja(u);
         emit wyslacWartoscRegulowania(y);
         emit noweDaneSymulacji();
 
-    }
-    else if(this->trybSieciowy == TrybSieciowy::Klient){
+    } else if (this->trybSieciowy == TrybSieciowy::Klient) {
+        qDebug() << "[UAR] Krok sieciowy klient";
         uchyb = wejscie - poprzednie_wyjscie;
 
+        // Calculate the control signal and send it
         sygnal = regulator.symuluj(uchyb);
-
         poprzednie_wyjscie = model.symulacja(sygnal);
-
         emit wyslacWartoscSterowania(sygnal);
 
-        double y=0;
-        if(czyJestWartoscSieciowa){
-            label->setStyleSheet("background-color: green; border-radius: 10px;");
-            y = ostatniaWartoscSieciowa;
-            czyJestWartoscSieciowa = false;
-        }
-        else{
-            label->setStyleSheet("background-color: red; border-radius: 10px;");
-            y = poprzednie_wyjscie;  // timeout / brak pakietu
-        }
+        double y = czyJestWartoscSieciowa ? ostatniaWartoscSieciowa : poprzednie_wyjscie;
+        czyJestWartoscSieciowa = false;
         poprzednie_wyjscie = y;
         emit noweDaneSymulacji();
     }

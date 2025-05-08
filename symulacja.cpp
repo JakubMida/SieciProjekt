@@ -33,6 +33,9 @@ void symulacja::wykonajKrok() // add logic defining MODE
     uar->setWejscie(wartosc);
     if(trybSieciowy == TrybSieciowy::Offline)
         sygnal = uar->symulujKrok();
+    else{
+        uar->symulujKrokSieciowy();
+    }
 
 }
 

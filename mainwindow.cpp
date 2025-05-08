@@ -709,6 +709,7 @@ void MainWindow::uruchomPoPolaczeniu(){
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
         qDebug() << "Objekt (Server) connections established";
+        sym->setTrybSieciowy(TrybSieciowy::Serwer);
     }
     else {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
@@ -716,6 +717,7 @@ void MainWindow::uruchomPoPolaczeniu(){
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
         qDebug() << "Regulator (Client) connections established";
+        sym->setTrybSieciowy(TrybSieciowy::Klient);
     }
 }
 

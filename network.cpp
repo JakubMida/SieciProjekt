@@ -108,15 +108,13 @@ bool Network::isSomebodyConnected()
 }
 
 
-void Network::wyslacWartoscRegulowania(double wartosc)
-{
-    qDebug() << "Wyslac wartosc zmierzoną";
+void Network::wyslacWartoscRegulowania(double wartosc) {
     if (isClientConnected()) {
         QJsonObject pkt{{"wartoscZmierzona", wartosc}};
         QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
         Client.write(out);
         Client.flush();
-        status = "wartoscZmierzona wyslana: " + QString::number(wartosc);
+        qDebug() << "[Network] Sent regulated value:" << wartosc;
     }
 }
 
@@ -131,25 +129,22 @@ void Network::wyslacWartoscSterowania(double wartosc)
         status = "Control sent: " + QString::number(wartosc);
     }
 }
-void Network::daneGotowe(){
+void Network::daneGotowe() {
     while (isClientConnected() && Client.canReadLine()) {
         QByteArray line = Client.readLine().trimmed();
-        qDebug() << "[Network] Otrzymana surowe dane:" << line;
+        qDebug() << "[Network] Received raw data:" << line;
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(line, &err);
         if (err.error != QJsonParseError::NoError || !doc.isObject()) {
-            status = "JSON parse error: " + err.errorString();
+            qDebug() << "[Network] JSON parse error:" << err.errorString();
             continue;
         }
         QJsonObject obj = doc.object();
         if (obj.contains("wartoscSterowania")) {
             double u = obj["wartoscSterowania"].toDouble();
-            status = "wartoscSterowania rekord: " + QString::number(u);
             emit wartoscSterowaniaOtrzymana(u);
-        }
-        else if (obj.contains("wartoscZmierzona")) {
+        } else if (obj.contains("wartoscZmierzona")) {
             double y = obj["wartoscZmierzona"].toDouble();
-            status = "wartoscZmierzona rekord: " + QString::number(y);
             emit wartoscRegulowaniaOtrzymana(y);
         }
     }
