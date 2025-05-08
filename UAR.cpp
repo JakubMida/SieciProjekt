@@ -3,9 +3,9 @@
 UkladRegulacji::UkladRegulacji(RegulatorPID& reg, ARXModel& mod)
     : regulator(reg), model(mod), poprzednie_wyjscie(0.0) {}
 
-double UkladRegulacji::symulujKrok(double wartosc) {
+double UkladRegulacji::symulujKrok() {
    
-    uchyb = wartosc - poprzednie_wyjscie;
+    uchyb = wejscie - poprzednie_wyjscie;
 
     sygnal = regulator.symuluj(uchyb);
 
@@ -41,4 +41,8 @@ void UkladRegulacji::reset()
     poprzednie_wyjscie=0.0;
     sygnal = 0.0;
     uchyb = 0.0;
+}
+
+void UkladRegulacji::setWejscie(double wartosc){
+    wejscie = wartosc;
 }

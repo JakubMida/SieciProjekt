@@ -93,6 +93,7 @@ void MainWindow::aktualizujWykres()
     ui->nastawyPlot->graph(2)->data()->removeBefore(czas - 5);
     ui->regPlot->graph()->data()->removeBefore(czas - 5);
     ui->uchybPlot->graph()->data()->removeBefore(czas - 5);
+
     sym->wykonajKrok();
 }
 

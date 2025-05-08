@@ -31,6 +31,7 @@ HEADERS += \
     qcustomplot.h \
     regulator.h \
     symulacja.h \
+    trybSieciowy.h \
     zadajnik.h
 
 FORMS += \

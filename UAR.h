@@ -2,10 +2,15 @@
 
 #include "arx.h"
 #include "regulator.h"
+#include "qobject.h"
 
-class UkladRegulacji 
+class UkladRegulacji : public QObject
 {
+    Q_OBJECT
+
 private:
+    double wejscie;
+
     RegulatorPID regulator;
     ARXModel model;
     double poprzednie_wyjscie = 0.0;
@@ -14,8 +19,9 @@ private:
 
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
+    void setWejscie(double wartosc);
 
-    double symulujKrok(double wartosc);
+    //double symulujKrok();
 
     RegulatorPID& getRegulator();
     ARXModel& getModel();
@@ -23,4 +29,13 @@ public:
     double getUchyb();
     double getSygnal();
     void reset();
+
+public slots:
+    void onSiecZmierzona(double wartosc);
+    void onSiecSterowania(double wartosc);
+    void symulujKrok();
+signals:
+    void noweDaneSymulacji();
+    void wyslacWartoscZmierzona(double wartosc);
+    void wyslacWartoscSterowania(double wartosc);
 };

@@ -30,7 +30,8 @@ void symulacja::wykonajKrok()
     if(!uruchomiona) return;
     czasSymulacji += krokCzasowy;
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
-    sygnal = uar->symulujKrok(wartosc);
+    uar->setWejscie(wartosc);
+    sygnal = uar->symulujKrok(); // here
 }
 
 double symulacja::getWartoscZadana()
