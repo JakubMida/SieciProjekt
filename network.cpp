@@ -27,6 +27,7 @@ void Network::connectToServer(QString address, int port)
 {
     serverAddress = address;
     clientPort = port;
+    connect(&Client,&QTcpSocket::readyRead,this,&Network::daneGotowe);
     Client.connectToHost(serverAddress, port);
 }
 
@@ -107,7 +108,7 @@ bool Network::isSomebodyConnected()
 }
 
 
-void Network::wyslacWartoscZmierzona(double wartosc)
+void Network::wyslacWartoscRegulowania(double wartosc)
 {
     qDebug() << "Wyslac wartosc zmierzoną";
     if (isClientConnected()) {
@@ -149,7 +150,7 @@ void Network::daneGotowe(){
         else if (obj.contains("wartoscZmierzona")) {
             double y = obj["wartoscZmierzona"].toDouble();
             status = "wartoscZmierzona rekord: " + QString::number(y);
-            emit wartoscZmierzonaOtrzymana(y);
+            emit wartoscRegulowaniaOtrzymana(y);
         }
     }
 }

@@ -47,7 +47,7 @@ void UkladRegulacji::setWejscie(double wartosc){
     wejscie = wartosc;
 }
 
-void UkladRegulacji::onSiecRgulowania(double wartosc){
+void UkladRegulacji::onSiecRegulowania(double wartosc){
     qDebug() << "not implemented";
 }
 void UkladRegulacji::onSiecSterowania(double wartosc){

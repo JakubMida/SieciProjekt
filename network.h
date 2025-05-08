@@ -40,7 +40,7 @@ signals:
     void clientDisconnected();
 
     void wartoscSterowaniaOtrzymana(double wartosc);
-    void wartoscZmierzonaOtrzymana(double wartosc);
+    void wartoscRegulowaniaOtrzymana(double wartosc);
 
 private slots:
     void clientConnected();
@@ -49,7 +49,7 @@ private slots:
 
     void daneGotowe();
 public slots:
-    void wyslacWartoscZmierzona( double wartosc);
+    void wyslacWartoscRegulowania( double wartosc);
     void wyslacWartoscSterowania(double wartosc);
 
 private:

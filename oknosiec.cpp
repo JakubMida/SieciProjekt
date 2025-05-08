@@ -146,8 +146,10 @@ void oknosiec::inicializacjaSerwera(int port)
 
     disconnect(network, &Network::clientConnectedFrom, nullptr, nullptr);
 
-    connect(network, &Network::clientConnectedFrom, this, [this](const QString &addr)
-            {ui->lbl_message->setText(ui->lbl_message->text() + " | Klient: " + addr);});
+    connect(network, &Network::clientConnectedFrom, this, [this](const QString &addr){
+        ui->lbl_message->setText(ui->lbl_message->text() + " | Klient: " + addr);
+        emit fullConnectionEstablished();
+    });
 
     connect(network, &Network::clientDisconnected, this, [this, port]() {
         ui->lbl_message->setText(QString("Serwer słucha na porcie %1").arg(port));
@@ -179,5 +181,8 @@ void oknosiec::closeEvent(QCloseEvent* event)
     this->hide();
 }
 
+Network* oknosiec::getNetwork(){
+    return network;
+}
 
 

@@ -41,8 +41,10 @@ public:
     TrybSieciowy getTrybSieciowy();
     void setTrybSieciowy(TrybSieciowy trybSieciowy);
 
+    void uruchomPoPolaczeniu();
+
 public slots:
-    void onSiecRgulowania(double wartosc);
+    void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc);
     void symulujKrokSieciowy();
 

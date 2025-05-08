@@ -23,6 +23,12 @@ public:
     void setUIEnabled(bool enabled);
     void checkIfClientIsConnected();
 
+    Network* getNetwork();
+    void setNetwork(Network* net);
+
+    bool isServer() const { return serwerMode; }
+
+
 private slots:
     void on_comboBox_currentIndexChanged(int index);
 
@@ -34,6 +40,8 @@ signals:
     void connectionStarted(bool isServerMode);  // true = server, false = client
     void connectionStopped();
     void clientStarted();
+
+    void fullConnectionEstablished();
 
 private:
     Ui::oknosiec *ui;

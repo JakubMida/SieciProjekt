@@ -82,5 +82,6 @@ private:
     void setupPlots();
     Network *network = nullptr; // do wyrzucenia
     oknosiec* oknoSiec = nullptr;
+    void uruchomPoPolaczeniu();
 };
 #endif // MAINWINDOW_H

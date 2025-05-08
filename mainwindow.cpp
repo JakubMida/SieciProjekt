@@ -36,6 +36,8 @@ void MainWindow::on_startButton_clicked()
     timer->start(sym->getKrokCzasowy() * 1000.0);
     ui->startButton->setEnabled(0);
     ui->stopButton->setEnabled(true);
+
+    // dodaty set status
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -681,10 +683,23 @@ void MainWindow::on_btn_network_clicked()
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
             setControlsEnabled(false);
-        });
+        }); 
     }
+    connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
+
 
     oknoSiec->show();
     oknoSiec->activateWindow();
+}
+
+void MainWindow::uruchomPoPolaczeniu(){
+    if(oknoSiec->isServer()){ // objekt
+        connect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana, sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
+        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania, oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
+    }
+    else{ //regulator
+        connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana, sym->getUAR(), &UkladRegulacji::onSiecSterowania);
+        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania, oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+    }
 }
 
