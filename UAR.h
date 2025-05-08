@@ -43,6 +43,8 @@ public:
 
     void uruchomPoPolaczeniu();
 
+    void setLabel(QLabel* lbl);
+
 public slots:
     void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc);

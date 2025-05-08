@@ -34,6 +34,7 @@ void symulacja::wykonajKrok() // add logic defining MODE
     if(trybSieciowy == TrybSieciowy::Offline)
         sygnal = uar->symulujKrok();
     else{
+        uar->setTrybSieciowy(this->trybSieciowy);
         uar->symulujKrokSieciowy();
     }
 

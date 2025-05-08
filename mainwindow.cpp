@@ -719,5 +719,7 @@ void MainWindow::uruchomPoPolaczeniu(){
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
     }
+    //sym->getUAR()->setLabel(ui->label_status);
+    sym->getUAR()->setLabel(ui->label_16);
 }
 

@@ -61,10 +61,12 @@ void UkladRegulacji::onSiecSterowania(double wartosc){
 }
 
 void UkladRegulacji::symulujKrokSieciowy() {
-    qDebug() << "[UAR] Krok sieciowy";
+    qDebug() << "[UAR] Krok sieciowy, tryb = " << (int)this->trybSieciowy;
+
     if (this->trybSieciowy == TrybSieciowy::Serwer) {
         qDebug() << "[UAR] Krok sieciowy serwer";
         if (!czyJestWartoscSieciowa) {
+            qDebug() << "[UAR] No network value received yet.";
             label->setStyleSheet("background-color: red; border-radius: 10px;");
             return;
         }
@@ -74,6 +76,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
 
         // Simulate the system and send the regulated value
         double y = model.symulacja(u);
+        qDebug() << "[UAR] Simulated regulated value (y):" << y;
         emit wyslacWartoscRegulowania(y);
         emit noweDaneSymulacji();
 
@@ -83,6 +86,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
 
         // Calculate the control signal and send it
         sygnal = regulator.symuluj(uchyb);
+        qDebug() << "[UAR] Calculated control signal (u):" << sygnal;
         poprzednie_wyjscie = model.symulacja(sygnal);
         emit wyslacWartoscSterowania(sygnal);
 
@@ -99,4 +103,8 @@ void UkladRegulacji::setTrybSieciowy(TrybSieciowy trybSieciowy){
 
 TrybSieciowy UkladRegulacji::getTrybSieciowy(){
     return this->trybSieciowy;
+}
+
+void UkladRegulacji::setLabel(QLabel* lbl) {
+    label = lbl;
 }

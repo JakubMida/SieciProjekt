@@ -68,16 +68,31 @@ void Network::stopListening()
     listening = false;
 }
 
-void Network::slotNewClient()
-{
-    QTcpSocket * client = Server.nextPendingConnection();
+void Network::slotNewClient() {
+    QTcpSocket *client = Server.nextPendingConnection();
     Clients.push_back(client);
-    //auto addr = client->peerAddress().toString();
-    auto addr = client->peerAddress().toString().replace("::ffff:", ""); //usunięci ffff z początku adresu
-    qDebug() << "[Network] Client from: " << addr << " conected";
+    auto addr = client->peerAddress().toString().replace("::ffff:", ""); // Remove "::ffff:" prefix
+    qDebug() << "[Network] Client from: " << addr << " connected";
     emit clientConnectedFrom(addr);
 
-    connect(client, SIGNAL(disconnected()),this, SLOT(slotClientDisconected()));
+    connect(client, &QTcpSocket::disconnected, this, &Network::slotClientDisconected);
+    connect(client, &QTcpSocket::readyRead, this, [=]() {
+        while (client->canReadLine()) {
+            QByteArray line = client->readLine().trimmed();
+            qDebug() << "[Network] Server received raw data:" << line;
+            QJsonParseError err;
+            QJsonDocument doc = QJsonDocument::fromJson(line, &err);
+            if (err.error != QJsonParseError::NoError || !doc.isObject()) {
+                qDebug() << "[Network] JSON parse error:" << err.errorString();
+                continue;
+            }
+            QJsonObject obj = doc.object();
+            if (obj.contains("wartoscSterowania")) {
+                double u = obj["wartoscSterowania"].toDouble();
+                emit wartoscSterowaniaOtrzymana(u);
+            }
+        }
+    });
 }
 
 void Network::slotClientDisconected()
@@ -107,32 +122,36 @@ bool Network::isSomebodyConnected()
     return !Clients.isEmpty();
 }
 
-
 void Network::wyslacWartoscRegulowania(double wartosc) {
-    if (isClientConnected()) {
-        QJsonObject pkt{{"wartoscZmierzona", wartosc}};
-        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
-        Client.write(out);
-        Client.flush();
-        qDebug() << "[Network] Sent regulated value:" << wartosc;
+    if (!Clients.isEmpty()) {
+        QTcpSocket *client = Clients.first(); // Send to the first connected client
+        if (client && client->state() == QAbstractSocket::ConnectedState) {
+            QJsonObject pkt{{"wartoscZmierzona", wartosc}};
+            QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+            client->write(out);
+            client->flush();
+            qDebug() << "[Network] Sent regulated value to client:" << wartosc;
+        } else {
+            qDebug() << "[Network] No active client to send regulated value.";
+        }
     }
 }
-
-void Network::wyslacWartoscSterowania(double wartosc)
-{
-    qDebug() << "Wyslac wartosc sterowania";
+void Network::wyslacWartoscSterowania(double wartosc) {
     if (isClientConnected()) {
         QJsonObject pkt{{"wartoscSterowania", wartosc}};
         QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
         Client.write(out);
         Client.flush();
-        status = "Control sent: " + QString::number(wartosc);
+        qDebug() << "[Network] Sent control value to server:" << wartosc;
+    } else {
+        qDebug() << "[Network] Client not connected, cannot send control value.";
     }
 }
+
 void Network::daneGotowe() {
     while (isClientConnected() && Client.canReadLine()) {
         QByteArray line = Client.readLine().trimmed();
-        qDebug() << "[Network] Received raw data:" << line;
+        qDebug() << "[Network] Client received raw data:" << line;
         QJsonParseError err;
         QJsonDocument doc = QJsonDocument::fromJson(line, &err);
         if (err.error != QJsonParseError::NoError || !doc.isObject()) {
@@ -140,10 +159,7 @@ void Network::daneGotowe() {
             continue;
         }
         QJsonObject obj = doc.object();
-        if (obj.contains("wartoscSterowania")) {
-            double u = obj["wartoscSterowania"].toDouble();
-            emit wartoscSterowaniaOtrzymana(u);
-        } else if (obj.contains("wartoscZmierzona")) {
+        if (obj.contains("wartoscZmierzona")) {
             double y = obj["wartoscZmierzona"].toDouble();
             emit wartoscRegulowaniaOtrzymana(y);
         }

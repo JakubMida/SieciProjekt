@@ -37,8 +37,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1063</width>
-         <height>269</height>
+         <width>1070</width>
+         <height>243</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -119,6 +119,13 @@
            <widget class="QPushButton" name="btn_network">
             <property name="text">
              <string>Sieć</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_status">
+            <property name="text">
+             <string>TextLabel</string>
             </property>
            </widget>
           </item>
@@ -531,8 +538,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1080</width>
-         <height>537</height>
+         <width>1084</width>
+         <height>542</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout">
