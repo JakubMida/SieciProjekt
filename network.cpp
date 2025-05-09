@@ -126,13 +126,27 @@ bool Network::isSomebodyConnected()
 
 void Network::wyslacWartoscRegulowania(double wartosc) {
     qDebug() << "Wyslac Wartosc Regulowania";
-    qDebug() << "isSomebody connected? = " << isSomebodyConnected();
-    if(isSomebodyConnected()){
+    if (mode == NetworkMode::Server) {
+        // Server mode - send to all connected clients
         QJsonObject pkt{{"wartoscRegulowania", wartosc}};
         QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
-        Client.write(out);
-        Client.flush();
-        qDebug() << "wartoscRegulowania sent: " + QString::number(wartosc);
+        for (QTcpSocket* client : Clients) {
+            if (client->state() == QAbstractSocket::ConnectedState) {
+                client->write(out);
+                client->flush();
+            }
+        }
+        qDebug() << "wartoscRegulowania sent to all clients: " + QString::number(wartosc);
+    }
+    else {
+        // Client mode - send to server
+        if (isClientConnected()) {
+            QJsonObject pkt{{"wartoscRegulowania", wartosc}};
+            QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+            Client.write(out);
+            Client.flush();
+            qDebug() << "wartoscRegulowania sent to server: " + QString::number(wartosc);
+        }
     }
 }
 void Network::wyslacWartoscSterowania(double wartosc) {
