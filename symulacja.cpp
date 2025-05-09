@@ -89,6 +89,7 @@ void symulacja::onSiecSterowania(double wartosc){
 
 void symulacja::setTrybSieciowy(TrybSieciowy trybSieciowy){
     this->trybSieciowy = trybSieciowy;
+    this->getUAR()->setTrybSieciowy(trybSieciowy);
 }
 
 TrybSieciowy symulacja::getTrybSieciowy(){

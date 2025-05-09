@@ -22,6 +22,7 @@ class Network : public QObject
 public:
     explicit Network(QObject *parent = nullptr);
     void setMode(NetworkMode mode);
+    NetworkMode getMode();
     void connectToServer(QString address, int port);
     void disconectFrom();
     bool isClientConnected();

@@ -1,10 +1,10 @@
 #pragma once
-
 #include "arx.h"
 #include "regulator.h"
 #include "qobject.h"
 #include "trybSieciowy.h"
 #include <qlabel.h>
+
 
 class UkladRegulacji : public QObject
 {
@@ -44,6 +44,7 @@ public:
     void uruchomPoPolaczeniu();
 
     void setLabel(QLabel* lbl);
+
 
 public slots:
     void onSiecRegulowania(double wartosc);

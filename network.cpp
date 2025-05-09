@@ -22,7 +22,9 @@ void Network::setMode(NetworkMode m)
 {
     mode = m;
 }
-
+NetworkMode Network::getMode(){
+    return this->mode;
+}
 void Network::connectToServer(QString address, int port)
 {
     serverAddress = address;
@@ -123,44 +125,45 @@ bool Network::isSomebodyConnected()
 }
 
 void Network::wyslacWartoscRegulowania(double wartosc) {
-    if (!Clients.isEmpty()) {
-        QTcpSocket *client = Clients.first(); // Send to the first connected client
-        if (client && client->state() == QAbstractSocket::ConnectedState) {
-            QJsonObject pkt{{"wartoscZmierzona", wartosc}};
-            QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
-            client->write(out);
-            client->flush();
-            qDebug() << "[Network] Sent regulated value to client:" << wartosc;
-        } else {
-            qDebug() << "[Network] No active client to send regulated value.";
-        }
+    qDebug() << "Wyslac Wartosc Regulowania";
+    qDebug() << "isSomebody connected? = " << isSomebodyConnected();
+    if(isSomebodyConnected()){
+        QJsonObject pkt{{"wartoscRegulowania", wartosc}};
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "wartoscRegulowania sent: " + QString::number(wartosc);
     }
 }
 void Network::wyslacWartoscSterowania(double wartosc) {
-    if (isClientConnected()) {
+    if(isClientConnected()){
         QJsonObject pkt{{"wartoscSterowania", wartosc}};
         QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
         Client.write(out);
         Client.flush();
-        qDebug() << "[Network] Sent control value to server:" << wartosc;
-    } else {
-        qDebug() << "[Network] Client not connected, cannot send control value.";
+        qDebug() << "wartoscSterowania wyslana: " + QString::number(wartosc);
     }
 }
 
 void Network::daneGotowe() {
     while (isClientConnected() && Client.canReadLine()) {
-        QByteArray line = Client.readLine().trimmed();
-        qDebug() << "[Network] Client received raw data:" << line;
+        QByteArray linia = Client.readLine().trimmed();
+        qDebug() << "[Network] Otrzymane dane:" << linia;
         QJsonParseError err;
-        QJsonDocument doc = QJsonDocument::fromJson(line, &err);
+        QJsonDocument doc = QJsonDocument::fromJson(linia, &err);
         if (err.error != QJsonParseError::NoError || !doc.isObject()) {
-            qDebug() << "[Network] JSON parse error:" << err.errorString();
+            qDebug() << "JSON parse error: " + err.errorString();
             continue;
         }
         QJsonObject obj = doc.object();
-        if (obj.contains("wartoscZmierzona")) {
-            double y = obj["wartoscZmierzona"].toDouble();
+        if (obj.contains("wartoscSterowania")) {
+            double u = obj["wartoscSterowania"].toDouble();
+            qDebug() << "wartoscSterowania rec: " + QString::number(u);
+            emit wartoscSterowaniaOtrzymana(u);
+        }
+        else if (obj.contains("wartoscRegulowania")) {
+            double y = obj["wartoscRegulowania"].toDouble();
+            qDebug() << "Measured rec: " + QString::number(y);
             emit wartoscRegulowaniaOtrzymana(y);
         }
     }

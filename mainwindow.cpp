@@ -472,9 +472,6 @@ void MainWindow::on_AntyWindUP_stateChanged(int arg1)
     else
         sym->getUAR()->getRegulator().setFiltr(Filtr::OFF);
 
-    ui->btnModelARx->setEnabled(true);
-    setControlsEnabled(true); // to delete
-
 }
 
 
@@ -677,25 +674,23 @@ void MainWindow::on_btn_network_clicked()
         oknoSiec->setWindowTitle("Okno sieciowe");
         oknoSiec->trybSerwer();
 
+        // Remove calls to setControlsEnabled to keep all buttons accessible
         connect(oknoSiec, &oknosiec::connectionStarted, this, [=](bool isServer){
-            setControlsEnabled(true);
+            // No changes to button states
         });
 
         connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
-            setControlsEnabled(true);
-            ui->btnModelARx->setEnabled(true);
+            // No changes to button states
         });
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
-            setControlsEnabled(false);
+            // No changes to button states
         });
 
         connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
-
     }
 
     oknoSiec->show();
-
     oknoSiec->activateWindow();
 }
 
@@ -710,19 +705,23 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
                oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
 
-    if(oknoSiec->isServer()) {
+    if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
+        connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
+                sym->getUAR(), &UkladRegulacji::onSiecSterowania);
+
+        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
+                oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+        qDebug() << "Objekt (Server) connections established";
+        sym->setTrybSieciowy(TrybSieciowy::Serwer);
+    }
+
+    if(oknoSiec->getNetwork()->getMode() == NetworkMode::Client){ //regulator
+
         connect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
-        qDebug() << "Objekt (Server) connections established";
-        sym->setTrybSieciowy(TrybSieciowy::Serwer);
-    }
-    else {
-        connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
-                sym->getUAR(), &UkladRegulacji::onSiecSterowania);
-        connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
-                oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
     }

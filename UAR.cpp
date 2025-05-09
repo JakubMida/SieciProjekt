@@ -13,7 +13,6 @@ double UkladRegulacji::symulujKrok() {
 
     return sygnal;
 }
-
 RegulatorPID& UkladRegulacji::getRegulator(){
     return regulator;
 }
@@ -47,54 +46,56 @@ void UkladRegulacji::setWejscie(double wartosc){
     wejscie = wartosc;
 }
 
-void UkladRegulacji::onSiecRegulowania(double wartosc){
-    qDebug() << "onSiecRegulowania";
-    if(trybSieciowy != TrybSieciowy::Serwer) return;
-    ostatniaWartoscSieciowa = wartosc;
+void UkladRegulacji::onSiecRegulowania(double y){
+    qDebug() << "[UAR] onSiecRegulowania";
+    ostatniaWartoscSieciowa = y;
     czyJestWartoscSieciowa = true;
-    symulujKrokSieciowy();
 }
-void UkladRegulacji::onSiecSterowania(double wartosc){
-    qDebug() << "onSiecSterowania";
-    ostatniaWartoscSieciowa = wartosc;
+void UkladRegulacji::onSiecSterowania(double u){
+    qDebug() << "[UAR Server] wartoscSterowania otrymana:" << u;
+    if (trybSieciowy != TrybSieciowy::Serwer) return;
+
+    ostatniaWartoscSieciowa = u;
     czyJestWartoscSieciowa = true;
+    symulujKrokSieciowy(); // test
 }
 
 void UkladRegulacji::symulujKrokSieciowy() {
-    qDebug() << "[UAR] Krok sieciowy, tryb = " << (int)this->trybSieciowy;
+    if(int(this->trybSieciowy) == 2){
+        qDebug() << "[UAR Klient]";
+        uchyb = wejscie - poprzednie_wyjscie;
 
-    if (this->trybSieciowy == TrybSieciowy::Serwer) {
-        qDebug() << "[UAR] Krok sieciowy serwer";
-        if (!czyJestWartoscSieciowa) {
-            qDebug() << "[UAR] No network value received yet.";
+        sygnal = regulator.symuluj(uchyb);
+
+        poprzednie_wyjscie = model.symulacja(sygnal);
+
+        emit wyslacWartoscSterowania(sygnal);
+
+        double y = 0;
+        if(czyJestWartoscSieciowa){
+            label->setStyleSheet("background-color: green; border-radius: 10px;");
+            y = ostatniaWartoscSieciowa;
+            czyJestWartoscSieciowa= false;
+        }
+        else{
+            label->setStyleSheet("background-color: red; border-radius: 10px;");
+            y = poprzednie_wyjscie;
+        }
+        poprzednie_wyjscie=y;
+        emit noweDaneSymulacji();
+    }
+    if(int(this->trybSieciowy) == 1){
+        qDebug() << "[UAR Serwer] czyJestWartoscSieciowa="
+                 << czyJestWartoscSieciowa;
+        if(!czyJestWartoscSieciowa){
             label->setStyleSheet("background-color: red; border-radius: 10px;");
             return;
         }
         label->setStyleSheet("background-color: green; border-radius: 10px;");
         double u = ostatniaWartoscSieciowa;
         czyJestWartoscSieciowa = false;
-
-        // Simulate the system and send the regulated value
         double y = model.symulacja(u);
-        qDebug() << "[UAR] Simulated regulated value (y):" << y;
         emit wyslacWartoscRegulowania(y);
-
-        emit noweDaneSymulacji(); // Emit the signal here
-    }
-    if (this->trybSieciowy == TrybSieciowy::Klient) {
-        qDebug() << "[UAR] Krok sieciowy klient";
-        uchyb = wejscie - poprzednie_wyjscie;
-
-        // Calculate the control signal and send it
-        sygnal = regulator.symuluj(uchyb);
-        qDebug() << "[UAR] Calculated control signal (u):" << sygnal;
-        poprzednie_wyjscie = model.symulacja(sygnal);
-        emit wyslacWartoscSterowania(sygnal);
-
-        double y = czyJestWartoscSieciowa ? ostatniaWartoscSieciowa : poprzednie_wyjscie;
-        czyJestWartoscSieciowa = false;
-        poprzednie_wyjscie = y;
-        emit noweDaneSymulacji(); // Emit the signal here
     }
 }
 
