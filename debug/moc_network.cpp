@@ -49,12 +49,17 @@ constexpr auto qt_meta_stringdata_CLASSNetworkENDCLASS = QtMocHelpers::stringDat
     "wartoscSterowaniaOtrzymana",
     "wartosc",
     "wartoscRegulowaniaOtrzymana",
+    "commandReceived",
+    "NetworkCommand",
+    "cmd",
+    "sampleNumber",
     "clientConnected",
     "slotNewClient",
     "slotClientDisconected",
     "daneGotowe",
     "wyslacWartoscRegulowania",
-    "wyslacWartoscSterowania"
+    "wyslacWartoscSterowania",
+    "sendCommand"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -67,29 +72,32 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      13,   14, // methods
+      16,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       7,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,   92,    2, 0x06,    1 /* Public */,
-       5,    0,   97,    2, 0x06,    4 /* Public */,
-       6,    1,   98,    2, 0x06,    5 /* Public */,
-       8,    1,  101,    2, 0x06,    7 /* Public */,
-       9,    0,  104,    2, 0x06,    9 /* Public */,
-      10,    1,  105,    2, 0x06,   10 /* Public */,
-      12,    1,  108,    2, 0x06,   12 /* Public */,
+       1,    2,  110,    2, 0x06,    1 /* Public */,
+       5,    0,  115,    2, 0x06,    4 /* Public */,
+       6,    1,  116,    2, 0x06,    5 /* Public */,
+       8,    1,  119,    2, 0x06,    7 /* Public */,
+       9,    0,  122,    2, 0x06,    9 /* Public */,
+      10,    1,  123,    2, 0x06,   10 /* Public */,
+      12,    1,  126,    2, 0x06,   12 /* Public */,
+      13,    2,  129,    2, 0x06,   14 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      13,    0,  111,    2, 0x08,   14 /* Private */,
-      14,    0,  112,    2, 0x08,   15 /* Private */,
-      15,    0,  113,    2, 0x08,   16 /* Private */,
-      16,    0,  114,    2, 0x08,   17 /* Private */,
-      17,    1,  115,    2, 0x0a,   18 /* Public */,
-      18,    1,  118,    2, 0x0a,   20 /* Public */,
+      17,    0,  134,    2, 0x08,   17 /* Private */,
+      18,    0,  135,    2, 0x08,   18 /* Private */,
+      19,    0,  136,    2, 0x08,   19 /* Private */,
+      20,    0,  137,    2, 0x08,   20 /* Private */,
+      21,    1,  138,    2, 0x0a,   21 /* Public */,
+      22,    1,  141,    2, 0x0a,   23 /* Public */,
+      23,    2,  144,    2, 0x0a,   25 /* Public */,
+      23,    1,  149,    2, 0x2a,   28 /* Public | MethodCloned */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::Int,    3,    4,
@@ -99,6 +107,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, 0x80000000 | 14, QMetaType::Int,   15,   16,
 
  // slots: parameters
     QMetaType::Void,
@@ -107,6 +116,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void, QMetaType::Double,   11,
+    QMetaType::Void, 0x80000000 | 14, QMetaType::Int,   15,   16,
+    QMetaType::Void, 0x80000000 | 14,   15,
 
        0        // eod
 };
@@ -140,6 +151,10 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         // method 'wartoscRegulowaniaOtrzymana'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'commandReceived'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<NetworkCommand, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'clientConnected'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'slotNewClient'
@@ -153,7 +168,14 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'wyslacWartoscSterowania'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<double, std::false_type>
+        QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'sendCommand'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<NetworkCommand, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
+        // method 'sendCommand'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<NetworkCommand, std::false_type>
     >,
     nullptr
 } };
@@ -171,12 +193,15 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 4: _t->clientDisconnected(); break;
         case 5: _t->wartoscSterowaniaOtrzymana((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 6: _t->wartoscRegulowaniaOtrzymana((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 7: _t->clientConnected(); break;
-        case 8: _t->slotNewClient(); break;
-        case 9: _t->slotClientDisconected(); break;
-        case 10: _t->daneGotowe(); break;
-        case 11: _t->wyslacWartoscRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 12: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 7: _t->commandReceived((*reinterpret_cast< std::add_pointer_t<NetworkCommand>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 8: _t->clientConnected(); break;
+        case 9: _t->slotNewClient(); break;
+        case 10: _t->slotClientDisconected(); break;
+        case 11: _t->daneGotowe(); break;
+        case 12: _t->wyslacWartoscRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 13: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 14: _t->sendCommand((*reinterpret_cast< std::add_pointer_t<NetworkCommand>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
+        case 15: _t->sendCommand((*reinterpret_cast< std::add_pointer_t<NetworkCommand>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -230,6 +255,13 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
                 return;
             }
         }
+        {
+            using _t = void (Network::*)(NetworkCommand , int );
+            if (_t _q_method = &Network::commandReceived; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 7;
+                return;
+            }
+        }
     }
 }
 
@@ -252,13 +284,13 @@ int Network::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 13)
+        if (_id < 16)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 13;
+        _id -= 16;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 13)
+        if (_id < 16)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 13;
+        _id -= 16;
     }
     return _id;
 }
@@ -308,5 +340,12 @@ void Network::wartoscRegulowaniaOtrzymana(double _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void Network::commandReceived(NetworkCommand _t1, int _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))), const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t2))) };
+    QMetaObject::activate(this, &staticMetaObject, 7, _a);
 }
 QT_WARNING_POP

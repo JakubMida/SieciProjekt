@@ -170,6 +170,12 @@ void Network::daneGotowe() {
             continue;
         }
         QJsonObject obj = doc.object();
+        if(obj.contains("command")){
+            NetworkCommand cmd = static_cast<NetworkCommand>(obj["command"].toInt());
+            int sample = obj["sample"].toInt();
+            emit commandReceived(cmd, sample);
+            continue;
+        }
         if (obj.contains("wartoscSterowania")) {
             double u = obj["wartoscSterowania"].toDouble();
             qDebug() << "wartoscSterowania rec: " + QString::number(u);
@@ -182,3 +188,29 @@ void Network::daneGotowe() {
         }
     }
 }
+
+void Network::sendCommand(NetworkCommand cmd, int sampleNumber)
+{
+    QJsonObject pkt{
+        {"command", static_cast<int>(cmd)},
+        {"sample", sampleNumber}
+    };
+
+    QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+
+    if (mode == NetworkMode::Server) {
+        for (QTcpSocket* client : Clients) {
+            if (client->state() == QAbstractSocket::ConnectedState) {
+                client->write(out);
+                client->flush();
+            }
+        }
+    } else {
+        if (isClientConnected()) {
+            Client.write(out);
+            Client.flush();
+        }
+    }
+}
+
+

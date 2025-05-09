@@ -44,7 +44,11 @@ constexpr auto qt_meta_stringdata_CLASSUkladRegulacjiENDCLASS = QtMocHelpers::st
     "wyslacWartoscSterowania",
     "onSiecRegulowania",
     "onSiecSterowania",
-    "symulujKrokSieciowy"
+    "symulujKrokSieciowy",
+    "onSyncCommand",
+    "NetworkCommand",
+    "cmd",
+    "sampleNumber"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -57,7 +61,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       7,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -65,14 +69,15 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   50,    2, 0x06,    1 /* Public */,
-       3,    1,   51,    2, 0x06,    2 /* Public */,
-       5,    1,   54,    2, 0x06,    4 /* Public */,
+       1,    0,   56,    2, 0x06,    1 /* Public */,
+       3,    1,   57,    2, 0x06,    2 /* Public */,
+       5,    1,   60,    2, 0x06,    4 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       6,    1,   57,    2, 0x0a,    6 /* Public */,
-       7,    1,   60,    2, 0x0a,    8 /* Public */,
-       8,    0,   63,    2, 0x0a,   10 /* Public */,
+       6,    1,   63,    2, 0x0a,    6 /* Public */,
+       7,    1,   66,    2, 0x0a,    8 /* Public */,
+       8,    0,   69,    2, 0x0a,   10 /* Public */,
+       9,    2,   70,    2, 0x0a,   11 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -83,6 +88,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 10, QMetaType::Int,   11,   12,
 
        0        // eod
 };
@@ -111,7 +117,11 @@ Q_CONSTINIT const QMetaObject UkladRegulacji::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'symulujKrokSieciowy'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onSyncCommand'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<NetworkCommand, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
     nullptr
 } };
@@ -128,6 +138,7 @@ void UkladRegulacji::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 3: _t->onSiecRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 4: _t->onSiecSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 5: _t->symulujKrokSieciowy(); break;
+        case 6: _t->onSyncCommand((*reinterpret_cast< std::add_pointer_t<NetworkCommand>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<int>>(_a[2]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -175,13 +186,13 @@ int UkladRegulacji::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 7;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 7;
     }
     return _id;
 }

@@ -4,6 +4,7 @@
 #include "qobject.h"
 #include "trybSieciowy.h"
 #include <qlabel.h>
+#include "network.h"
 
 
 class UkladRegulacji : public QObject
@@ -24,6 +25,10 @@ private:
     bool czyJestWartoscSieciowa = true;
 
     QLabel* label=nullptr;
+    bool waitingForSync = false;
+    Network* network = nullptr;
+    int expectedSampleNumber = 0;
+    int sampleNumber = 0;
 
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
@@ -44,12 +49,13 @@ public:
     void uruchomPoPolaczeniu();
 
     void setLabel(QLabel* lbl);
-
+    void setNetwork(Network* net);
 
 public slots:
     void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc);
     void symulujKrokSieciowy();
+    void onSyncCommand(NetworkCommand cmd, int sampleNumber);
 
 signals:
     void noweDaneSymulacji();

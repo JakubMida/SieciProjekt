@@ -16,6 +16,13 @@ enum class NetworkMode
     Server, Client
 };
 
+enum class NetworkCommand {
+    Start,
+    Stop,
+    Step,
+    Sync
+};
+
 class Network : public QObject
 {
     Q_OBJECT
@@ -43,6 +50,8 @@ signals:
     void wartoscSterowaniaOtrzymana(double wartosc);
     void wartoscRegulowaniaOtrzymana(double wartosc);
 
+    void commandReceived(NetworkCommand cmd, int sampleNumber);
+
 private slots:
     void clientConnected();
     void slotNewClient();
@@ -52,6 +61,8 @@ private slots:
 public slots:
     void wyslacWartoscRegulowania( double wartosc);
     void wyslacWartoscSterowania(double wartosc);
+
+    void sendCommand(NetworkCommand cmd, int sampleNumber = 0);
 
 private:
     QString serverAddress = "127.0.0.1";
@@ -64,6 +75,9 @@ private:
     QTcpSocket Client;
     QVector<QTcpSocket*> Clients;
     QString status;
+
+    QTimer* syncTimer;
+    int currentSampleNumber = 0;
 };
 
 #endif // NETWORK_H

@@ -99,6 +99,11 @@ public:
 
         btn_start_connect->setText(QCoreApplication::translate("oknosiec", "Start", nullptr));
         btn_stop_disconnect->setText(QCoreApplication::translate("oknosiec", "Stop", nullptr));
+        txt_ip1->setText(QCoreApplication::translate("oknosiec", "127", nullptr));
+        txt_ip2->setText(QCoreApplication::translate("oknosiec", "0", nullptr));
+        txt_ip3->setText(QCoreApplication::translate("oknosiec", "0", nullptr));
+        txt_ip4->setText(QCoreApplication::translate("oknosiec", "1", nullptr));
+        txt_port->setText(QCoreApplication::translate("oknosiec", "123", nullptr));
         lbl_tryb->setText(QCoreApplication::translate("oknosiec", "Online", nullptr));
         lbl_message->setText(QString());
     } // retranslateUi

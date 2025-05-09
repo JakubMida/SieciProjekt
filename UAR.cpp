@@ -70,6 +70,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
         poprzednie_wyjscie = model.symulacja(sygnal);
 
         emit wyslacWartoscSterowania(sygnal);
+        network->sendCommand(NetworkCommand::Step, expectedSampleNumber);
 
         double y = 0;
         if(czyJestWartoscSieciowa){
@@ -96,6 +97,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
         czyJestWartoscSieciowa = false;
         double y = model.symulacja(u);
         emit wyslacWartoscRegulowania(y);
+        network->sendCommand(NetworkCommand::Sync, sampleNumber);
     }
 }
 
@@ -109,4 +111,44 @@ TrybSieciowy UkladRegulacji::getTrybSieciowy(){
 
 void UkladRegulacji::setLabel(QLabel* lbl) {
     label = lbl;
+}
+
+void UkladRegulacji::onSyncCommand(NetworkCommand cmd, int sampleNumber)
+{
+    switch(cmd) {
+    case NetworkCommand::Start:
+        // Rozpocznij symulację
+        break;
+    case NetworkCommand::Stop:
+        // Zatrzymaj symulację
+        break;
+    case NetworkCommand::Step:
+        if (trybSieciowy == TrybSieciowy::Serwer) {
+            if (sampleNumber == expectedSampleNumber) {
+                symulujKrokSieciowy();
+                expectedSampleNumber++;
+            } else {
+                // Błąd synchronizacji
+                qDebug() << "Błąd synchronizacji! Oczekiwano:" << expectedSampleNumber
+                         << "Otrzymano:" << sampleNumber;
+            }
+        }
+        break;
+    case NetworkCommand::Sync:
+        if (trybSieciowy == TrybSieciowy::Klient) {
+            if (sampleNumber == expectedSampleNumber) {
+                symulujKrokSieciowy();
+                expectedSampleNumber++;
+            } else {
+                // Błąd synchronizacji
+                qDebug() << "Błąd synchronizacji! Oczekiwano:" << expectedSampleNumber
+                         << "Otrzymano:" << sampleNumber;
+            }
+        }
+        break;
+    }
+}
+
+void UkladRegulacji::setNetwork(Network* net) {
+    network = net;
 }

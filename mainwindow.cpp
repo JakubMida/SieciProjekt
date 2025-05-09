@@ -34,6 +34,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
+    if (oknoSiec && oknoSiec->getNetwork()->isClientConnected()) {
+        oknoSiec->getNetwork()->sendCommand(NetworkCommand::Start);
+    }
     sym->start();
     timer->start(sym->getKrokCzasowy() * 1000.0);
     ui->startButton->setEnabled(0);
@@ -44,6 +47,9 @@ void MainWindow::on_startButton_clicked()
 
 void MainWindow::on_stopButton_clicked()
 {
+    if (oknoSiec && oknoSiec->getNetwork()->isClientConnected()) {
+        oknoSiec->getNetwork()->sendCommand(NetworkCommand::Stop);
+    }
     sym->stop();
     timer->stop();
     ui->startButton->setEnabled(1);
@@ -703,6 +709,7 @@ void MainWindow::on_btn_network_clicked()
 
 void MainWindow::uruchomPoPolaczeniu(){
     qDebug() << "uruchomPoPolaczeniu";
+    sym->getUAR()->setNetwork(oknoSiec->getNetwork());
     disconnect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana,
                sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
     disconnect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
@@ -734,6 +741,11 @@ void MainWindow::uruchomPoPolaczeniu(){
     }
     //sym->getUAR()->setLabel(ui->label_status);
     sym->getUAR()->setLabel(ui->label_16);
+    connect(oknoSiec->getNetwork(), &Network::commandReceived,
+            sym->getUAR(), &UkladRegulacji::onSyncCommand);
+    if(oknoSiec->getNetwork()->getMode() == NetworkMode::Client) {
+        oknoSiec->getNetwork()->sendCommand(NetworkCommand::Start);
+    }
 }
 
 void MainWindow::onNoweDaneSymulacji() {
