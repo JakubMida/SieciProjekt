@@ -664,6 +664,9 @@ void MainWindow::setControlsEnabled(bool mode)
     ui->AntyWindUP->setEnabled(mode);
     ui->GornaGranica->setEnabled(mode);
     ui->DolnaGranica->setEnabled(mode);
+    ui->resetButton->setEnabled(mode);
+    ui->loadButton->setEnabled(mode);
+    ui->saveButton->setEnabled(mode);
 }
 
 
@@ -677,14 +680,18 @@ void MainWindow::on_btn_network_clicked()
         // Remove calls to setControlsEnabled to keep all buttons accessible
         connect(oknoSiec, &oknosiec::connectionStarted, this, [=](bool isServer){
             // No changes to button states
+            setControlsEnabled(false);
         });
 
         connect(oknoSiec, &oknosiec::connectionStopped, this, [=](){
             // No changes to button states
+            setControlsEnabled(true);
+            ui->btnModelARx->setEnabled(true);
         });
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
             // No changes to button states
+            setControlsEnabled(true);
         });
 
         connect(oknoSiec, &oknosiec::fullConnectionEstablished, this, &MainWindow::uruchomPoPolaczeniu);
