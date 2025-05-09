@@ -62,7 +62,6 @@ void UkladRegulacji::onSiecSterowania(double u){
 
 void UkladRegulacji::symulujKrokSieciowy() {
     if(int(this->trybSieciowy) == 2){
-        qDebug() << "[UAR Klient]";
         uchyb = wejscie - poprzednie_wyjscie;
 
         sygnal = regulator.symuluj(uchyb);
@@ -96,9 +95,21 @@ void UkladRegulacji::symulujKrokSieciowy() {
         czyJestWartoscSieciowa = false;
         double y = model.symulacja(u);
         emit wyslacWartoscRegulowania(y);
+        emit wyslacStanArx(utworzStanArx());
     }
 }
+arxStan UkladRegulacji::utworzStanArx() {
+    arxStan stan;
+    stan.A = model.getVectorA();
+    stan.B = model.getVectorB();
+    stan.opoznienie = model.getOpoznienie();
+    stan.zaklocenie = model.getZaklocenie();
+    //stan.wejscia = model.getWejscia();
+    //stan.wyjscia = model.getWyjscia();
+    // Note: not copying generator and rozklad, since they can't be copied directly
 
+    return stan;
+}
 void UkladRegulacji::setTrybSieciowy(TrybSieciowy trybSieciowy){
     this->trybSieciowy = trybSieciowy;
 }
@@ -109,4 +120,18 @@ TrybSieciowy UkladRegulacji::getTrybSieciowy(){
 
 void UkladRegulacji::setLabel(QLabel* lbl) {
     label = lbl;
+}
+
+void UkladRegulacji::onSiecArxStan(arxStan stan) {
+    qDebug() << "[UAR] onSiecArxStan";
+
+    // Update internal model with received ARX state
+    model.setVectorA(stan.A);
+    model.setVectorB(stan.B);
+    model.setOpoznienie(stan.opoznienie);
+    model.setZaklocenie(stan.zaklocenie);
+    /*
+    model.wejscia = stan.wejscia;
+    model.wyjscia = stan.wyjscia;
+    */
 }

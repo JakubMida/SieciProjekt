@@ -17,6 +17,7 @@ class Zadajnik
     double skladowaStala;
     double czasAktywacji;
     TypSygnalu typ;
+
 public:
     Zadajnik();
     Zadajnik(double a, double o, double wy, double skl, int czAkt);
@@ -31,4 +32,11 @@ public:
 	double prostokat(double czas);
     double generujSygnal(double czas, TypSygnalu t);
     TypSygnalu getTyp();
+
+    double getAmplituda() const { return amplituda; }
+    double getOkres() const { return okres; }
+    double getWypelnienie() const { return wypelnienie; }
+    double getSkladowaStala() const { return skladowaStala; }
+    double getCzasAktywacji() const { return czasAktywacji; }
+    TypSygnalu getTyp() const { return typ; }
 };

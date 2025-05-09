@@ -26,6 +26,7 @@ class RegulatorPID {
     double granicaGorna = 10.0;
     Filtr filtr = Filtr::OFF;
     TrybCalkowania tryb = TrybCalkowania::STALA_PRZED_SUMA;
+
 public:
 
     RegulatorPID();

@@ -9,7 +9,8 @@
 #include <QTimer>
 #include <QJsonDocument>
 #include <QJsonObject>
-
+#include "arxStan.h"
+#include "symulacjaStan.h"
 
 enum class NetworkMode
 {
@@ -43,6 +44,9 @@ signals:
     void wartoscSterowaniaOtrzymana(double wartosc);
     void wartoscRegulowaniaOtrzymana(double wartosc);
 
+    void stanArxOtrzymany(const arxStan& arxStan);
+    void stanSymulacjiOtrzymany(const symulacjaStan& symStan);
+
 private slots:
     void clientConnected();
     void slotNewClient();
@@ -52,6 +56,9 @@ private slots:
 public slots:
     void wyslacWartoscRegulowania( double wartosc);
     void wyslacWartoscSterowania(double wartosc);
+
+    void wyslacStanArx(arxStan arxStan);
+    void wyslacStanSymulacji(symulacjaStan symStan);
 
 private:
     QString serverAddress = "127.0.0.1";

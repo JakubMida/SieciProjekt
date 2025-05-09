@@ -687,6 +687,8 @@ void MainWindow::on_btn_network_clicked()
             // No changes to button states
             setControlsEnabled(true);
             ui->btnModelARx->setEnabled(true);
+            sym->setTrybSieciowy(TrybSieciowy::Offline);
+            ui->label_16->setStyleSheet("");
         });
 
         connect(oknoSiec, &oknosiec::clientStarted, this, [=](){
@@ -718,6 +720,12 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
+
+        connect(oknoSiec->getNetwork(), &Network::stanSymulacjiOtrzymany,
+                sym, &symulacja::onSiecSymulacjaStan);
+        connect(sym->getUAR(), &UkladRegulacji::wyslacStanArx,
+                oknoSiec->getNetwork(), &Network::wyslacStanArx);
+
         qDebug() << "Objekt (Server) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Serwer);
     }
@@ -726,12 +734,26 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(oknoSiec->getNetwork(), &Network::wartoscRegulowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecRegulowania);
+
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
+
+
+        connect(oknoSiec->getNetwork(), &Network::stanArxOtrzymany,
+                sym->getUAR(), &UkladRegulacji::onSiecArxStan);
+
+        connect(sym,&symulacja::wyslacStanSymulacji,
+                oknoSiec->getNetwork(), &Network::wyslacStanSymulacji);
 
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
     }
+
+    connect(oknoSiec->getNetwork(), &Network::stanArxOtrzymany,
+            sym->getUAR(), &UkladRegulacji::onSiecArxStan);
+
+    connect(oknoSiec->getNetwork(), &Network::stanSymulacjiOtrzymany,
+            sym, &symulacja::onSiecSymulacjaStan);
     //sym->getUAR()->setLabel(ui->label_status);
     sym->getUAR()->setLabel(ui->label_16);
 }

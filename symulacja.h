@@ -39,14 +39,20 @@ public:
     TrybSieciowy getTrybSieciowy();
     void setTrybSieciowy(TrybSieciowy trybSieciowy);
 
+    symulacjaStan utworzStanSymulacji();
+
 public slots:
     void onSiecZmierzona(double wartosc);
     void onSiecSterowania(double wartosc);
     void wykonajKrok();
+
+    void onSiecSymulacjaStan(symulacjaStan symStan);
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);
     void wyslacWartoscSterowania(double wartosc);
+
+    void wyslacStanSymulacji(symulacjaStan symStan);
 };
 
 #endif // SYMULACJA_H

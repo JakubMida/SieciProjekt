@@ -4,7 +4,8 @@
 #include "qobject.h"
 #include "trybSieciowy.h"
 #include <qlabel.h>
-
+#include "arxStan.h"
+#include "symulacjaStan.h"
 
 class UkladRegulacji : public QObject
 {
@@ -24,6 +25,7 @@ private:
     bool czyJestWartoscSieciowa = true;
 
     QLabel* label=nullptr;
+    arxStan utworzStanArx();
 
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
@@ -49,10 +51,15 @@ public:
 public slots:
     void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc);
+
+    void onSiecArxStan(arxStan arxStan);
     void symulujKrokSieciowy();
 
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscRegulowania(double wartosc);
     void wyslacWartoscSterowania(double wartosc);
+
+    void wyslacStanArx(arxStan arxStan);
+
 };

@@ -24,6 +24,7 @@ SOURCES += \
 HEADERS += \
     UAR.h \
     arx.h \
+    arxStan.h \
     mainwindow.h \
     network.h \
     oknoarx.h \
@@ -31,6 +32,7 @@ HEADERS += \
     qcustomplot.h \
     regulator.h \
     symulacja.h \
+    symulacjaStan.h \
     trybSieciowy.h \
     zadajnik.h
 
