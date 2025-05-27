@@ -41,7 +41,7 @@ signals:
     void clientConnectedFrom(QString address);
     void clientDisconnected();
 
-    void wartoscSterowaniaOtrzymana(double wartosc);
+    void wartoscSterowaniaOtrzymana(double wartosc, double czas, double wartoscZadana);
     void wartoscRegulowaniaOtrzymana(double wartosc);
 
     void stanArxOtrzymany(const arxStan& arxStan);
@@ -55,7 +55,7 @@ private slots:
     void daneGotowe();
 public slots:
     void wyslacWartoscRegulowania( double wartosc);
-    void wyslacWartoscSterowania(double wartosc);
+    void wyslacWartoscSterowania(double wartosc, double czas, double wartoscSterowania);
 
     void wyslacStanArx(arxStan arxStan);
     void wyslacStanSymulacji(symulacjaStan symStan);

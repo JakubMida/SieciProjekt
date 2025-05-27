@@ -51,11 +51,13 @@ void UkladRegulacji::onSiecRegulowania(double y){
     ostatniaWartoscSieciowa = y;
     czyJestWartoscSieciowa = true;
 }
-void UkladRegulacji::onSiecSterowania(double u){
+void UkladRegulacji::onSiecSterowania(double u, double czas, double wartoscZadana){
     qDebug() << "[UAR Server] wartoscSterowania otrymana:" << u;
     if (trybSieciowy != TrybSieciowy::Serwer) return;
 
     ostatniaWartoscSieciowa = u;
+    czasSieciowy = czas;
+    wartoscZadanaSieciowa = wartoscZadana;
     czyJestWartoscSieciowa = true;
     symulujKrokSieciowy(); // test
 }
@@ -68,7 +70,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
 
         poprzednie_wyjscie = model.symulacja(sygnal);
 
-        emit wyslacWartoscSterowania(sygnal);
+        emit wyslacWartoscSterowania(sygnal, czasSieciowy, wejscie); // here
 
         double y = 0;
         if(czyJestWartoscSieciowa){
@@ -96,7 +98,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
         double y = model.symulacja(u);
         emit wyslacWartoscRegulowania(y);
         // треба тут вислати дані на викреси
-        //emit aktualizujWykresSerwer();
+        emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
         emit wyslacStanArx(utworzStanArx());
     }
 }

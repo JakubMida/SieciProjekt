@@ -94,7 +94,9 @@ void Network::slotNewClient() {
             QJsonObject obj = doc.object();
             if (obj.contains("wartoscSterowania")) {
                 double u = obj["wartoscSterowania"].toDouble();
-                emit wartoscSterowaniaOtrzymana(u);
+                double czas = obj["czas"].toDouble();
+                double wartoscZadana = obj["wartoscZadana"].toDouble();
+                emit wartoscSterowaniaOtrzymana(u, czas, wartoscZadana);
             }
         }
     });
@@ -193,13 +195,19 @@ void Network::wyslacStanArx(arxStan arxStan){
     qDebug() << "[Network] Sent arxStan";
 }
 
-void Network::wyslacWartoscSterowania(double wartosc) {
-    if(isClientConnected()){
-        QJsonObject pkt{{"wartoscSterowania", wartosc}};
+void Network::wyslacWartoscSterowania(double wartosc, double czas, double wartoscZadana) {
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"wartoscSterowania", wartosc},
+            {"czas", czas},
+            {"wartoscZadana", wartoscZadana}
+        };
         QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
         Client.write(out);
         Client.flush();
-        qDebug() << "wartoscSterowania wyslana: " + QString::number(wartosc);
+        qDebug() << "WartoscSterowania wyslana: " << QString::number(wartosc)
+                 << " Czas: " << QString::number(czas)
+                 << " WartoscZadana: " << QString::number(wartoscZadana);
     }
 }
 
@@ -282,10 +290,16 @@ void Network::daneGotowe() {
             continue;
         }
         QJsonObject obj = doc.object();
-        if (obj.contains("wartoscSterowania")) {
-            double u = obj["wartoscSterowania"].toDouble();
-            qDebug() << "wartoscSterowania rec: " + QString::number(u);
-            emit wartoscSterowaniaOtrzymana(u);
+        if (obj.contains("wartoscSterowania") && obj.contains("czas") && obj.contains("wartoscZadana")) {
+            double wartoscSterowania = obj["wartoscSterowania"].toDouble();
+            double czas = obj["czas"].toDouble();
+            double wartoscZadana = obj["wartoscZadana"].toDouble();
+
+            qDebug() << "Odebrano wartosc Sterowania: " << wartoscSterowania
+                     << ", czas: " << czas
+                     << ", wartoscZadana: " << wartoscSterowania;
+
+            emit wartoscSterowaniaOtrzymana(wartoscSterowania, czas, wartoscZadana);
         }
         else if (obj.contains("wartoscRegulowania")) {
             double y = obj["wartoscRegulowania"].toDouble();

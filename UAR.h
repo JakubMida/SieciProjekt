@@ -60,7 +60,7 @@ public:
 
 public slots:
     void onSiecRegulowania(double wartosc);
-    void onSiecSterowania(double wartosc);
+    void onSiecSterowania(double wartosc, double czas, double wartoscZadana);
 
     void onSiecArxStan(arxStan arxStan);
     void symulujKrokSieciowy();
@@ -68,7 +68,7 @@ public slots:
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscRegulowania(double wartosc);
-    void wyslacWartoscSterowania(double wartosc);
+    void wyslacWartoscSterowania(double wartosc, double czas, double wartoscSterowania);
 
     void aktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
     void wyslacStanArx(arxStan arxStan);

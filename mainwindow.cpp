@@ -766,8 +766,8 @@ void MainWindow::onNoweDaneSymulacji() {
 }
 
 
-void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana) {
-    /*double czas = sym->getCzas();
+void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSterujaca, double wartoscRegulowana) {
+    /*
     double wartosc = sym->getWartoscZadana();
     double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
     double sygnal_sterujacy = sym->getUAR()->getSygnal();
@@ -775,14 +775,12 @@ void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, dou
     double Uii = sym->getUAR()->getRegulator().getUii();
     double Uid = sym->getUAR()->getRegulator().getUid();
     double uchyb = sym->getUAR()->getUchyb();
+    */
+    ui->zadajnikPlot->graph(0)->addData(czas, wartoscZadana);
+    ui->zadajnikPlot->graph(1)->addData(czas, wartoscRegulowana);
 
-    ui->zadajnikPlot->graph(0)->addData(czas, wartosc);
-    ui->zadajnikPlot->graph(1)->addData(czas, sygnal_regulowany);
-    ui->nastawyPlot->graph(0)->addData(czas, Uip);
-    ui->nastawyPlot->graph(1)->addData(czas, Uii);
-    ui->nastawyPlot->graph(2)->addData(czas, Uid);
-    ui->regPlot->graph()->addData(czas, sygnal_sterujacy);
-    ui->uchybPlot->graph()->addData(czas, uchyb);
+    ui->regPlot->graph()->addData(czas, wartoscSterujaca);
+
 
     if(czas >= 5)
     {
@@ -812,6 +810,7 @@ void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, dou
     ui->nastawyPlot->graph(2)->data()->removeBefore(czas - 5);
     ui->regPlot->graph()->data()->removeBefore(czas - 5);
     ui->uchybPlot->graph()->data()->removeBefore(czas - 5);
-*/
+
+    qDebug() << "MAINWINDOW: aktualizuj wykres serwer";
 
 }
