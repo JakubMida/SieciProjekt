@@ -95,6 +95,8 @@ void UkladRegulacji::symulujKrokSieciowy() {
         czyJestWartoscSieciowa = false;
         double y = model.symulacja(u);
         emit wyslacWartoscRegulowania(y);
+        // треба тут вислати дані на викреси
+        //emit aktualizujWykresSerwer();
         emit wyslacStanArx(utworzStanArx());
     }
 }
@@ -134,4 +136,21 @@ void UkladRegulacji::onSiecArxStan(arxStan stan) {
     model.wejscia = stan.wejscia;
     model.wyjscia = stan.wyjscia;
     */
+}
+
+
+void UkladRegulacji::setCzasSieciowy(double czas) {
+    this->czasSieciowy = czas;
+}
+
+double UkladRegulacji::getCzasSieciowy(){
+    return this->czasSieciowy;
+}
+
+void UkladRegulacji::setWartoscZadanaSieciowa(double wartoscZadanaSieciowa) {
+    this->wartoscZadanaSieciowa = wartoscZadanaSieciowa;
+}
+
+double UkladRegulacji::getWartoscZadanaSieciowa() {
+    return this->wartoscZadanaSieciowa;
 }

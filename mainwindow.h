@@ -76,6 +76,9 @@ private slots:
     void on_btn_network_clicked();
 
     void onNoweDaneSymulacji();
+    //void onNoweSiecioweDaneSymulacji();
+
+    void onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
 
 private:
     Ui::MainWindow *ui;

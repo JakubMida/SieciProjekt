@@ -29,6 +29,7 @@ void symulacja::wykonajKrok()
 {
     if(!uruchomiona) return;
     czasSymulacji += krokCzasowy;
+    uar->setCzasSieciowy(czasSymulacji);
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
     uar->setWejscie(wartosc);
     if((int)trybSieciowy == 0){

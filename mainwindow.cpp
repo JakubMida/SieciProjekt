@@ -24,6 +24,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(network, &Network::connected,this, [=](QString adr, int port){});
     connect(network, &Network::disconecetd, this,[=](){});
 
+
+    connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
 }
 
 MainWindow::~MainWindow()
@@ -760,6 +762,56 @@ void MainWindow::uruchomPoPolaczeniu(){
 
 void MainWindow::onNoweDaneSymulacji() {
     qDebug() << "[MainWindow] New simulation data received.";
-    // Update the UI or perform other actions here
     aktualizujWykres(); // Call the method to update the plots
+}
+
+
+void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana) {
+    /*double czas = sym->getCzas();
+    double wartosc = sym->getWartoscZadana();
+    double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
+    double sygnal_sterujacy = sym->getUAR()->getSygnal();
+    double Uip = sym->getUAR()->getRegulator().getUip();
+    double Uii = sym->getUAR()->getRegulator().getUii();
+    double Uid = sym->getUAR()->getRegulator().getUid();
+    double uchyb = sym->getUAR()->getUchyb();
+
+    ui->zadajnikPlot->graph(0)->addData(czas, wartosc);
+    ui->zadajnikPlot->graph(1)->addData(czas, sygnal_regulowany);
+    ui->nastawyPlot->graph(0)->addData(czas, Uip);
+    ui->nastawyPlot->graph(1)->addData(czas, Uii);
+    ui->nastawyPlot->graph(2)->addData(czas, Uid);
+    ui->regPlot->graph()->addData(czas, sygnal_sterujacy);
+    ui->uchybPlot->graph()->addData(czas, uchyb);
+
+    if(czas >= 5)
+    {
+        ui->zadajnikPlot->xAxis->setRange(czas - 5, czas);
+        ui->nastawyPlot->xAxis->setRange(czas - 5, czas);
+        ui->regPlot->xAxis->setRange(czas - 5, czas);
+        ui->uchybPlot->xAxis->setRange(czas - 5, czas);
+    }
+
+    ui->zadajnikPlot->graph(0)->rescaleValueAxis(true);
+    ui->zadajnikPlot->graph(1)->rescaleValueAxis(true);
+    ui->nastawyPlot->graph(0)->rescaleValueAxis(true);
+    ui->nastawyPlot->graph(1)->rescaleValueAxis(true);
+    ui->nastawyPlot->graph(2)->rescaleValueAxis(true);
+    ui->regPlot->graph(0)->rescaleValueAxis(true);
+    ui->uchybPlot->graph(0)->rescaleValueAxis(true);
+
+    ui->zadajnikPlot->replot();
+    ui->nastawyPlot->replot();
+    ui->regPlot->replot();
+    ui->uchybPlot->replot();
+
+    ui->zadajnikPlot->graph(0)->data()->removeBefore(czas - 5);
+    ui->zadajnikPlot->graph(1)->data()->removeBefore(czas - 5);
+    ui->nastawyPlot->graph(0)->data()->removeBefore(czas - 5);
+    ui->nastawyPlot->graph(1)->data()->removeBefore(czas - 5);
+    ui->nastawyPlot->graph(2)->data()->removeBefore(czas - 5);
+    ui->regPlot->graph()->data()->removeBefore(czas - 5);
+    ui->uchybPlot->graph()->data()->removeBefore(czas - 5);
+*/
+
 }

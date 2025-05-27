@@ -22,6 +22,10 @@ private:
 
     TrybSieciowy trybSieciowy = TrybSieciowy::Offline;
     double ostatniaWartoscSieciowa = 0.0;
+
+    double czasSieciowy=0.0;
+    double wartoscZadanaSieciowa =0.0;
+
     bool czyJestWartoscSieciowa = true;
 
     QLabel* label=nullptr;
@@ -47,6 +51,12 @@ public:
 
     void setLabel(QLabel* lbl);
 
+    void setCzasSieciowy(double czas);
+    double getCzasSieciowy();
+
+    void setWartoscZadanaSieciowa(double wartoscZadanaSieciowa);
+    double getWartoscZadanaSieciowa();
+
 
 public slots:
     void onSiecRegulowania(double wartosc);
@@ -60,6 +70,7 @@ signals:
     void wyslacWartoscRegulowania(double wartosc);
     void wyslacWartoscSterowania(double wartosc);
 
+    void aktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
     void wyslacStanArx(arxStan arxStan);
 
 };
