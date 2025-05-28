@@ -23,6 +23,7 @@ void symulacja::reset()
     this->getUAR()->getRegulator().reset();
     this->getUAR()->getModel().reset();
     this->getUAR()->reset();
+    if(int(this->trybSieciowy) == 2) emit wyslacResetSygnal();
 }
 
 void symulacja::wykonajKrok()
@@ -177,4 +178,10 @@ symulacjaStan symulacja::utworzStanSymulacji() {
     stan.wartosc = wartosc;
 
     return stan;
+}
+
+void symulacja::onResetSygnal(){
+    reset();
+    emit resetWykresy();
+    qDebug() << "[symulacja] onReset";
 }

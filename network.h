@@ -44,8 +44,12 @@ signals:
     void wartoscSterowaniaOtrzymana(double wartosc, double czas, double wartoscZadana);
     void wartoscRegulowaniaOtrzymana(double wartosc);
 
+    void resetSygnalOtrzymany();
+
     void stanArxOtrzymany(const arxStan& arxStan);
     void stanSymulacjiOtrzymany(const symulacjaStan& symStan);
+
+
 
 private slots:
     void clientConnected();
@@ -56,6 +60,8 @@ private slots:
 public slots:
     void wyslacWartoscRegulowania( double wartosc);
     void wyslacWartoscSterowania(double wartosc, double czas, double wartoscSterowania);
+
+    void wyslacResetSygnal();
 
     void wyslacStanArx(arxStan arxStan);
     void wyslacStanSymulacji(symulacjaStan symStan);

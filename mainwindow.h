@@ -80,6 +80,8 @@ private slots:
 
     void onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
 
+    void onResetSygnalOdKlienta();
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;

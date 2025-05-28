@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 
     connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
+    connect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
 }
 
 MainWindow::~MainWindow()
@@ -716,6 +717,12 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym->getUAR(), &UkladRegulacji::wyslacWartoscRegulowania,
                oknoSiec->getNetwork(), &Network::wyslacWartoscRegulowania);
 
+    disconnect(oknoSiec->getNetwork(), &Network::wyslacResetSygnal,
+            sym, &symulacja::onResetSygnal);
+
+    disconnect(sym, &symulacja::wyslacResetSygnal,
+            oknoSiec->getNetwork(), &Network::wyslacResetSygnal);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -727,6 +734,9 @@ void MainWindow::uruchomPoPolaczeniu(){
                 sym, &symulacja::onSiecSymulacjaStan);
         connect(sym->getUAR(), &UkladRegulacji::wyslacStanArx,
                 oknoSiec->getNetwork(), &Network::wyslacStanArx);
+
+        connect(oknoSiec->getNetwork(), &Network::resetSygnalOtrzymany,
+                sym, &symulacja::onResetSygnal);
 
         qDebug() << "Objekt (Server) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Serwer);
@@ -740,6 +750,8 @@ void MainWindow::uruchomPoPolaczeniu(){
         connect(sym->getUAR(), &UkladRegulacji::wyslacWartoscSterowania,
                 oknoSiec->getNetwork(), &Network::wyslacWartoscSterowania);
 
+        connect(sym, &symulacja::wyslacResetSygnal,
+                oknoSiec->getNetwork(), &Network::wyslacResetSygnal);
 
         connect(oknoSiec->getNetwork(), &Network::stanArxOtrzymany,
                 sym->getUAR(), &UkladRegulacji::onSiecArxStan);
@@ -767,15 +779,6 @@ void MainWindow::onNoweDaneSymulacji() {
 
 
 void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSterujaca, double wartoscRegulowana) {
-    /*
-    double wartosc = sym->getWartoscZadana();
-    double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
-    double sygnal_sterujacy = sym->getUAR()->getSygnal();
-    double Uip = sym->getUAR()->getRegulator().getUip();
-    double Uii = sym->getUAR()->getRegulator().getUii();
-    double Uid = sym->getUAR()->getRegulator().getUid();
-    double uchyb = sym->getUAR()->getUchyb();
-    */
     ui->zadajnikPlot->graph(0)->addData(czas, wartoscZadana);
     ui->zadajnikPlot->graph(1)->addData(czas, wartoscRegulowana);
 
@@ -810,7 +813,9 @@ void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, dou
     ui->nastawyPlot->graph(2)->data()->removeBefore(czas - 5);
     ui->regPlot->graph()->data()->removeBefore(czas - 5);
     ui->uchybPlot->graph()->data()->removeBefore(czas - 5);
+}
 
-    qDebug() << "MAINWINDOW: aktualizuj wykres serwer";
-
+void MainWindow::onResetSygnalOdKlienta(){
+    on_resetButton_clicked();
+    qDebug() << "[mainwindow] onResetSygnalOdKlienta";
 }

@@ -47,12 +47,18 @@ public slots:
     void wykonajKrok();
 
     void onSiecSymulacjaStan(symulacjaStan symStan);
+
+    void onResetSygnal();
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);
     void wyslacWartoscSterowania(double wartosc);
 
+    void wyslacResetSygnal();
+
     void wyslacStanSymulacji(symulacjaStan symStan);
+
+    void resetWykresy();
 };
 
 #endif // SYMULACJA_H

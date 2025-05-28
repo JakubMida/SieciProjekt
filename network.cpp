@@ -98,6 +98,9 @@ void Network::slotNewClient() {
                 double wartoscZadana = obj["wartoscZadana"].toDouble();
                 emit wartoscSterowaniaOtrzymana(u, czas, wartoscZadana);
             }
+            else if (obj.contains("reset")) {
+                emit resetSygnalOtrzymany();
+            }
         }
     });
 }
@@ -211,6 +214,18 @@ void Network::wyslacWartoscSterowania(double wartosc, double czas, double wartos
     }
 }
 
+void Network::wyslacResetSygnal(){
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"reset", true}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "Reset sygnal wyslany (reset: true)";
+    }
+}
+
 
 inline QJsonObject symulacjaStanToJson(const symulacjaStan& stan) {
     QJsonObject obj;
@@ -305,6 +320,10 @@ void Network::daneGotowe() {
             double y = obj["wartoscRegulowania"].toDouble();
             qDebug() << "Measured rec: " + QString::number(y);
             emit wartoscRegulowaniaOtrzymana(y);
+        }
+        else if (obj.contains("reset") && obj["reset"].toBool()) {
+            qDebug() << "Odebrano sygnal reset";
+            emit resetSygnalOtrzymany();
         }
         else if (obj.contains("typ")) {
             QString typ = obj["typ"].toString();
