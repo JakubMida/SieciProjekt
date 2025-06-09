@@ -376,3 +376,7 @@ void Network::daneGotowe() {
     }
 }
 
+void Network::wyslacTrybTaktowania(bool taktowanie){
+    //to do
+}
+

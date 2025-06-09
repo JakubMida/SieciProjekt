@@ -34,6 +34,7 @@ oknosiec::oknosiec(QWidget *parent)
     ui->txt_ip4->setText("1");
 
     ui->txt_port->setText("123");
+
 }
 oknosiec::~oknosiec()
 {
@@ -49,6 +50,8 @@ void oknosiec::trybSerwer()
     ui->btn_start_connect->setText("Start");
     ui->btn_stop_disconnect->setText("Stop");
     this->serwerMode = true;
+    ui->doubleClocking->setEnabled(false);
+    ui->doubleClocking->setCheckState(Qt::CheckState::Unchecked);
 }
 
 void oknosiec::trybKlient()
@@ -60,6 +63,7 @@ void oknosiec::trybKlient()
     ui->btn_start_connect->setText("Podlącz");
     ui->btn_stop_disconnect->setText("Rozłącz");
     this->serwerMode = false;
+    ui->doubleClocking->setEnabled(true);
 }
 
 void oknosiec::on_comboBox_currentIndexChanged(int index)

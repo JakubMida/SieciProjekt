@@ -11,11 +11,14 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -34,12 +37,15 @@ public:
     QLineEdit *txt_port;
     QLabel *lbl_tryb;
     QLabel *lbl_message;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
+    QCheckBox *doubleClocking;
 
     void setupUi(QDialog *oknosiec)
     {
         if (oknosiec->objectName().isEmpty())
             oknosiec->setObjectName("oknosiec");
-        oknosiec->resize(423, 232);
+        oknosiec->resize(418, 273);
         lbl_IP = new QLabel(oknosiec);
         lbl_IP->setObjectName("lbl_IP");
         lbl_IP->setGeometry(QRect(30, 70, 49, 16));
@@ -82,7 +88,18 @@ public:
         lbl_tryb->setGeometry(QRect(350, 20, 49, 16));
         lbl_message = new QLabel(oknosiec);
         lbl_message->setObjectName("lbl_message");
-        lbl_message->setGeometry(QRect(30, 190, 341, 16));
+        lbl_message->setGeometry(QRect(30, 230, 341, 16));
+        verticalLayoutWidget = new QWidget(oknosiec);
+        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
+        verticalLayoutWidget->setGeometry(QRect(30, 190, 160, 31));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        doubleClocking = new QCheckBox(verticalLayoutWidget);
+        doubleClocking->setObjectName("doubleClocking");
+
+        verticalLayout->addWidget(doubleClocking);
+
 
         retranslateUi(oknosiec);
 
@@ -99,8 +116,14 @@ public:
 
         btn_start_connect->setText(QCoreApplication::translate("oknosiec", "Start", nullptr));
         btn_stop_disconnect->setText(QCoreApplication::translate("oknosiec", "Stop", nullptr));
+        txt_ip1->setText(QCoreApplication::translate("oknosiec", "127", nullptr));
+        txt_ip2->setText(QCoreApplication::translate("oknosiec", "0", nullptr));
+        txt_ip3->setText(QCoreApplication::translate("oknosiec", "0", nullptr));
+        txt_ip4->setText(QCoreApplication::translate("oknosiec", "1", nullptr));
+        txt_port->setText(QCoreApplication::translate("oknosiec", "123", nullptr));
         lbl_tryb->setText(QCoreApplication::translate("oknosiec", "Online", nullptr));
         lbl_message->setText(QString());
+        doubleClocking->setText(QCoreApplication::translate("oknosiec", "Taktowanie Obustronne", nullptr));
     } // retranslateUi
 
 };

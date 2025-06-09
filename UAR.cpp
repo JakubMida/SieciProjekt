@@ -1,7 +1,8 @@
 #include "UAR.h"
+#include <QTimer>
 
 UkladRegulacji::UkladRegulacji(RegulatorPID& reg, ARXModel& mod)
-    : regulator(reg), model(mod), poprzednie_wyjscie(0.0) {}
+    : regulator(reg), model(mod), poprzednie_wyjscie(0.0), serverSideTimer(new QTimer(this)) {}
 
 double UkladRegulacji::symulujKrok() {
    
@@ -155,4 +156,11 @@ void UkladRegulacji::setWartoscZadanaSieciowa(double wartoscZadanaSieciowa) {
 
 double UkladRegulacji::getWartoscZadanaSieciowa() {
     return this->wartoscZadanaSieciowa;
+}
+
+bool UkladRegulacji::getTrybTaktowania(){
+    return this->trybTaktowania;
+}
+void UkladRegulacji::setTrybTaktowania(bool tryb){
+    this->trybTaktowania = tryb;
 }

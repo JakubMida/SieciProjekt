@@ -31,6 +31,9 @@ private:
     QLabel* label=nullptr;
     arxStan utworzStanArx();
 
+    QTimer *serverSideTimer;
+    bool trybTaktowania = false;
+
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
     void setWejscie(double wartosc);
@@ -56,6 +59,9 @@ public:
 
     void setWartoscZadanaSieciowa(double wartoscZadanaSieciowa);
     double getWartoscZadanaSieciowa();
+
+    bool getTrybTaktowania();
+    void setTrybTaktowania(bool tryb);
 
 
 public slots:
