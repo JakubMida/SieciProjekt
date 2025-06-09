@@ -27,6 +27,7 @@ public:
     void setNetwork(Network* net);
 
     bool isServer() const { return serwerMode; }
+    void setCheckBoxEnable(bool b);
 
 
 private slots:

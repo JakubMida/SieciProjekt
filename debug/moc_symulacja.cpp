@@ -43,6 +43,8 @@ constexpr auto qt_meta_stringdata_CLASSsymulacjaENDCLASS = QtMocHelpers::stringD
     "wartosc",
     "wyslacWartoscSterowania",
     "wyslacResetSygnal",
+    "wyslacStartSygnal",
+    "wyslacStopSygnal",
     "wyslacStanSymulacji",
     "symulacjaStan",
     "symStan",
@@ -64,41 +66,45 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSsymulacjaENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      13,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       6,       // signalCount
+       8,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   80,    2, 0x06,    1 /* Public */,
-       3,    1,   81,    2, 0x06,    2 /* Public */,
-       5,    1,   84,    2, 0x06,    4 /* Public */,
-       6,    0,   87,    2, 0x06,    6 /* Public */,
-       7,    1,   88,    2, 0x06,    7 /* Public */,
-      10,    0,   91,    2, 0x06,    9 /* Public */,
+       1,    0,   92,    2, 0x06,    1 /* Public */,
+       3,    1,   93,    2, 0x06,    2 /* Public */,
+       5,    1,   96,    2, 0x06,    4 /* Public */,
+       6,    0,   99,    2, 0x06,    6 /* Public */,
+       7,    0,  100,    2, 0x06,    7 /* Public */,
+       8,    0,  101,    2, 0x06,    8 /* Public */,
+       9,    1,  102,    2, 0x06,    9 /* Public */,
+      12,    0,  105,    2, 0x06,   11 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      11,    1,   92,    2, 0x0a,   10 /* Public */,
-      12,    1,   95,    2, 0x0a,   12 /* Public */,
-      13,    0,   98,    2, 0x0a,   14 /* Public */,
-      14,    1,   99,    2, 0x0a,   15 /* Public */,
-      15,    0,  102,    2, 0x0a,   17 /* Public */,
+      13,    1,  106,    2, 0x0a,   12 /* Public */,
+      14,    1,  109,    2, 0x0a,   14 /* Public */,
+      15,    0,  112,    2, 0x0a,   16 /* Public */,
+      16,    1,  113,    2, 0x0a,   17 /* Public */,
+      17,    0,  116,    2, 0x0a,   19 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 8,    9,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 10,   11,
     QMetaType::Void,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 8,    9,
+    QMetaType::Void, 0x80000000 | 10,   11,
     QMetaType::Void,
 
        0        // eod
@@ -122,6 +128,10 @@ Q_CONSTINIT const QMetaObject symulacja::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'wyslacResetSygnal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'wyslacStartSygnal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'wyslacStopSygnal'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'wyslacStanSymulacji'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -155,13 +165,15 @@ void symulacja::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 1: _t->wyslacWartoscZmierzona((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 2: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 3: _t->wyslacResetSygnal(); break;
-        case 4: _t->wyslacStanSymulacji((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 5: _t->resetWykresy(); break;
-        case 6: _t->onSiecZmierzona((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 7: _t->onSiecSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 8: _t->wykonajKrok(); break;
-        case 9: _t->onSiecSymulacjaStan((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 10: _t->onResetSygnal(); break;
+        case 4: _t->wyslacStartSygnal(); break;
+        case 5: _t->wyslacStopSygnal(); break;
+        case 6: _t->wyslacStanSymulacji((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
+        case 7: _t->resetWykresy(); break;
+        case 8: _t->onSiecZmierzona((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 9: _t->onSiecSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 10: _t->wykonajKrok(); break;
+        case 11: _t->onSiecSymulacjaStan((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
+        case 12: _t->onResetSygnal(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -195,16 +207,30 @@ void symulacja::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
             }
         }
         {
-            using _t = void (symulacja::*)(symulacjaStan );
-            if (_t _q_method = &symulacja::wyslacStanSymulacji; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            using _t = void (symulacja::*)();
+            if (_t _q_method = &symulacja::wyslacStartSygnal; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 4;
                 return;
             }
         }
         {
             using _t = void (symulacja::*)();
-            if (_t _q_method = &symulacja::resetWykresy; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+            if (_t _q_method = &symulacja::wyslacStopSygnal; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 5;
+                return;
+            }
+        }
+        {
+            using _t = void (symulacja::*)(symulacjaStan );
+            if (_t _q_method = &symulacja::wyslacStanSymulacji; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 6;
+                return;
+            }
+        }
+        {
+            using _t = void (symulacja::*)();
+            if (_t _q_method = &symulacja::resetWykresy; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 7;
                 return;
             }
         }
@@ -230,13 +256,13 @@ int symulacja::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 13)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 13;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 13)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 11;
+        _id -= 13;
     }
     return _id;
 }
@@ -268,15 +294,27 @@ void symulacja::wyslacResetSygnal()
 }
 
 // SIGNAL 4
-void symulacja::wyslacStanSymulacji(symulacjaStan _t1)
+void symulacja::wyslacStartSygnal()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 4, _a);
+    QMetaObject::activate(this, &staticMetaObject, 4, nullptr);
 }
 
 // SIGNAL 5
-void symulacja::resetWykresy()
+void symulacja::wyslacStopSygnal()
 {
     QMetaObject::activate(this, &staticMetaObject, 5, nullptr);
+}
+
+// SIGNAL 6
+void symulacja::wyslacStanSymulacji(symulacjaStan _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 6, _a);
+}
+
+// SIGNAL 7
+void symulacja::resetWykresy()
+{
+    QMetaObject::activate(this, &staticMetaObject, 7, nullptr);
 }
 QT_WARNING_POP

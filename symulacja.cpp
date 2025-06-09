@@ -9,11 +9,13 @@ symulacja::symulacja(RegulatorPID& regulator, ARXModel& model): krokCzasowy(0.05
 void symulacja::start()
 {
     this->uruchomiona = true;
+    if(int(this->trybSieciowy) == 2) emit wyslacStartSygnal();
 }
 
 void symulacja::stop()
 {
     this->uruchomiona = false;
+    if(int(this->trybSieciowy) == 2) emit wyslacStopSygnal();
 }
 
 void symulacja::reset()

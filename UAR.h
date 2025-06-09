@@ -79,6 +79,9 @@ public slots:
 
     void symulujKrokObustronnie();
 
+    void onStartSygnal();
+    void onStopSygnal();
+
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscRegulowania(double wartosc);

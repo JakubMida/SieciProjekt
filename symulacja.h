@@ -55,6 +55,8 @@ signals:
     void wyslacWartoscSterowania(double wartosc);
 
     void wyslacResetSygnal();
+    void wyslacStartSygnal();
+    void wyslacStopSygnal();
 
     void wyslacStanSymulacji(symulacjaStan symStan);
 

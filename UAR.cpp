@@ -73,9 +73,19 @@ void UkladRegulacji::onSiecTrybTaktowania(int interwal){
     else{
         setTrybTaktowania(true);
         serverSideTimer->setInterval(interwal * 1000.0);
-        serverSideTimer->start(interwal * 1000.0);
     }
 }
+
+void UkladRegulacji::onStartSygnal(){
+    if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal() * 1000.0);
+    qDebug() << "[UAR] onStartSygnal" << getTrybTaktowania();
+}
+
+void UkladRegulacji::onStopSygnal(){
+    if(getTrybTaktowania()) serverSideTimer->stop();
+    qDebug() << "[UAR] onStopSygnal" << getTrybTaktowania();
+}
+
 void UkladRegulacji::symulujKrokSieciowy() {
     if(int(this->trybSieciowy) == 2){
         uchyb = wejscie - poprzednie_wyjscie;
@@ -84,7 +94,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
 
         poprzednie_wyjscie = model.symulacja(sygnal);
 
-        emit wyslacWartoscSterowania(sygnal, czasSieciowy, wejscie); // here
+        emit wyslacWartoscSterowania(sygnal, czasSieciowy, wejscie);
 
         double y = 0;
         if(czyJestWartoscSieciowa){
@@ -115,7 +125,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
             emit wyslacWartoscRegulowania(y);
             // треба тут вислати дані на викреси
             emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
-            emit wyslacStanArx(utworzStanArx());
+            //emit wyslacStanArx(utworzStanArx());
         }
     }
 }
@@ -133,7 +143,7 @@ void UkladRegulacji::symulujKrokObustronnie(){
     double y = model.symulacja(u);
     emit wyslacWartoscRegulowania(y);
     emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
-    emit wyslacStanArx(utworzStanArx());
+    //emit wyslacStanArx(utworzStanArx());
 
 }
 arxStan UkladRegulacji::utworzStanArx() {

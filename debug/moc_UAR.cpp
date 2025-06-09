@@ -57,7 +57,9 @@ constexpr auto qt_meta_stringdata_CLASSUkladRegulacjiENDCLASS = QtMocHelpers::st
     "onSiecTrybTaktowania",
     "onSiecArxStan",
     "symulujKrokSieciowy",
-    "symulujKrokObustronnie"
+    "symulujKrokObustronnie",
+    "onStartSygnal",
+    "onStopSygnal"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -70,7 +72,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -78,20 +80,22 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
        6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   86,    2, 0x06,    1 /* Public */,
-       3,    1,   87,    2, 0x06,    2 /* Public */,
-       5,    3,   90,    2, 0x06,    4 /* Public */,
-       8,    4,   97,    2, 0x06,    8 /* Public */,
-      12,    1,  106,    2, 0x06,   13 /* Public */,
-      14,    1,  109,    2, 0x06,   15 /* Public */,
+       1,    0,   98,    2, 0x06,    1 /* Public */,
+       3,    1,   99,    2, 0x06,    2 /* Public */,
+       5,    3,  102,    2, 0x06,    4 /* Public */,
+       8,    4,  109,    2, 0x06,    8 /* Public */,
+      12,    1,  118,    2, 0x06,   13 /* Public */,
+      14,    1,  121,    2, 0x06,   15 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      16,    1,  112,    2, 0x0a,   17 /* Public */,
-      17,    3,  115,    2, 0x0a,   19 /* Public */,
-      18,    1,  122,    2, 0x0a,   23 /* Public */,
-      19,    1,  125,    2, 0x0a,   25 /* Public */,
-      20,    0,  128,    2, 0x0a,   27 /* Public */,
-      21,    0,  129,    2, 0x0a,   28 /* Public */,
+      16,    1,  124,    2, 0x0a,   17 /* Public */,
+      17,    3,  127,    2, 0x0a,   19 /* Public */,
+      18,    1,  134,    2, 0x0a,   23 /* Public */,
+      19,    1,  137,    2, 0x0a,   25 /* Public */,
+      20,    0,  140,    2, 0x0a,   27 /* Public */,
+      21,    0,  141,    2, 0x0a,   28 /* Public */,
+      22,    0,  142,    2, 0x0a,   29 /* Public */,
+      23,    0,  143,    2, 0x0a,   30 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -106,6 +110,8 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
     QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,    4,    6,    9,
     QMetaType::Void, QMetaType::Int,   15,
     QMetaType::Void, 0x80000000 | 13,   13,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -160,6 +166,10 @@ Q_CONSTINIT const QMetaObject UkladRegulacji::staticMetaObject = { {
         // method 'symulujKrokSieciowy'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'symulujKrokObustronnie'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onStartSygnal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'onStopSygnal'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -183,6 +193,8 @@ void UkladRegulacji::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 9: _t->onSiecArxStan((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
         case 10: _t->symulujKrokSieciowy(); break;
         case 11: _t->symulujKrokObustronnie(); break;
+        case 12: _t->onStartSygnal(); break;
+        case 13: _t->onStopSygnal(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -251,13 +263,13 @@ int UkladRegulacji::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 14)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }

@@ -204,4 +204,7 @@ Network* oknosiec::getNetwork(){
     return network;
 }
 
+void oknosiec::setCheckBoxEnable(bool b){
+    ui->doubleClocking->setEnabled(b);
+}
 

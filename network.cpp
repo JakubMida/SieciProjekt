@@ -101,6 +101,12 @@ void Network::slotNewClient() {
             else if (obj.contains("reset")) {
                 emit resetSygnalOtrzymany();
             }
+            else if (obj.contains("start")) {
+                emit startSygnalOtrzymany();
+            }
+            else if (obj.contains("stop")) {
+                emit stopSygnalOtrzymany();
+            }
             else if(obj.contains("taktowanie")){
                 double interwal = obj["taktowanie"].toInt();
                 emit trybTaktowaniaOtrzymany(interwal);
@@ -230,6 +236,29 @@ void Network::wyslacResetSygnal(){
     }
 }
 
+void Network::wyslacStartSygnal(){
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"start", true}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "Start sygnal wyslany (start: true)";
+    }
+}
+
+void Network::wyslacStopSygnal(){
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"stop", true}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "Stop sygnal wyslany (stop: true)";
+    }
+}
 
 inline QJsonObject symulacjaStanToJson(const symulacjaStan& stan) {
     QJsonObject obj;
@@ -340,6 +369,14 @@ void Network::daneGotowe() {
         else if (obj.contains("reset") && obj["reset"].toBool()) {
             qDebug() << "Odebrano sygnal reset";
             emit resetSygnalOtrzymany();
+        }
+        else if (obj.contains("start") && obj["start"].toBool()) {
+            qDebug() << "Odebrano sygnal start";
+            emit startSygnalOtrzymany();
+        }
+        else if (obj.contains("stop") && obj["stop"].toBool()) {
+            qDebug() << "Odebrano sygnal stop";
+            emit stopSygnalOtrzymany();
         }
         else if (obj.contains("taktowanie")) {
             int interwal = obj["taktowanie"].toInt();

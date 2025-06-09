@@ -45,6 +45,8 @@ signals:
     void wartoscRegulowaniaOtrzymana(double wartosc);
 
     void resetSygnalOtrzymany();
+    void startSygnalOtrzymany();
+    void stopSygnalOtrzymany();
 
     void stanArxOtrzymany(const arxStan& arxStan);
     void stanSymulacjiOtrzymany(const symulacjaStan& symStan);
@@ -62,6 +64,8 @@ public slots:
     void wyslacWartoscSterowania(double wartosc, double czas, double wartoscSterowania);
 
     void wyslacResetSygnal();
+    void wyslacStartSygnal();
+    void wyslacStopSygnal();
 
     void wyslacStanArx(arxStan arxStan);
     void wyslacStanSymulacji(symulacjaStan symStan);

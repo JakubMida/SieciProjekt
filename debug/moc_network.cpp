@@ -52,6 +52,8 @@ constexpr auto qt_meta_stringdata_CLASSNetworkENDCLASS = QtMocHelpers::stringDat
     "wartoscZadana",
     "wartoscRegulowaniaOtrzymana",
     "resetSygnalOtrzymany",
+    "startSygnalOtrzymany",
+    "stopSygnalOtrzymany",
     "stanArxOtrzymany",
     "arxStan",
     "stanSymulacjiOtrzymany",
@@ -67,6 +69,8 @@ constexpr auto qt_meta_stringdata_CLASSNetworkENDCLASS = QtMocHelpers::stringDat
     "wyslacWartoscSterowania",
     "wartoscSterowania",
     "wyslacResetSygnal",
+    "wyslacStartSygnal",
+    "wyslacStopSygnal",
     "wyslacStanArx",
     "wyslacStanSymulacji",
     "wyslacTrybTaktowania"
@@ -82,37 +86,41 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-      21,   14, // methods
+      25,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      11,       // signalCount
+      13,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    2,  140,    2, 0x06,    1 /* Public */,
-       5,    0,  145,    2, 0x06,    4 /* Public */,
-       6,    1,  146,    2, 0x06,    5 /* Public */,
-       8,    1,  149,    2, 0x06,    7 /* Public */,
-       9,    0,  152,    2, 0x06,    9 /* Public */,
-      10,    3,  153,    2, 0x06,   10 /* Public */,
-      14,    1,  160,    2, 0x06,   14 /* Public */,
-      15,    0,  163,    2, 0x06,   16 /* Public */,
-      16,    1,  164,    2, 0x06,   17 /* Public */,
-      18,    1,  167,    2, 0x06,   19 /* Public */,
-      21,    1,  170,    2, 0x06,   21 /* Public */,
+       1,    2,  164,    2, 0x06,    1 /* Public */,
+       5,    0,  169,    2, 0x06,    4 /* Public */,
+       6,    1,  170,    2, 0x06,    5 /* Public */,
+       8,    1,  173,    2, 0x06,    7 /* Public */,
+       9,    0,  176,    2, 0x06,    9 /* Public */,
+      10,    3,  177,    2, 0x06,   10 /* Public */,
+      14,    1,  184,    2, 0x06,   14 /* Public */,
+      15,    0,  187,    2, 0x06,   16 /* Public */,
+      16,    0,  188,    2, 0x06,   17 /* Public */,
+      17,    0,  189,    2, 0x06,   18 /* Public */,
+      18,    1,  190,    2, 0x06,   19 /* Public */,
+      20,    1,  193,    2, 0x06,   21 /* Public */,
+      23,    1,  196,    2, 0x06,   23 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      23,    0,  173,    2, 0x08,   23 /* Private */,
-      24,    0,  174,    2, 0x08,   24 /* Private */,
-      25,    0,  175,    2, 0x08,   25 /* Private */,
-      26,    0,  176,    2, 0x08,   26 /* Private */,
-      27,    1,  177,    2, 0x0a,   27 /* Public */,
-      28,    3,  180,    2, 0x0a,   29 /* Public */,
-      30,    0,  187,    2, 0x0a,   33 /* Public */,
-      31,    1,  188,    2, 0x0a,   34 /* Public */,
-      32,    1,  191,    2, 0x0a,   36 /* Public */,
-      33,    1,  194,    2, 0x0a,   38 /* Public */,
+      25,    0,  199,    2, 0x08,   25 /* Private */,
+      26,    0,  200,    2, 0x08,   26 /* Private */,
+      27,    0,  201,    2, 0x08,   27 /* Private */,
+      28,    0,  202,    2, 0x08,   28 /* Private */,
+      29,    1,  203,    2, 0x0a,   29 /* Public */,
+      30,    3,  206,    2, 0x0a,   31 /* Public */,
+      32,    0,  213,    2, 0x0a,   35 /* Public */,
+      33,    0,  214,    2, 0x0a,   36 /* Public */,
+      34,    0,  215,    2, 0x0a,   37 /* Public */,
+      35,    1,  216,    2, 0x0a,   38 /* Public */,
+      36,    1,  219,    2, 0x0a,   40 /* Public */,
+      37,    1,  222,    2, 0x0a,   42 /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QString, QMetaType::Int,    3,    4,
@@ -123,9 +131,11 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,   11,   12,   13,
     QMetaType::Void, QMetaType::Double,   11,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 17,   17,
-    QMetaType::Void, 0x80000000 | 19,   20,
-    QMetaType::Void, QMetaType::Int,   22,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   19,
+    QMetaType::Void, 0x80000000 | 21,   22,
+    QMetaType::Void, QMetaType::Int,   24,
 
  // slots: parameters
     QMetaType::Void,
@@ -133,11 +143,13 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Double,   11,
-    QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,   11,   12,   29,
+    QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,   11,   12,   31,
     QMetaType::Void,
-    QMetaType::Void, 0x80000000 | 17,   17,
-    QMetaType::Void, 0x80000000 | 19,   20,
-    QMetaType::Void, QMetaType::Int,   22,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 19,   19,
+    QMetaType::Void, 0x80000000 | 21,   22,
+    QMetaType::Void, QMetaType::Int,   24,
 
        0        // eod
 };
@@ -175,6 +187,10 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'resetSygnalOtrzymany'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'startSygnalOtrzymany'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'stopSygnalOtrzymany'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'stanArxOtrzymany'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<const arxStan &, std::false_type>,
@@ -201,6 +217,10 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         // method 'wyslacResetSygnal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'wyslacStartSygnal'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'wyslacStopSygnal'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'wyslacStanArx'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
@@ -229,19 +249,23 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 5: _t->wartoscSterowaniaOtrzymana((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
         case 6: _t->wartoscRegulowaniaOtrzymana((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
         case 7: _t->resetSygnalOtrzymany(); break;
-        case 8: _t->stanArxOtrzymany((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
-        case 9: _t->stanSymulacjiOtrzymany((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 10: _t->trybTaktowaniaOtrzymany((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 11: _t->clientConnected(); break;
-        case 12: _t->slotNewClient(); break;
-        case 13: _t->slotClientDisconected(); break;
-        case 14: _t->daneGotowe(); break;
-        case 15: _t->wyslacWartoscRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 16: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
-        case 17: _t->wyslacResetSygnal(); break;
-        case 18: _t->wyslacStanArx((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
-        case 19: _t->wyslacStanSymulacji((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 20: _t->wyslacTrybTaktowania((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 8: _t->startSygnalOtrzymany(); break;
+        case 9: _t->stopSygnalOtrzymany(); break;
+        case 10: _t->stanArxOtrzymany((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
+        case 11: _t->stanSymulacjiOtrzymany((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
+        case 12: _t->trybTaktowaniaOtrzymany((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 13: _t->clientConnected(); break;
+        case 14: _t->slotNewClient(); break;
+        case 15: _t->slotClientDisconected(); break;
+        case 16: _t->daneGotowe(); break;
+        case 17: _t->wyslacWartoscRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 18: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
+        case 19: _t->wyslacResetSygnal(); break;
+        case 20: _t->wyslacStartSygnal(); break;
+        case 21: _t->wyslacStopSygnal(); break;
+        case 22: _t->wyslacStanArx((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
+        case 23: _t->wyslacStanSymulacji((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
+        case 24: _t->wyslacTrybTaktowania((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -303,23 +327,37 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             }
         }
         {
+            using _t = void (Network::*)();
+            if (_t _q_method = &Network::startSygnalOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 8;
+                return;
+            }
+        }
+        {
+            using _t = void (Network::*)();
+            if (_t _q_method = &Network::stopSygnalOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 9;
+                return;
+            }
+        }
+        {
             using _t = void (Network::*)(const arxStan & );
             if (_t _q_method = &Network::stanArxOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 8;
+                *result = 10;
                 return;
             }
         }
         {
             using _t = void (Network::*)(const symulacjaStan & );
             if (_t _q_method = &Network::stanSymulacjiOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 9;
+                *result = 11;
                 return;
             }
         }
         {
             using _t = void (Network::*)(int );
             if (_t _q_method = &Network::trybTaktowaniaOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
-                *result = 10;
+                *result = 12;
                 return;
             }
         }
@@ -345,13 +383,13 @@ int Network::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 21)
+        if (_id < 25)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 21;
+        _id -= 25;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 21)
+        if (_id < 25)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 21;
+        _id -= 25;
     }
     return _id;
 }
@@ -410,23 +448,35 @@ void Network::resetSygnalOtrzymany()
 }
 
 // SIGNAL 8
-void Network::stanArxOtrzymany(const arxStan & _t1)
+void Network::startSygnalOtrzymany()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 8, _a);
+    QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
 }
 
 // SIGNAL 9
-void Network::stanSymulacjiOtrzymany(const symulacjaStan & _t1)
+void Network::stopSygnalOtrzymany()
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
-    QMetaObject::activate(this, &staticMetaObject, 9, _a);
+    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
 }
 
 // SIGNAL 10
-void Network::trybTaktowaniaOtrzymany(int _t1)
+void Network::stanArxOtrzymany(const arxStan & _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);
+}
+
+// SIGNAL 11
+void Network::stanSymulacjiOtrzymany(const symulacjaStan & _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 11, _a);
+}
+
+// SIGNAL 12
+void Network::trybTaktowaniaOtrzymany(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 12, _a);
 }
 QT_WARNING_POP

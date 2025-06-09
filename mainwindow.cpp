@@ -41,7 +41,9 @@ void MainWindow::on_startButton_clicked()
     timer->start(sym->getKrokCzasowy() * 1000.0);
     ui->startButton->setEnabled(0);
     ui->stopButton->setEnabled(true);
-
+    if(oknoSiec != nullptr){
+        oknoSiec->setCheckBoxEnable(false);
+    }
     // dodaty set status
 }
 
@@ -51,6 +53,9 @@ void MainWindow::on_stopButton_clicked()
     timer->stop();
     ui->startButton->setEnabled(1);
     ui->stopButton->setEnabled(false);
+    if(oknoSiec != nullptr){
+        oknoSiec->setCheckBoxEnable(true);
+    }
 }
 
 void MainWindow::aktualizujWykres()
@@ -732,6 +737,18 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym->getUAR(), &UkladRegulacji::wyslacTrybTaktowania,
             oknoSiec->getNetwork(), &Network::wyslacTrybTaktowania);
 
+    disconnect(oknoSiec->getNetwork(), &Network::startSygnalOtrzymany,
+            sym->getUAR(), &UkladRegulacji::onStartSygnal);
+
+    disconnect(sym, &symulacja::wyslacStartSygnal,
+            oknoSiec->getNetwork(), &Network::wyslacStartSygnal);
+
+    disconnect(sym, &symulacja::wyslacStopSygnal,
+            oknoSiec->getNetwork(), &Network::wyslacStopSygnal);
+
+    disconnect(oknoSiec->getNetwork(), &Network::stopSygnalOtrzymany,
+            sym->getUAR(), &UkladRegulacji::onStopSygnal);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -746,6 +763,12 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(oknoSiec->getNetwork(), &Network::resetSygnalOtrzymany,
                 sym, &symulacja::onResetSygnal);
+
+        connect(oknoSiec->getNetwork(), &Network::startSygnalOtrzymany,
+                sym->getUAR(), &UkladRegulacji::onStartSygnal);
+
+        connect(oknoSiec->getNetwork(), &Network::stopSygnalOtrzymany,
+                sym->getUAR(), &UkladRegulacji::onStopSygnal);
 
         connect(oknoSiec->getNetwork(), &Network::trybTaktowaniaOtrzymany,
                 sym->getUAR(), &UkladRegulacji::onSiecTrybTaktowania);
@@ -766,6 +789,12 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(sym, &symulacja::wyslacResetSygnal,
                 oknoSiec->getNetwork(), &Network::wyslacResetSygnal);
+
+        connect(sym, &symulacja::wyslacStartSygnal,
+                oknoSiec->getNetwork(), &Network::wyslacStartSygnal);
+
+        connect(sym, &symulacja::wyslacStopSygnal,
+                oknoSiec->getNetwork(), &Network::wyslacStopSygnal);
 
         connect(sym->getUAR(), &UkladRegulacji::wyslacTrybTaktowania,
                 oknoSiec->getNetwork(), &Network::wyslacTrybTaktowania);
