@@ -49,7 +49,7 @@ signals:
     void stanArxOtrzymany(const arxStan& arxStan);
     void stanSymulacjiOtrzymany(const symulacjaStan& symStan);
 
-    void trybTaktowaniaOtrzymany(bool taktowanie);
+    void trybTaktowaniaOtrzymany(int interwal);
 
 private slots:
     void clientConnected();
@@ -66,7 +66,7 @@ public slots:
     void wyslacStanArx(arxStan arxStan);
     void wyslacStanSymulacji(symulacjaStan symStan);
 
-    void wyslacTrybTaktowania(bool taktowanie);
+    void wyslacTrybTaktowania(int interwal);
 
 private:
     QString serverAddress = "127.0.0.1";

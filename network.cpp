@@ -294,6 +294,18 @@ inline std::deque<double> jsonArrayToDeque(const QJsonArray& arr) {
     return dq;
 }
 
+void Network::wyslacTrybTaktowania(int interwal){
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"taktowanie", interwal}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "taktowanie sygnal wyslany";
+    }
+}
+
 void Network::daneGotowe() {
     while (isClientConnected() && Client.canReadLine()) {
         QByteArray linia = Client.readLine().trimmed();
@@ -324,6 +336,11 @@ void Network::daneGotowe() {
         else if (obj.contains("reset") && obj["reset"].toBool()) {
             qDebug() << "Odebrano sygnal reset";
             emit resetSygnalOtrzymany();
+        }
+        else if (obj.contains("taktowanie")) {
+            int interwal = obj["taktowanie"].toInt();
+            qDebug() << "Odebrano taktowanie (interwal): " << interwal;
+            emit trybTaktowaniaOtrzymany(interwal);
         }
         else if (obj.contains("typ")) {
             QString typ = obj["typ"].toString();
@@ -374,9 +391,5 @@ void Network::daneGotowe() {
             }
         }
     }
-}
-
-void Network::wyslacTrybTaktowania(bool taktowanie){
-    //to do
 }
 

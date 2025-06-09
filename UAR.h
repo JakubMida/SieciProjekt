@@ -68,6 +68,8 @@ public slots:
     void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc, double czas, double wartoscZadana);
 
+    void onSiecTrybTaktowania(bool tryb);
+
     void onSiecArxStan(arxStan arxStan);
     void symulujKrokSieciowy();
 
@@ -79,4 +81,5 @@ signals:
     void aktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
     void wyslacStanArx(arxStan arxStan);
 
+    void wyslacTrybTaktowania(bool trybTaktowania);
 };
