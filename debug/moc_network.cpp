@@ -58,7 +58,7 @@ constexpr auto qt_meta_stringdata_CLASSNetworkENDCLASS = QtMocHelpers::stringDat
     "symulacjaStan",
     "symStan",
     "trybTaktowaniaOtrzymany",
-    "taktowanie",
+    "interwal",
     "clientConnected",
     "slotNewClient",
     "slotClientDisconected",
@@ -125,7 +125,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 17,   17,
     QMetaType::Void, 0x80000000 | 19,   20,
-    QMetaType::Void, QMetaType::Bool,   22,
+    QMetaType::Void, QMetaType::Int,   22,
 
  // slots: parameters
     QMetaType::Void,
@@ -137,7 +137,7 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSNetworkENDCLASS[] = {
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 17,   17,
     QMetaType::Void, 0x80000000 | 19,   20,
-    QMetaType::Void, QMetaType::Bool,   22,
+    QMetaType::Void, QMetaType::Int,   22,
 
        0        // eod
 };
@@ -183,7 +183,7 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<const symulacjaStan &, std::false_type>,
         // method 'trybTaktowaniaOtrzymany'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'clientConnected'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'slotNewClient'
@@ -210,7 +210,7 @@ Q_CONSTINIT const QMetaObject Network::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<symulacjaStan, std::false_type>,
         // method 'wyslacTrybTaktowania'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        QtPrivate::TypeAndForceComplete<bool, std::false_type>
+        QtPrivate::TypeAndForceComplete<int, std::false_type>
     >,
     nullptr
 } };
@@ -231,7 +231,7 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 7: _t->resetSygnalOtrzymany(); break;
         case 8: _t->stanArxOtrzymany((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
         case 9: _t->stanSymulacjiOtrzymany((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 10: _t->trybTaktowaniaOtrzymany((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 10: _t->trybTaktowaniaOtrzymany((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         case 11: _t->clientConnected(); break;
         case 12: _t->slotNewClient(); break;
         case 13: _t->slotClientDisconected(); break;
@@ -241,7 +241,7 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
         case 17: _t->wyslacResetSygnal(); break;
         case 18: _t->wyslacStanArx((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
         case 19: _t->wyslacStanSymulacji((*reinterpret_cast< std::add_pointer_t<symulacjaStan>>(_a[1]))); break;
-        case 20: _t->wyslacTrybTaktowania((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 20: _t->wyslacTrybTaktowania((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -317,7 +317,7 @@ void Network::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, voi
             }
         }
         {
-            using _t = void (Network::*)(bool );
+            using _t = void (Network::*)(int );
             if (_t _q_method = &Network::trybTaktowaniaOtrzymany; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
                 *result = 10;
                 return;
@@ -424,7 +424,7 @@ void Network::stanSymulacjiOtrzymany(const symulacjaStan & _t1)
 }
 
 // SIGNAL 10
-void Network::trybTaktowaniaOtrzymany(bool _t1)
+void Network::trybTaktowaniaOtrzymany(int _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 10, _a);

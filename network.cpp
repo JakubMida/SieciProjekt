@@ -101,6 +101,10 @@ void Network::slotNewClient() {
             else if (obj.contains("reset")) {
                 emit resetSygnalOtrzymany();
             }
+            else if(obj.contains("taktowanie")){
+                double interwal = obj["taktowanie"].toInt();
+                emit trybTaktowaniaOtrzymany(interwal);
+            }
         }
     });
 }

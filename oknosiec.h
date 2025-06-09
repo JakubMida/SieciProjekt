@@ -43,6 +43,8 @@ signals:
 
     void fullConnectionEstablished();
 
+    void doubleClockingChanged(bool checked);
+
 private:
     Ui::oknosiec *ui;
     bool serwerMode = true;

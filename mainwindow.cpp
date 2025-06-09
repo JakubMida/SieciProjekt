@@ -723,6 +723,15 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym, &symulacja::wyslacResetSygnal,
             oknoSiec->getNetwork(), &Network::wyslacResetSygnal);
 
+    disconnect(oknoSiec, &oknosiec::doubleClockingChanged,
+               this, &MainWindow::onDoubleClockingChanged);
+
+    disconnect(oknoSiec->getNetwork(), &Network::trybTaktowaniaOtrzymany,
+            sym->getUAR(), &UkladRegulacji::onSiecTrybTaktowania);
+
+    disconnect(sym->getUAR(), &UkladRegulacji::wyslacTrybTaktowania,
+            oknoSiec->getNetwork(), &Network::wyslacTrybTaktowania);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -737,6 +746,11 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(oknoSiec->getNetwork(), &Network::resetSygnalOtrzymany,
                 sym, &symulacja::onResetSygnal);
+
+        connect(oknoSiec->getNetwork(), &Network::trybTaktowaniaOtrzymany,
+                sym->getUAR(), &UkladRegulacji::onSiecTrybTaktowania);
+
+
 
         qDebug() << "Objekt (Server) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Serwer);
@@ -753,11 +767,16 @@ void MainWindow::uruchomPoPolaczeniu(){
         connect(sym, &symulacja::wyslacResetSygnal,
                 oknoSiec->getNetwork(), &Network::wyslacResetSygnal);
 
+        connect(sym->getUAR(), &UkladRegulacji::wyslacTrybTaktowania,
+                oknoSiec->getNetwork(), &Network::wyslacTrybTaktowania);
+
         connect(oknoSiec->getNetwork(), &Network::stanArxOtrzymany,
                 sym->getUAR(), &UkladRegulacji::onSiecArxStan);
 
         connect(sym,&symulacja::wyslacStanSymulacji,
                 oknoSiec->getNetwork(), &Network::wyslacStanSymulacji);
+
+        connect(oknoSiec, &oknosiec::doubleClockingChanged, this, &MainWindow::onDoubleClockingChanged);
 
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
@@ -818,4 +837,12 @@ void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, dou
 void MainWindow::onResetSygnalOdKlienta(){
     on_resetButton_clicked();
     qDebug() << "[mainwindow] onResetSygnalOdKlienta";
+}
+
+void MainWindow::onDoubleClockingChanged(bool checked)
+{
+    qDebug() << "Double clocking changed:" << checked;
+    sym->getUAR()->setTrybTaktowania(checked);
+    if(checked) sym->getUAR()->setSerwerTimerInterwal(ui->interwalSpinBox->value());
+    else sym->getUAR()->setSerwerTimerInterwal(0);
 }

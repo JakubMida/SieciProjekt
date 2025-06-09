@@ -33,6 +33,7 @@ private:
 
     QTimer *serverSideTimer;
     bool trybTaktowania = false;
+    int serwerTimerInterwal =0;
 
 public:
     UkladRegulacji(RegulatorPID& reg, ARXModel& mod);
@@ -63,15 +64,20 @@ public:
     bool getTrybTaktowania();
     void setTrybTaktowania(bool tryb);
 
+    int getSerwerTimerInterwal();
+    void setSerwerTimerInterwal(int interwal);
+
 
 public slots:
     void onSiecRegulowania(double wartosc);
     void onSiecSterowania(double wartosc, double czas, double wartoscZadana);
 
-    void onSiecTrybTaktowania(bool tryb);
+    void onSiecTrybTaktowania(int interwal);
 
     void onSiecArxStan(arxStan arxStan);
     void symulujKrokSieciowy();
+
+    void symulujKrokObustronnie();
 
 signals:
     void noweDaneSymulacji();
@@ -81,5 +87,5 @@ signals:
     void aktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSturujaca, double wartoscRegulowana);
     void wyslacStanArx(arxStan arxStan);
 
-    void wyslacTrybTaktowania(bool trybTaktowania);
+    void wyslacTrybTaktowania(int interwal);
 };

@@ -2,7 +2,9 @@
 #include <QTimer>
 
 UkladRegulacji::UkladRegulacji(RegulatorPID& reg, ARXModel& mod)
-    : regulator(reg), model(mod), poprzednie_wyjscie(0.0), serverSideTimer(new QTimer(this)) {}
+    : regulator(reg), model(mod), poprzednie_wyjscie(0.0), serverSideTimer(new QTimer(this)) {
+    connect(serverSideTimer, &QTimer::timeout, this, &UkladRegulacji::symulujKrokObustronnie);
+}
 
 double UkladRegulacji::symulujKrok() {
    
@@ -63,6 +65,17 @@ void UkladRegulacji::onSiecSterowania(double u, double czas, double wartoscZadan
     symulujKrokSieciowy(); // test
 }
 
+void UkladRegulacji::onSiecTrybTaktowania(int interwal){
+    qDebug() << "[UAR Server] interwal otrzymany:" << interwal;
+    if(interwal <=0){
+        setTrybTaktowania(false);
+    }
+    else{
+        setTrybTaktowania(true);
+        serverSideTimer->setInterval(interwal * 1000.0);
+        serverSideTimer->start(interwal * 1000.0);
+    }
+}
 void UkladRegulacji::symulujKrokSieciowy() {
     if(int(this->trybSieciowy) == 2){
         uchyb = wejscie - poprzednie_wyjscie;
@@ -87,21 +100,41 @@ void UkladRegulacji::symulujKrokSieciowy() {
         emit noweDaneSymulacji();
     }
     if(int(this->trybSieciowy) == 1){
-        qDebug() << "[UAR Serwer] czyJestWartoscSieciowa="
-                 << czyJestWartoscSieciowa;
-        if(!czyJestWartoscSieciowa){
-            label->setStyleSheet("background-color: red; border-radius: 10px;");
-            return;
+        qDebug() << "[UAR Serwer] tryb taktowania = " << getTrybTaktowania();
+        if(!getTrybTaktowania()){
+            qDebug() << "[UAR Serwer] czyJestWartoscSieciowa="
+                     << czyJestWartoscSieciowa;
+            if(!czyJestWartoscSieciowa){
+                label->setStyleSheet("background-color: red; border-radius: 10px;");
+                return;
+            }
+            label->setStyleSheet("background-color: green; border-radius: 10px;");
+            double u = ostatniaWartoscSieciowa;
+            czyJestWartoscSieciowa = false;
+            double y = model.symulacja(u);
+            emit wyslacWartoscRegulowania(y);
+            // треба тут вислати дані на викреси
+            emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
+            emit wyslacStanArx(utworzStanArx());
         }
-        label->setStyleSheet("background-color: green; border-radius: 10px;");
-        double u = ostatniaWartoscSieciowa;
-        czyJestWartoscSieciowa = false;
-        double y = model.symulacja(u);
-        emit wyslacWartoscRegulowania(y);
-        // треба тут вислати дані на викреси
-        emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
-        emit wyslacStanArx(utworzStanArx());
     }
+}
+
+void UkladRegulacji::symulujKrokObustronnie(){
+    qDebug() << "[UAR Serwer] symulujKrokObustronnie";
+    qDebug() << "[UAR Serwer Obustronnie] czyJestWartoscSieciowa=" << czyJestWartoscSieciowa;
+    if(!czyJestWartoscSieciowa){
+        label->setStyleSheet("background-color: red; border-radius: 10px;");
+        return;
+    }
+    label->setStyleSheet("background-color: green; border-radius: 10px;");
+    double u = ostatniaWartoscSieciowa;
+    czyJestWartoscSieciowa = false;
+    double y = model.symulacja(u);
+    emit wyslacWartoscRegulowania(y);
+    emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
+    emit wyslacStanArx(utworzStanArx());
+
 }
 arxStan UkladRegulacji::utworzStanArx() {
     arxStan stan;
@@ -163,4 +196,14 @@ bool UkladRegulacji::getTrybTaktowania(){
 }
 void UkladRegulacji::setTrybTaktowania(bool tryb){
     this->trybTaktowania = tryb;
+}
+
+int UkladRegulacji::getSerwerTimerInterwal(){
+    return this->serwerTimerInterwal;
+}
+
+void UkladRegulacji::setSerwerTimerInterwal(int interwal){
+    this->serwerTimerInterwal = interwal;
+    emit wyslacTrybTaktowania(interwal);
+    qDebug() << "[UAR] wyslacTrybTaktowania" << interwal;
 }

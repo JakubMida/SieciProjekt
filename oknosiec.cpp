@@ -27,6 +27,8 @@ oknosiec::oknosiec(QWidget *parent)
         QMessageBox::critical(this, "Błąd połączenia", "Nie można połączyć się z serwerem:\n" + error);
     });
 
+    connect(ui->doubleClocking, &QCheckBox::toggled, this, &oknosiec::doubleClockingChanged);
+
     // to delete!!!!
     ui->txt_ip1->setText("127");
     ui->txt_ip2->setText("0");

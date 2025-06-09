@@ -50,10 +50,14 @@ constexpr auto qt_meta_stringdata_CLASSUkladRegulacjiENDCLASS = QtMocHelpers::st
     "wartoscRegulowana",
     "wyslacStanArx",
     "arxStan",
+    "wyslacTrybTaktowania",
+    "interwal",
     "onSiecRegulowania",
     "onSiecSterowania",
+    "onSiecTrybTaktowania",
     "onSiecArxStan",
-    "symulujKrokSieciowy"
+    "symulujKrokSieciowy",
+    "symulujKrokObustronnie"
 );
 #else  // !QT_MOC_HAS_STRINGDATA
 #error "qtmochelpers.h not found or too old."
@@ -66,25 +70,28 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       9,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       5,       // signalCount
+       6,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   68,    2, 0x06,    1 /* Public */,
-       3,    1,   69,    2, 0x06,    2 /* Public */,
-       5,    3,   72,    2, 0x06,    4 /* Public */,
-       8,    4,   79,    2, 0x06,    8 /* Public */,
-      12,    1,   88,    2, 0x06,   13 /* Public */,
+       1,    0,   86,    2, 0x06,    1 /* Public */,
+       3,    1,   87,    2, 0x06,    2 /* Public */,
+       5,    3,   90,    2, 0x06,    4 /* Public */,
+       8,    4,   97,    2, 0x06,    8 /* Public */,
+      12,    1,  106,    2, 0x06,   13 /* Public */,
+      14,    1,  109,    2, 0x06,   15 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-      14,    1,   91,    2, 0x0a,   15 /* Public */,
-      15,    3,   94,    2, 0x0a,   17 /* Public */,
-      16,    1,  101,    2, 0x0a,   21 /* Public */,
-      17,    0,  104,    2, 0x0a,   23 /* Public */,
+      16,    1,  112,    2, 0x0a,   17 /* Public */,
+      17,    3,  115,    2, 0x0a,   19 /* Public */,
+      18,    1,  122,    2, 0x0a,   23 /* Public */,
+      19,    1,  125,    2, 0x0a,   25 /* Public */,
+      20,    0,  128,    2, 0x0a,   27 /* Public */,
+      21,    0,  129,    2, 0x0a,   28 /* Public */,
 
  // signals: parameters
     QMetaType::Void,
@@ -92,11 +99,14 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSUkladRegulacjiENDCLASS[] = {
     QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,    4,    6,    7,
     QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double, QMetaType::Double,    6,    9,   10,   11,
     QMetaType::Void, 0x80000000 | 13,   13,
+    QMetaType::Void, QMetaType::Int,   15,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Double,    4,
     QMetaType::Void, QMetaType::Double, QMetaType::Double, QMetaType::Double,    4,    6,    9,
+    QMetaType::Void, QMetaType::Int,   15,
     QMetaType::Void, 0x80000000 | 13,   13,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -130,6 +140,9 @@ Q_CONSTINIT const QMetaObject UkladRegulacji::staticMetaObject = { {
         // method 'wyslacStanArx'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<arxStan, std::false_type>,
+        // method 'wyslacTrybTaktowania'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'onSiecRegulowania'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
@@ -138,10 +151,15 @@ Q_CONSTINIT const QMetaObject UkladRegulacji::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
         QtPrivate::TypeAndForceComplete<double, std::false_type>,
+        // method 'onSiecTrybTaktowania'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<int, std::false_type>,
         // method 'onSiecArxStan'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<arxStan, std::false_type>,
         // method 'symulujKrokSieciowy'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'symulujKrokObustronnie'
         QtPrivate::TypeAndForceComplete<void, std::false_type>
     >,
     nullptr
@@ -158,10 +176,13 @@ void UkladRegulacji::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
         case 2: _t->wyslacWartoscSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
         case 3: _t->aktualizujWykresSerwer((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[4]))); break;
         case 4: _t->wyslacStanArx((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
-        case 5: _t->onSiecRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
-        case 6: _t->onSiecSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
-        case 7: _t->onSiecArxStan((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
-        case 8: _t->symulujKrokSieciowy(); break;
+        case 5: _t->wyslacTrybTaktowania((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->onSiecRegulowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1]))); break;
+        case 7: _t->onSiecSterowania((*reinterpret_cast< std::add_pointer_t<double>>(_a[1])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[2])),(*reinterpret_cast< std::add_pointer_t<double>>(_a[3]))); break;
+        case 8: _t->onSiecTrybTaktowania((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 9: _t->onSiecArxStan((*reinterpret_cast< std::add_pointer_t<arxStan>>(_a[1]))); break;
+        case 10: _t->symulujKrokSieciowy(); break;
+        case 11: _t->symulujKrokObustronnie(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -201,6 +222,13 @@ void UkladRegulacji::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _
                 return;
             }
         }
+        {
+            using _t = void (UkladRegulacji::*)(int );
+            if (_t _q_method = &UkladRegulacji::wyslacTrybTaktowania; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 5;
+                return;
+            }
+        }
     }
 }
 
@@ -223,13 +251,13 @@ int UkladRegulacji::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 12)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        _id -= 12;
     }
     return _id;
 }
@@ -266,5 +294,12 @@ void UkladRegulacji::wyslacStanArx(arxStan _t1)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
     QMetaObject::activate(this, &staticMetaObject, 4, _a);
+}
+
+// SIGNAL 5
+void UkladRegulacji::wyslacTrybTaktowania(int _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 5, _a);
 }
 QT_WARNING_POP

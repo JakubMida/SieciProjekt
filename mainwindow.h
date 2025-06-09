@@ -82,6 +82,8 @@ private slots:
 
     void onResetSygnalOdKlienta();
 
+    void onDoubleClockingChanged(bool checked);
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;

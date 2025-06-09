@@ -43,6 +43,8 @@ constexpr auto qt_meta_stringdata_CLASSoknosiecENDCLASS = QtMocHelpers::stringDa
     "connectionStopped",
     "clientStarted",
     "fullConnectionEstablished",
+    "doubleClockingChanged",
+    "checked",
     "on_comboBox_currentIndexChanged",
     "index",
     "on_btn_start_connect_clicked",
@@ -59,32 +61,34 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSoknosiecENDCLASS[] = {
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    1,   56,    2, 0x06,    1 /* Public */,
-       4,    0,   59,    2, 0x06,    3 /* Public */,
-       5,    0,   60,    2, 0x06,    4 /* Public */,
-       6,    0,   61,    2, 0x06,    5 /* Public */,
+       1,    1,   62,    2, 0x06,    1 /* Public */,
+       4,    0,   65,    2, 0x06,    3 /* Public */,
+       5,    0,   66,    2, 0x06,    4 /* Public */,
+       6,    0,   67,    2, 0x06,    5 /* Public */,
+       7,    1,   68,    2, 0x06,    6 /* Public */,
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       7,    1,   62,    2, 0x08,    6 /* Private */,
-       9,    0,   65,    2, 0x08,    8 /* Private */,
-      10,    0,   66,    2, 0x08,    9 /* Private */,
+       9,    1,   71,    2, 0x08,    8 /* Private */,
+      11,    0,   74,    2, 0x08,   10 /* Private */,
+      12,    0,   75,    2, 0x08,   11 /* Private */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::Bool,    3,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::Bool,    8,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::Int,    8,
+    QMetaType::Void, QMetaType::Int,   10,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -109,6 +113,9 @@ Q_CONSTINIT const QMetaObject oknosiec::staticMetaObject = { {
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         // method 'fullConnectionEstablished'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        // method 'doubleClockingChanged'
+        QtPrivate::TypeAndForceComplete<void, std::false_type>,
+        QtPrivate::TypeAndForceComplete<bool, std::false_type>,
         // method 'on_comboBox_currentIndexChanged'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
         QtPrivate::TypeAndForceComplete<int, std::false_type>,
@@ -130,9 +137,10 @@ void oknosiec::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
         case 1: _t->connectionStopped(); break;
         case 2: _t->clientStarted(); break;
         case 3: _t->fullConnectionEstablished(); break;
-        case 4: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
-        case 5: _t->on_btn_start_connect_clicked(); break;
-        case 6: _t->on_btn_stop_disconnect_clicked(); break;
+        case 4: _t->doubleClockingChanged((*reinterpret_cast< std::add_pointer_t<bool>>(_a[1]))); break;
+        case 5: _t->on_comboBox_currentIndexChanged((*reinterpret_cast< std::add_pointer_t<int>>(_a[1]))); break;
+        case 6: _t->on_btn_start_connect_clicked(); break;
+        case 7: _t->on_btn_stop_disconnect_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -165,6 +173,13 @@ void oknosiec::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, vo
                 return;
             }
         }
+        {
+            using _t = void (oknosiec::*)(bool );
+            if (_t _q_method = &oknosiec::doubleClockingChanged; *reinterpret_cast<_t *>(_a[1]) == _q_method) {
+                *result = 4;
+                return;
+            }
+        }
     }
 }
 
@@ -187,13 +202,13 @@ int oknosiec::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 8;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 7;
+        _id -= 8;
     }
     return _id;
 }
@@ -221,5 +236,12 @@ void oknosiec::clientStarted()
 void oknosiec::fullConnectionEstablished()
 {
     QMetaObject::activate(this, &staticMetaObject, 3, nullptr);
+}
+
+// SIGNAL 4
+void oknosiec::doubleClockingChanged(bool _t1)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(std::addressof(_t1))) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_WARNING_POP
