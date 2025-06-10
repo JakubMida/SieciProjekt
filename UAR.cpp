@@ -67,6 +67,7 @@ void UkladRegulacji::onSiecSterowania(double u, double czas, double wartoscZadan
 
 void UkladRegulacji::onSiecTrybTaktowania(int interwal){
     qDebug() << "[UAR Server] interwal otrzymany:" << interwal;
+    setSerwerTimerInterwal(interwal);
     if(interwal <=0){
         setTrybTaktowania(false);
     }
@@ -77,8 +78,9 @@ void UkladRegulacji::onSiecTrybTaktowania(int interwal){
 }
 
 void UkladRegulacji::onStartSygnal(){
-    if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal() * 1000.0);
-    qDebug() << "[UAR] onStartSygnal" << getTrybTaktowania();
+    if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal()); // here
+    qDebug() << "[UAR] onStartSygnal " << getTrybTaktowania() << "interwal real" << serverSideTimer->interval() << "interwal get" << getSerwerTimerInterwal();
+
 }
 
 void UkladRegulacji::onStopSygnal(){
