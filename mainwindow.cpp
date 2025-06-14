@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     ARXModel model;
     sym = new symulacja(regulator, model);
 
-    connect(sym, &symulacja::noweDaneSymulacji, this, &MainWindow::onNoweDaneSymulacji);
+    //connect(sym->getUAR(), &UkladRegulacji::noweDaneSymulacji, this, &MainWindow::onNoweDaneSymulacji); // here
 
     connect(network, &Network::connected,this, [=](QString adr, int port){});
     connect(network, &Network::disconecetd, this,[=](){});
@@ -64,6 +64,7 @@ void MainWindow::aktualizujWykres()
     double czas = sym->getCzas();
     double wartosc = sym->getWartoscZadana();
     double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
+    qDebug() << "[MainWindow] syg regulowany: " << sygnal_regulowany << "czas: " << czas << "wartosc zadana: " << wartosc;
     double sygnal_sterujacy = sym->getUAR()->getSygnal();
     double Uip = sym->getUAR()->getRegulator().getUip();
     double Uii = sym->getUAR()->getRegulator().getUii();
@@ -176,6 +177,9 @@ void MainWindow::setupPlots()
     ui->zadajnikPlot->legend->setVisible(true);
     ui->zadajnikPlot->legend->setFont(legenda);
     ui->zadajnikPlot->legend->setMargins(QMargins(2,2,2,2));
+    // to delete
+    ui->zadajnikPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
+    ui->zadajnikPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
 
     ui->nastawyPlot->addGraph()->setName("Składowa Up");
     ui->nastawyPlot->addGraph()->setName("Składowa Ui");

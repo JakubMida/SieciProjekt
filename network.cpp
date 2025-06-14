@@ -363,7 +363,7 @@ void Network::daneGotowe() {
         }
         else if (obj.contains("wartoscRegulowania")) {
             double y = obj["wartoscRegulowania"].toDouble();
-            qDebug() << "Measured rec: " + QString::number(y);
+            qDebug() << "[Network] wartoscRegulowania otrzymana: " << y;
             emit wartoscRegulowaniaOtrzymana(y);
         }
         else if (obj.contains("reset") && obj["reset"].toBool()) {

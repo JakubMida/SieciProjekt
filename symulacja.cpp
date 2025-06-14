@@ -184,6 +184,7 @@ symulacjaStan symulacja::utworzStanSymulacji() {
 
 void symulacja::onResetSygnal(){
     reset();
+    this->uar->setSerwerTimerInterwal(0);
     emit resetWykresy();
     qDebug() << "[symulacja] onReset";
 }
