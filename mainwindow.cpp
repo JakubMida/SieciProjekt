@@ -38,13 +38,14 @@ MainWindow::~MainWindow()
 void MainWindow::on_startButton_clicked()
 {
     sym->start();
-    timer->start(sym->getKrokCzasowy() * 1000.0);
+    //timer->start(sym->getKrokCzasowy() * 1000.0);
     qDebug() << "[MainWindow] on_startButton_clicked interwal " << timer->interval() << "krok czasowy " << sym->getKrokCzasowy();
     ui->startButton->setEnabled(0);
     ui->stopButton->setEnabled(true);
     if(oknoSiec != nullptr){
         oknoSiec->setCheckBoxEnable(false);
     }
+    timer->start(sym->getKrokCzasowy() * 1000.0);
     // dodaty set status
 }
 

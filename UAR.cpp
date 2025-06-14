@@ -79,7 +79,8 @@ void UkladRegulacji::onSiecTrybTaktowania(int interwal){
 }
 
 void UkladRegulacji::onStartSygnal(){
-    if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal()); // here
+    //if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal()); // !!!!!
+    if(getTrybTaktowania()) serverSideTimer->start(0);
     qDebug() << "[UAR] onStartSygnal " << getTrybTaktowania() << "interwal real" << serverSideTimer->interval() << "interwal get" << getSerwerTimerInterwal();
 
 }
@@ -138,7 +139,7 @@ void UkladRegulacji::symulujKrokObustronnie(){
     qDebug() << "[UAR Serwer] symulujKrokObustronnie";
     qDebug() << "[UAR Serwer Obustronnie] czyJestWartoscSieciowa=" << czyJestWartoscSieciowa;
     if(!czyJestWartoscSieciowa){
-        label->setStyleSheet("background-color: red; border-radius: 10px;");
+        //label->setStyleSheet("background-color: red; border-radius: 10px;");
         return;
     }
     label->setStyleSheet("background-color: green; border-radius: 10px;");
