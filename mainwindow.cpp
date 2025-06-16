@@ -37,6 +37,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_startButton_clicked()
 {
+    timer->start(sym->getKrokCzasowy() * 1000.0);
     sym->start();
     //timer->start(sym->getKrokCzasowy() * 1000.0);
     qDebug() << "[MainWindow] on_startButton_clicked interwal " << timer->interval() << "krok czasowy " << sym->getKrokCzasowy();
@@ -45,7 +46,7 @@ void MainWindow::on_startButton_clicked()
     if(oknoSiec != nullptr){
         oknoSiec->setCheckBoxEnable(false);
     }
-    timer->start(sym->getKrokCzasowy() * 1000.0);
+    //timer->start(sym->getKrokCzasowy() * 1000.0);
     // dodaty set status
 }
 
@@ -65,7 +66,6 @@ void MainWindow::aktualizujWykres()
     double czas = sym->getCzas();
     double wartosc = sym->getWartoscZadana();
     double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
-    qDebug() << "[MainWindow] " << sym->getUAR()->getModel().getOpoznienie();
     double sygnal_sterujacy = sym->getUAR()->getSygnal();
     double Uip = sym->getUAR()->getRegulator().getUip();
     double Uii = sym->getUAR()->getRegulator().getUii();

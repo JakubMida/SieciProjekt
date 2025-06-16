@@ -98,7 +98,8 @@ void Network::slotNewClient() {
                 double wartoscZadana = obj["wartoscZadana"].toDouble();
                 emit wartoscSterowaniaOtrzymana(u, czas, wartoscZadana);
             }
-            else if (obj.contains("reset")) {
+            else if (obj.contains("reset") && obj["reset"].toBool()) {
+                qDebug() << "Odebrano sygnal reset";
                 emit resetSygnalOtrzymany();
             }
             else if (obj.contains("start")) {
@@ -143,7 +144,6 @@ bool Network::isSomebodyConnected()
 }
 
 void Network::wyslacWartoscRegulowania(double wartosc) {
-    qDebug() << "Wyslac Wartosc Regulowania";
     if (mode == NetworkMode::Server) {
         // Server mode - send to all connected clients
         QJsonObject pkt{{"wartoscRegulowania", wartosc}};
@@ -189,8 +189,6 @@ inline QJsonObject arxStanToJson(const arxStan& stan) {
 
 void Network::wyslacStanArx(arxStan arxStan){
     QJsonObject obj;
-    qDebug() << "wejscia size:" << arxStan.wejscia.size();
-    qDebug() << "wyjscia size:" << arxStan.wyjscia.size();
     obj["arxSettings"] = arxStanToJson(arxStan);
 
     QByteArray data = QJsonDocument(obj).toJson(QJsonDocument::Compact) + '\n';

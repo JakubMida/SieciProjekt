@@ -74,13 +74,14 @@ void UkladRegulacji::onSiecTrybTaktowania(int interwal){
     }
     else{
         setTrybTaktowania(true);
-        serverSideTimer->setInterval(interwal * 1000.0);
+        //serverSideTimer->setInterval(interwal * 1000.0);
+        //serverSideTimer->setInterval(0);
     }
 }
 
 void UkladRegulacji::onStartSygnal(){
-    //if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal()); // !!!!!
-    if(getTrybTaktowania()) serverSideTimer->start(0);
+    if(getTrybTaktowania()) serverSideTimer->start(getSerwerTimerInterwal()/3); // !!!!!
+    //if(getTrybTaktowania()) serverSideTimer->start(0);
     qDebug() << "[UAR] onStartSygnal " << getTrybTaktowania() << "interwal real" << serverSideTimer->interval() << "interwal get" << getSerwerTimerInterwal();
 
 }
@@ -140,10 +141,10 @@ void UkladRegulacji::symulujKrokObustronnie(){
     qDebug() << "[UAR Serwer] symulujKrokObustronnie";
     qDebug() << "[UAR Serwer Obustronnie] czyJestWartoscSieciowa=" << czyJestWartoscSieciowa;
     if(!czyJestWartoscSieciowa){
-        //label->setStyleSheet("background-color: red; border-radius: 10px;");
+        label->setStyleSheet("background-color: green; border-radius: 10px;");
         return;
     }
-    label->setStyleSheet("background-color: green; border-radius: 10px;");
+    label->setStyleSheet("background-color: red; border-radius: 10px;");
     double u = ostatniaWartoscSieciowa;
     czyJestWartoscSieciowa = false;
     double y = model.symulacja(u);
