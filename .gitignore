@@ -67,6 +67,17 @@
 *.cxxflags
 *.cflags
 
+Makefile
+Makefile.Debug
+Makefile.Release
+.qmake.stash
+.qtc_clangd/
+*.obj
+*.exe
+*.dll
+*.ilk
+*.pdb
+*.idb
 
 # End of https://www.toptal.com/developers/gitignore/api/c++,qtcreator
 

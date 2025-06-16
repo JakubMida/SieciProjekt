@@ -2871,7 +2871,10 @@ debug\UAR.obj: UAR.cpp UAR.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtGui\qtextdocument.h \
 		arxStan.h \
 		symulacjaStan.h \
-		zadajnik.h
+		zadajnik.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\QTimer \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\qtimer.h \
+		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\qbasictimer.h
 
 debug\arx.obj: arx.cpp arx.h \
 		..\..\..\..\Qt\6.7.3\msvc2019_64\include\QtCore\QDebug \
