@@ -30,5 +30,8 @@ public:
     void reset();
     double getVectorA(int index);
     double getVectorB(int index);
-
+    std::deque<double> getWejscia();
+    std::deque<double> getWyjscia();
+    void setWejscia(const std::deque<double>& wejscia);
+    void setWyjscia(const std::deque<double>& wyjscia);
 };

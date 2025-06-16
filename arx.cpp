@@ -103,3 +103,13 @@ double ARXModel::getVectorB(int index)
 {
     return B[index];
 }
+std::deque<double> ARXModel::getWejscia() {
+    return wejscia;
+}
+
+std::deque<double> ARXModel::getWyjscia() {
+    return wyjscia;
+}
+
+void ARXModel::setWejscia(const std::deque<double>& wejscia) { this->wejscia = wejscia; }
+void ARXModel::setWyjscia(const std::deque<double>& wyjscia) { this->wyjscia = wyjscia; }

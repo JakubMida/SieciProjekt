@@ -111,7 +111,7 @@ void UkladRegulacji::symulujKrokSieciowy() {
             y = poprzednie_wyjscie;
         }
         poprzednie_wyjscie=y;
-        emit noweDaneSymulacji();
+        //emit noweDaneSymulacji();
     }
     if(int(this->trybSieciowy) == 1){
         qDebug() << "[UAR Serwer] tryb taktowania = " << getTrybTaktowania();
@@ -127,7 +127,8 @@ void UkladRegulacji::symulujKrokSieciowy() {
             czyJestWartoscSieciowa = false;
             double y = model.symulacja(u);
             emit wyslacWartoscRegulowania(y);
-            qDebug() << "[UAR Serwer] wysyłam wartosc regulowania" << y << "w czasie " << czasSieciowy;
+            qDebug() << "[UAR Serwer] wysyłam wartosc regulowania" << y << "w czasie " << czasSieciowy << "opoznienie arx = " << model.getOpoznienie();
+
             // треба тут вислати дані на викреси
             emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
             emit wyslacStanArx(utworzStanArx());
@@ -148,7 +149,7 @@ void UkladRegulacji::symulujKrokObustronnie(){
     double y = model.symulacja(u);
     emit wyslacWartoscRegulowania(y);
     emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
-    //emit wyslacStanArx(utworzStanArx());
+    emit wyslacStanArx(utworzStanArx());
 
 }
 arxStan UkladRegulacji::utworzStanArx() {
@@ -157,10 +158,8 @@ arxStan UkladRegulacji::utworzStanArx() {
     stan.B = model.getVectorB();
     stan.opoznienie = model.getOpoznienie();
     stan.zaklocenie = model.getZaklocenie();
-    //stan.wejscia = model.getWejscia();
-    //stan.wyjscia = model.getWyjscia();
-    // Note: not copying generator and rozklad, since they can't be copied directly
-
+    stan.wejscia = model.getWejscia();
+    stan.wyjscia = model.getWyjscia();
     return stan;
 }
 void UkladRegulacji::setTrybSieciowy(TrybSieciowy trybSieciowy){
@@ -176,17 +175,17 @@ void UkladRegulacji::setLabel(QLabel* lbl) {
 }
 
 void UkladRegulacji::onSiecArxStan(arxStan stan) {
-    qDebug() << "[UAR] onSiecArxStan";
+    if(int(getTrybSieciowy()) == 2)
+    {
+        qDebug() << "[UAR] onSiecArxStan client";
 
-    // Update internal model with received ARX state
-    model.setVectorA(stan.A);
-    model.setVectorB(stan.B);
-    model.setOpoznienie(stan.opoznienie);
-    model.setZaklocenie(stan.zaklocenie);
-    /*
-    model.wejscia = stan.wejscia;
-    model.wyjscia = stan.wyjscia;
-    */
+        model.setVectorA(stan.A);
+        model.setVectorB(stan.B);
+        model.setOpoznienie(stan.opoznienie);
+        model.setZaklocenie(stan.zaklocenie);
+        model.setWejscia(stan.wejscia);
+        model.setWyjscia(stan.wyjscia);
+    }
 }
 
 

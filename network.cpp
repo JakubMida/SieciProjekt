@@ -189,6 +189,8 @@ inline QJsonObject arxStanToJson(const arxStan& stan) {
 
 void Network::wyslacStanArx(arxStan arxStan){
     QJsonObject obj;
+    qDebug() << "wejscia size:" << arxStan.wejscia.size();
+    qDebug() << "wyjscia size:" << arxStan.wyjscia.size();
     obj["arxSettings"] = arxStanToJson(arxStan);
 
     QByteArray data = QJsonDocument(obj).toJson(QJsonDocument::Compact) + '\n';
@@ -383,53 +385,17 @@ void Network::daneGotowe() {
             qDebug() << "Odebrano taktowanie (interwal): " << interwal;
             emit trybTaktowaniaOtrzymany(interwal);
         }
-        else if (obj.contains("typ")) {
-            QString typ = obj["typ"].toString();
+        else if (obj.contains("arxSettings")) {
+            QJsonObject arxObj = obj["arxSettings"].toObject();
+            arxStan stan;
+            stan.A = jsonArrayToVector(arxObj["A"].toArray());
+            stan.B = jsonArrayToVector(arxObj["B"].toArray());
+            stan.opoznienie = arxObj["opoznienie"].toInt();
+            stan.zaklocenie = arxObj["zaklocenie"].toDouble();
+            stan.wejscia = jsonArrayToDeque(arxObj["wejscia"].toArray());
+            stan.wyjscia = jsonArrayToDeque(arxObj["wyjscia"].toArray());
 
-            if (typ == "arxStan") {
-                arxStan stan;
-                stan.A = jsonArrayToVector(obj["A"].toArray());
-                stan.B = jsonArrayToVector(obj["B"].toArray());
-                stan.opoznienie = obj["opoznienie"].toInt();
-                stan.zaklocenie = obj["zaklocenie"].toDouble();
-                stan.wejscia = jsonArrayToDeque(obj["wejscia"].toArray());
-                stan.wyjscia = jsonArrayToDeque(obj["wyjscia"].toArray());
-
-                emit stanArxOtrzymany(stan);
-            }
-            else if (typ == "symulacjaStan") {
-                symulacjaStan stan;
-                stan.amplituda = obj["amplituda"].toDouble();
-                stan.okres = obj["okres"].toDouble();
-                stan.wypelnienie = obj["wypelnienie"].toDouble();
-                stan.skladowaStala = obj["skladowaStala"].toDouble();
-                stan.czasAktywacji = obj["czasAktywacji"].toDouble();
-                stan.typ = static_cast<TypSygnalu>(obj["typSygnalu"].toInt());
-
-                stan.k = obj["k"].toDouble();
-                stan.Ti = obj["Ti"].toDouble();
-                stan.Td = obj["Td"].toDouble();
-                stan.Uip = obj["Uip"].toDouble();
-                stan.Uii = obj["Uii"].toDouble();
-                stan.Uid = obj["Uid"].toDouble();
-                stan.suma_uchybow = obj["suma_uchybow"].toDouble();
-                stan.poprzedni_uchyb = obj["poprzedni_uchyb"].toDouble();
-                stan.granicaDolna = obj["granicaDolna"].toDouble();
-                stan.granicaGorna = obj["granicaGorna"].toDouble();
-                stan.filtr = static_cast<Filtr>(obj["filtr"].toInt());
-                stan.tryb = static_cast<TrybCalkowania>(obj["trybCalkowania"].toInt());
-
-                stan.poprzednie_wyjscie = obj["poprzednie_wyjscie"].toDouble();
-                stan.sygnal = obj["sygnal"].toDouble();
-                stan.uchyb = obj["uchyb"].toDouble();
-
-                stan.krokCzasowy = obj["krokCzasowy"].toDouble();
-                stan.czasSymulacji = obj["czasSymulacji"].toDouble();
-                stan.uruchomiona = obj["uruchomiona"].toBool();
-                stan.wartosc = obj["wartosc"].toDouble();
-
-                emit stanSymulacjiOtrzymany(stan);
-            }
+            emit stanArxOtrzymany(stan);
         }
     }
 }

@@ -65,7 +65,7 @@ void MainWindow::aktualizujWykres()
     double czas = sym->getCzas();
     double wartosc = sym->getWartoscZadana();
     double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
-    qDebug() << "[MainWindow] syg regulowany: " << sygnal_regulowany << "czas: " << czas << "wartosc zadana: " << wartosc;
+    qDebug() << "[MainWindow] " << sym->getUAR()->getModel().getOpoznienie();
     double sygnal_sterujacy = sym->getUAR()->getSygnal();
     double Uip = sym->getUAR()->getRegulator().getUip();
     double Uii = sym->getUAR()->getRegulator().getUii();
@@ -816,9 +816,6 @@ void MainWindow::uruchomPoPolaczeniu(){
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
     }
-
-    connect(oknoSiec->getNetwork(), &Network::stanArxOtrzymany,
-            sym->getUAR(), &UkladRegulacji::onSiecArxStan);
 
     connect(oknoSiec->getNetwork(), &Network::stanSymulacjiOtrzymany,
             sym, &symulacja::onSiecSymulacjaStan);
