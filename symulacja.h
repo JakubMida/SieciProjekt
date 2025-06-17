@@ -49,6 +49,9 @@ public slots:
     void onSiecSymulacjaStan(symulacjaStan symStan);
 
     void onResetSygnal();
+
+    void onWykonajKrokLokalnieNaSerwerze();
+
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);

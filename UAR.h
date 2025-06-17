@@ -91,4 +91,5 @@ signals:
     void wyslacStanArx(arxStan arxStan);
 
     void wyslacTrybTaktowania(int interwal);
+    void wykonajKrokLokalnieNaSerwerze();
 };

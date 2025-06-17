@@ -755,6 +755,9 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(oknoSiec->getNetwork(), &Network::stopSygnalOtrzymany,
             sym->getUAR(), &UkladRegulacji::onStopSygnal);
 
+    disconnect(sym->getUAR(), &UkladRegulacji::wykonajKrokLokalnieNaSerwerze,
+            sym, &symulacja::onWykonajKrokLokalnieNaSerwerze);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -778,6 +781,9 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(oknoSiec->getNetwork(), &Network::trybTaktowaniaOtrzymany,
                 sym->getUAR(), &UkladRegulacji::onSiecTrybTaktowania);
+
+        connect(sym->getUAR(), &UkladRegulacji::wykonajKrokLokalnieNaSerwerze,
+                sym, &symulacja::onWykonajKrokLokalnieNaSerwerze);
 
 
 

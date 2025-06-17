@@ -64,6 +64,8 @@ void UkladRegulacji::onSiecSterowania(double u, double czas, double wartoscZadan
     wartoscZadanaSieciowa = wartoscZadana;
     czyJestWartoscSieciowa = true;
     symulujKrokSieciowy(); // test !!
+    emit wykonajKrokLokalnieNaSerwerze();
+
 }
 
 void UkladRegulacji::onSiecTrybTaktowania(int interwal){

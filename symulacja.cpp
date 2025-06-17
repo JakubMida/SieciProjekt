@@ -31,6 +31,7 @@ void symulacja::reset()
 void symulacja::wykonajKrok()
 {
     if(!uruchomiona) return;
+    qDebug() << "[symulacja] wykonajKrok";
     czasSymulacji += krokCzasowy;
     uar->setCzasSieciowy(czasSymulacji);
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
@@ -43,7 +44,6 @@ void symulacja::wykonajKrok()
         uar->setTrybSieciowy(this->trybSieciowy);
         uar->symulujKrokSieciowy();
     }
-
 }
 
 double symulacja::getWartoscZadana()
@@ -188,4 +188,12 @@ void symulacja::onResetSygnal(){
     //this->uar->setSerwerTimerInterwal(this->uar->getSerwerTimerInterwal()/3); // ???
     qDebug() << "[symulacja] onReset";
     emit resetWykresy();
+}
+
+void symulacja::onWykonajKrokLokalnieNaSerwerze(){
+    qDebug() << "[symulacja] onWykonajKrokLokalnieNaSerwerze";
+    czasSymulacji += krokCzasowy;
+    uar->setCzasSieciowy(czasSymulacji);
+    wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
+    uar->setWejscie(wartosc);
 }
