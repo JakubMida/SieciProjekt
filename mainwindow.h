@@ -84,6 +84,8 @@ private slots:
 
     void onDoubleClockingChanged(bool checked);
 
+    void onWyslacInterwalNaServer(int interwal);
+
 private:
     Ui::MainWindow *ui;
     symulacja *sym;

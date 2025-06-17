@@ -52,6 +52,8 @@ public slots:
 
     void onWykonajKrokLokalnieNaSerwerze();
 
+    void onWyslacKrokSieciowyNaSymulator(int interwal);
+
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);

@@ -25,8 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(network, &Network::disconecetd, this,[=](){});
 
 
-    connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
-    connect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
+    //connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
+    //connect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +64,7 @@ void MainWindow::on_stopButton_clicked()
 void MainWindow::aktualizujWykres()
 {
     double czas = sym->getCzas();
+    qDebug() << "[MainWindow] aktWykresMain czas " << czas;
     double wartosc = sym->getWartoscZadana();
     double sygnal_regulowany = sym->getUAR()->getPoprzednieWyjscie();
     double sygnal_sterujacy = sym->getUAR()->getSygnal();
@@ -179,8 +180,8 @@ void MainWindow::setupPlots()
     ui->zadajnikPlot->legend->setFont(legenda);
     ui->zadajnikPlot->legend->setMargins(QMargins(2,2,2,2));
     // to delete
-    ui->zadajnikPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
-    ui->zadajnikPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
+    //ui->zadajnikPlot->graph(0)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
+    //ui->zadajnikPlot->graph(1)->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 6));
 
     ui->nastawyPlot->addGraph()->setName("Składowa Up");
     ui->nastawyPlot->addGraph()->setName("Składowa Ui");
@@ -758,6 +759,15 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym->getUAR(), &UkladRegulacji::wykonajKrokLokalnieNaSerwerze,
             sym, &symulacja::onWykonajKrokLokalnieNaSerwerze);
 
+    disconnect(sym->getUAR(), &UkladRegulacji::wyslacInterwalNaServer,
+            this, &MainWindow::onWyslacInterwalNaServer);
+
+    disconnect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
+    disconnect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
+
+    disconnect(sym->getUAR(), &UkladRegulacji::wyslacInterwalNaServer,
+            sym, &symulacja::onWyslacKrokSieciowyNaSymulator);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -784,6 +794,17 @@ void MainWindow::uruchomPoPolaczeniu(){
 
         connect(sym->getUAR(), &UkladRegulacji::wykonajKrokLokalnieNaSerwerze,
                 sym, &symulacja::onWykonajKrokLokalnieNaSerwerze);
+
+        connect(sym->getUAR(), &UkladRegulacji::wyslacInterwalNaServer,
+                this, &MainWindow::onWyslacInterwalNaServer);
+
+        connect(sym->getUAR(), &UkladRegulacji::wyslacKrokSieciowyNaSymulator,
+                sym, &symulacja::onWyslacKrokSieciowyNaSymulator);
+
+
+
+        connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
+        connect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
 
 
 
@@ -836,6 +857,7 @@ void MainWindow::onNoweDaneSymulacji() {
 
 
 void MainWindow::onAktualizujWykresSerwer(double czas, double wartoscZadana, double wartoscSterujaca, double wartoscRegulowana) {
+    qDebug() << "[Mainwindow] wykreServer czas" << czas;
     ui->zadajnikPlot->graph(0)->addData(czas, wartoscZadana);
     ui->zadajnikPlot->graph(1)->addData(czas, wartoscRegulowana);
 
@@ -883,4 +905,8 @@ void MainWindow::onDoubleClockingChanged(bool checked)
     sym->getUAR()->setTrybTaktowania(checked);
     if(checked) sym->getUAR()->setSerwerTimerInterwal(ui->interwalSpinBox->value());
     else sym->getUAR()->setSerwerTimerInterwal(0);
+}
+
+void MainWindow::onWyslacInterwalNaServer(int interwal){
+    ui->interwalSpinBox->setValue(interwal);
 }

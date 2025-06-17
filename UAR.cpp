@@ -64,7 +64,7 @@ void UkladRegulacji::onSiecSterowania(double u, double czas, double wartoscZadan
     wartoscZadanaSieciowa = wartoscZadana;
     czyJestWartoscSieciowa = true;
     symulujKrokSieciowy(); // test !!
-    emit wykonajKrokLokalnieNaSerwerze();
+    emit wykonajKrokLokalnieNaSerwerze(); // TEST
 
 }
 
@@ -76,8 +76,11 @@ void UkladRegulacji::onSiecTrybTaktowania(int interwal){
     }
     else{
         setTrybTaktowania(true);
-        //serverSideTimer->setInterval(interwal * 1000.0);
+        emit wyslacKrokSieciowyNaSymulator(interwal);
+            //serverSideTimer->setInterval(interwal * 1000.0);
         //serverSideTimer->setInterval(0);
+        emit wyslacInterwalNaServer(interwal);
+
     }
 }
 
@@ -152,6 +155,7 @@ void UkladRegulacji::symulujKrokObustronnie(){
     double y = model.symulacja(u);
     emit wyslacWartoscRegulowania(y);
     emit aktualizujWykresSerwer(czasSieciowy, wartoscZadanaSieciowa, u, y);
+    qDebug() << "[UAR] wyslac czas na wykres" << czasSieciowy;
     emit wyslacStanArx(utworzStanArx());
 
 }

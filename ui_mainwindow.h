@@ -45,6 +45,7 @@ public:
     QPushButton *saveButton;
     QPushButton *loadButton;
     QPushButton *btn_network;
+    QLabel *label_status;
     QLabel *label_16;
     QSpinBox *interwalSpinBox;
     QCheckBox *cbxCzarnyMotyw;
@@ -110,7 +111,7 @@ public:
         scrollArea_2->setWidgetResizable(true);
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName("scrollAreaWidgetContents_2");
-        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1063, 269));
+        scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1070, 243));
         QSizePolicy sizePolicy1(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(1);
@@ -153,6 +154,11 @@ public:
         btn_network->setObjectName("btn_network");
 
         verticalLayout_2->addWidget(btn_network);
+
+        label_status = new QLabel(scrollAreaWidgetContents_2);
+        label_status->setObjectName("label_status");
+
+        verticalLayout_2->addWidget(label_status);
 
         label_16 = new QLabel(scrollAreaWidgetContents_2);
         label_16->setObjectName("label_16");
@@ -417,7 +423,7 @@ public:
         scrollArea->setWidgetResizable(true);
         scrollAreaWidgetContents = new QWidget();
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
-        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1080, 537));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 1084, 542));
         gridLayout = new QGridLayout(scrollAreaWidgetContents);
         gridLayout->setSpacing(5);
         gridLayout->setObjectName("gridLayout");
@@ -467,6 +473,7 @@ public:
         saveButton->setText(QCoreApplication::translate("MainWindow", "Zapis", nullptr));
         loadButton->setText(QCoreApplication::translate("MainWindow", "Wczytaj", nullptr));
         btn_network->setText(QCoreApplication::translate("MainWindow", "Sie\304\207", nullptr));
+        label_status->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         label_16->setText(QCoreApplication::translate("MainWindow", "Interwa\305\202 [ms]", nullptr));
         cbxCzarnyMotyw->setText(QCoreApplication::translate("MainWindow", "Czarny motyw", nullptr));
         btnModelARx->setText(QCoreApplication::translate("MainWindow", "ModelARX", nullptr));

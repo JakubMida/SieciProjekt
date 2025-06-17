@@ -31,8 +31,8 @@ void symulacja::reset()
 void symulacja::wykonajKrok()
 {
     if(!uruchomiona) return;
-    qDebug() << "[symulacja] wykonajKrok";
     czasSymulacji += krokCzasowy;
+
     uar->setCzasSieciowy(czasSymulacji);
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
     uar->setWejscie(wartosc);
@@ -191,9 +191,14 @@ void symulacja::onResetSygnal(){
 }
 
 void symulacja::onWykonajKrokLokalnieNaSerwerze(){
-    qDebug() << "[symulacja] onWykonajKrokLokalnieNaSerwerze";
+    qDebug() << "[symulacja] onWykonajKrokLokalnieNaSerwerze krokCzasowy" << krokCzasowy;
     czasSymulacji += krokCzasowy;
-    uar->setCzasSieciowy(czasSymulacji);
+    //uar->setCzasSieciowy(czasSymulacji);
     wartosc = zadajnik->generujSygnal(czasSymulacji, zadajnik->getTyp());
     uar->setWejscie(wartosc);
+}
+
+void symulacja::onWyslacKrokSieciowyNaSymulator(int interwal){
+    qDebug() << "onWyslacKrokSieciowyNaSymulator interwal " << interwal;
+    setKrokCzasowy(interwal);
 }

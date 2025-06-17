@@ -92,4 +92,7 @@ signals:
 
     void wyslacTrybTaktowania(int interwal);
     void wykonajKrokLokalnieNaSerwerze();
+    void wyslacKrokSieciowyNaSymulator(int interwal);
+
+    void wyslacInterwalNaServer(int interwal);
 };
