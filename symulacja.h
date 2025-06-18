@@ -54,6 +54,8 @@ public slots:
 
     void onWyslacKrokSieciowyNaSymulator(int interwal);
 
+    void onWyslacInterwalNaSerwer(int interwal);
+
 signals:
     void noweDaneSymulacji();
     void wyslacWartoscZmierzona(double wartosc);
@@ -66,6 +68,8 @@ signals:
     void wyslacStanSymulacji(symulacjaStan symStan);
 
     void resetWykresy();
+
+    void wyslacInterwalNaSerwer(int interwal);
 };
 
 #endif // SYMULACJA_H

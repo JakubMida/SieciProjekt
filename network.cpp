@@ -112,6 +112,14 @@ void Network::slotNewClient() {
                 double interwal = obj["taktowanie"].toInt();
                 emit trybTaktowaniaOtrzymany(interwal);
             }
+            else if(obj.contains("interwal")){
+                double interwal = obj["interwal"].toInt();
+                emit interwalNaSerwerOtrzymany(interwal);
+            }
+            else if (obj.contains("taktowanieP")) {
+                bool trybTaktowania = obj["taktowanieP"].toBool();
+                emit trybTaktowaniaOtrzymany(trybTaktowania);
+            }
         }
     });
 }
@@ -165,6 +173,18 @@ void Network::wyslacWartoscRegulowania(double wartosc) {
             Client.flush();
             qDebug() << "wartoscRegulowania sent to server: " + QString::number(wartosc);
         }
+    }
+}
+
+void Network::wyslacInterwalNaSerwer(int interwal) {
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"interwal", interwal}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "Interwal wyslany (interwal:" << interwal << ")";
     }
 }
 
@@ -338,6 +358,18 @@ void Network::wyslacTrybTaktowania(int interwal){
         qDebug() << "taktowanie sygnal wyslany";
     }
 }
+
+/*void Network::wyslacTrybTaktowaniaPoprawnie(bool trybTaktowania){
+    if (isClientConnected()) {
+        QJsonObject pkt{
+            {"taktowanieP", true}
+        };
+        QByteArray out = QJsonDocument(pkt).toJson(QJsonDocument::Compact) + '\n';
+        Client.write(out);
+        Client.flush();
+        qDebug() << "taktowanieP wyslany (start: true)";
+    }
+}*/
 
 void Network::daneGotowe() {
     while (isClientConnected() && Client.canReadLine()) {

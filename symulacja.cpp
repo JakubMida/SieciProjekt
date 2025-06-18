@@ -74,6 +74,10 @@ double symulacja::getSygnal()
 void symulacja::setKrokCzasowy(int interwal)
 {
     this->krokCzasowy = interwal / 1000.0;
+    if(int(trybSieciowy) == 2) {
+        uar->setSerwerTimerInterwal(interwal);
+        emit wyslacInterwalNaSerwer(interwal);
+    }
 }
 
 double symulacja::getKrokCzasowy()
@@ -201,4 +205,11 @@ void symulacja::onWykonajKrokLokalnieNaSerwerze(){
 void symulacja::onWyslacKrokSieciowyNaSymulator(int interwal){
     qDebug() << "onWyslacKrokSieciowyNaSymulator interwal " << interwal;
     setKrokCzasowy(interwal);
+}
+
+void symulacja::onWyslacInterwalNaSerwer(int interwal){
+    if(int(this->trybSieciowy) == 1){
+        qDebug() << "[symulacja] onWyslacInterwalNaSerwer interwal " << interwal;
+        setKrokCzasowy(interwal);
+    }
 }

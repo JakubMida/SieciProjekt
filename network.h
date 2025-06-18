@@ -53,6 +53,8 @@ signals:
 
     void trybTaktowaniaOtrzymany(int interwal);
 
+    void interwalNaSerwerOtrzymany(int interwal);
+
 private slots:
     void clientConnected();
     void slotNewClient();
@@ -71,6 +73,8 @@ public slots:
     void wyslacStanSymulacji(symulacjaStan symStan);
 
     void wyslacTrybTaktowania(int interwal);
+
+    void wyslacInterwalNaSerwer(int interwal);
 
 private:
     QString serverAddress = "127.0.0.1";

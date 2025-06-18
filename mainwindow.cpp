@@ -768,6 +768,12 @@ void MainWindow::uruchomPoPolaczeniu(){
     disconnect(sym->getUAR(), &UkladRegulacji::wyslacInterwalNaServer,
             sym, &symulacja::onWyslacKrokSieciowyNaSymulator);
 
+    disconnect(sym, &symulacja::wyslacInterwalNaSerwer,
+            oknoSiec->getNetwork(), &Network::wyslacInterwalNaSerwer);
+
+    disconnect(oknoSiec->getNetwork(), &Network::interwalNaSerwerOtrzymany,
+            sym, &symulacja::onWyslacInterwalNaSerwer);
+
     if(oknoSiec->getNetwork()->getMode() == NetworkMode::Server) {
         connect(oknoSiec->getNetwork(), &Network::wartoscSterowaniaOtrzymana,
                 sym->getUAR(), &UkladRegulacji::onSiecSterowania);
@@ -806,7 +812,8 @@ void MainWindow::uruchomPoPolaczeniu(){
         connect(sym->getUAR(), &UkladRegulacji::aktualizujWykresSerwer, this, &MainWindow::onAktualizujWykresSerwer);
         connect (sym, &symulacja::resetWykresy, this, &MainWindow::onResetSygnalOdKlienta);
 
-
+        connect(oknoSiec->getNetwork(), &Network::interwalNaSerwerOtrzymany,
+                sym, &symulacja::onWyslacInterwalNaSerwer);
 
         qDebug() << "Objekt (Server) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Serwer);
@@ -839,6 +846,9 @@ void MainWindow::uruchomPoPolaczeniu(){
                 oknoSiec->getNetwork(), &Network::wyslacStanSymulacji);
 
         connect(oknoSiec, &oknosiec::doubleClockingChanged, this, &MainWindow::onDoubleClockingChanged);
+
+        connect(sym, &symulacja::wyslacInterwalNaSerwer,
+                oknoSiec->getNetwork(), &Network::wyslacInterwalNaSerwer);
 
         qDebug() << "Regulator (Client) connections established";
         sym->setTrybSieciowy(TrybSieciowy::Klient);
